@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -15,6 +15,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import { NavLink } from "react-router-dom";
 import { DRAWER_WIDTH } from "../../constants/app";
+import Hidden from '@material-ui/core/Hidden';
 import logo from "../../assets/images/logo-ny.svg";
 
 const styles = theme => ({
@@ -22,17 +23,20 @@ const styles = theme => ({
     display: "flex"
   },
   drawer: {
-    width: DRAWER_WIDTH,
-    flexShrink: 0
+    [theme.breakpoints.up("sm")]: {
+      width: DRAWER_WIDTH,
+      flexShrink: 0
+    }
   },
-  drawerPaper: {
-    width: DRAWER_WIDTH
+  menuButton: {
+    marginRight: 20,
+    [theme.breakpoints.up("sm")]: {
+      display: "none"
+    }
   },
   toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3
+  drawerPaper: {
+    width: DRAWER_WIDTH
   }
 });
 
@@ -80,7 +84,6 @@ const Header = props => {
     <Grid
       container
       justify="center"
-      alignItems="center"
       direction="column"
       style={styles.main}
     >
@@ -89,20 +92,20 @@ const Header = props => {
         <Card style={styles.card}>
           <CardActionArea>
             <NavLink to="/">
-            <CardMedia
-              component="img"
-              alt="Contemplative Reptile"
-              style={styles.media}
-              height="50"
-              image={logo}
-              title="Contemplative Reptile"
-            />
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                style={styles.media}
+                height="50"
+                image={logo}
+                title="Contemplative Reptile"
+              />
             </NavLink>
           </CardActionArea>
         </Card>
       </Grid>
       <Grid item>
-        <Typography align="center" variant="title">
+        <Typography align="center" variant="h6">
           Parrot
         </Typography>
       </Grid>
@@ -110,32 +113,72 @@ const Header = props => {
   );
 };
 
-const LeftNav = props => {
-  const { classes } = props;
+class SideNav extends React.Component {
+  state = {
+    mobileOpen: false
+  };
 
-  return (
-    <div className={classes.root}>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper
-        }}
-        anchor="left"
-      >
-        <div className={classes.toolbar} />
+  handleDrawerToggle = () => {
+    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+  };
+
+  render() {
+    const { classes, theme } = this.props;
+    console.log(this.props);
+
+    const drawer = (
+      <div>
+        {/* <div className={classes.toolbar} /> */}
         <Header />
         <Divider />
-        <List alignItems="center">
-          <NavList />
-        </List>
-      </Drawer>
-    </div>
-  );
+        <List>
+            <NavList />
+          </List>
+        <Divider />
+      </div>
+    );
+
+    return (
+      <div className={classes.root}>
+        <nav className={classes.drawer}>
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Hidden smUp implementation="css">
+            <Drawer
+              container={this.props.container}
+              variant="temporary"
+              anchor={theme.direction === "rtl" ? "right" : "left"}
+              open={this.state.mobileOpen}
+              onClose={this.handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Drawer
+              classes={{
+                paper: classes.drawerPaper
+              }}
+              variant="permanent"
+              open
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+        </nav>
+      </div>
+    );
+  }
+}
+
+SideNav.propTypes = {
+  classes: PropTypes.object.isRequired,
+  // Injected by the documentation to work in an iframe.
+  // You won't need it on your project.
+  container: PropTypes.object,
+  theme: PropTypes.object.isRequired
 };
 
-LeftNav.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(LeftNav);
+export default withStyles(styles, { withTheme: true })(SideNav);
