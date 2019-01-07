@@ -1,7 +1,7 @@
 import React from "react";
 // import PropTypes from 'prop-types';
 import SideNav from "./SideNav/index";
-// import TopNav from "./TopNav/Index";
+import TopNav from "./TopNav/Index";
 import { CssBaseline } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import {DRAWER_WIDTH} from '../constants/app'
@@ -24,7 +24,7 @@ class App extends React.Component {
       <div>
         <CssBaseline />
         <SideNav />
-        {/* <TopNav /> */}
+        <TopNav />
         <main className={classes.content}>
           <MainApp />
         </main>
