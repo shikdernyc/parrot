@@ -11,6 +11,8 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import { NavLink } from "react-router-dom";
 import { DRAWER_WIDTH } from "../../constants/app";
 import Hidden from "@material-ui/core/Hidden";
+import { connect } from "react-redux";
+import { setSideBarIsOpen } from "../../redux/navs/action";
 
 const styles = theme => ({
   root: {
@@ -42,19 +44,19 @@ const NavList = props => {
   ];
 
   return navLinkMapping.map((item, key) => (
-    <ListItem button key={key + item}>
-      <ListItemIcon>
-        <InboxIcon />
-      </ListItemIcon>
-      <NavLink
-        to={item.link}
-        style={{
-          textDecoration: "none"
-        }}
-      >
+    <NavLink
+      to={item.link}
+      style={{
+        textDecoration: "none"
+      }}
+    >
+      <ListItem button key={key + item}>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
         <ListItemText>{item.title}</ListItemText>
-      </NavLink>
-    </ListItem>
+      </ListItem>
+    </NavLink>
   ));
 };
 
@@ -64,7 +66,8 @@ class SideNav extends React.Component {
   };
 
   handleDrawerToggle = () => {
-    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+    const { isOpen, setIsOpen } = this.props;
+    setIsOpen(!isOpen);
   };
 
   render() {
@@ -73,6 +76,8 @@ class SideNav extends React.Component {
 
     const drawer = (
       <div>
+        <div className={classes.toolbar} />
+        <Divider />
         <List>
           <NavList />
         </List>
@@ -89,7 +94,7 @@ class SideNav extends React.Component {
               container={this.props.container}
               variant="temporary"
               anchor={theme.direction === "rtl" ? "right" : "left"}
-              open={this.state.mobileOpen}
+              open={this.props.isOpen}
               onClose={this.handleDrawerToggle}
               classes={{
                 paper: classes.drawerPaper
@@ -115,6 +120,18 @@ class SideNav extends React.Component {
   }
 }
 
+const mapStateToProps = reduxState => {
+  return {
+    isOpen: reduxState.navs.sideBarIsOpen
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setIsOpen: isOpen => dispatch(setSideBarIsOpen(isOpen))
+  };
+};
+
 SideNav.propTypes = {
   classes: PropTypes.object.isRequired,
   // Injected by the documentation to work in an iframe.
@@ -123,4 +140,7 @@ SideNav.propTypes = {
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(SideNav);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles, { withTheme: true })(SideNav));
