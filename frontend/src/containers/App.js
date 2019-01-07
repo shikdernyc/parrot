@@ -11,7 +11,7 @@ import withRoot from '../withRoot'
 const styles = theme => ({
   content: {
     marginLeft: DRAWER_WIDTH,
-    // marginTop: 64,
+    marginTop: 64,
     flexGrow: 1,
     padding: theme.spacing.unit * 3
   }
