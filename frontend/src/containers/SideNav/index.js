@@ -1,22 +1,16 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
 import { NavLink } from "react-router-dom";
 import { DRAWER_WIDTH } from "../../constants/app";
-import Hidden from '@material-ui/core/Hidden';
-import logo from "../../assets/images/logo-ny.svg";
+import Hidden from "@material-ui/core/Hidden";
 
 const styles = theme => ({
   root: {
@@ -64,55 +58,6 @@ const NavList = props => {
   ));
 };
 
-const Header = props => {
-  // const { classes } = props;
-  const styles = {
-    card: {
-      maxWidth: 230,
-      marginBottom: 20
-    },
-    media: {
-      // ⚠️ object-fit is not supported by IE 11.
-      objectFit: "contain"
-    },
-    main: {
-      marginBottom: "20px"
-    }
-  };
-
-  return (
-    <Grid
-      container
-      justify="center"
-      direction="column"
-      style={styles.main}
-    >
-      <Grid item>
-        {/* TODO: Add Logo */}
-        <Card style={styles.card}>
-          <CardActionArea>
-            <NavLink to="/">
-              <CardMedia
-                component="img"
-                alt="Contemplative Reptile"
-                style={styles.media}
-                height="50"
-                image={logo}
-                title="Contemplative Reptile"
-              />
-            </NavLink>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item>
-        <Typography align="center" variant="h6">
-          Parrot
-        </Typography>
-      </Grid>
-    </Grid>
-  );
-};
-
 class SideNav extends React.Component {
   state = {
     mobileOpen: false
@@ -128,12 +73,9 @@ class SideNav extends React.Component {
 
     const drawer = (
       <div>
-        {/* <div className={classes.toolbar} /> */}
-        <Header />
-        <Divider />
         <List>
-            <NavList />
-          </List>
+          <NavList />
+        </List>
         <Divider />
       </div>
     );
