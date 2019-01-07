@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { DRAWER_WIDTH } from "../../constants/app";
+import { DRAWER_WIDTH } from "Constants/app";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({

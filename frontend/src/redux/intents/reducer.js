@@ -1,4 +1,4 @@
-import {getAllIntents} from '../../services/server/intents'
+import {getAllIntents} from 'Services/server/intents'
 
 const initialState = {
     intentList: getAllIntents()

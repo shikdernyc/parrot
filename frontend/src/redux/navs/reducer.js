@@ -1,4 +1,4 @@
-import {SET_SIDENAV_ISOPEN, SET_TOP_NAV_PROPS} from '../../constants/actionTypes'
+import {SET_SIDENAV_ISOPEN, SET_TOP_NAV_PROPS} from 'Constants/actionTypes'
 
 const initialState = {
     topNavProps: {

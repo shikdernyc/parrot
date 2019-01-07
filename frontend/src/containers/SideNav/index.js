@@ -9,10 +9,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import { NavLink } from "react-router-dom";
-import { DRAWER_WIDTH } from "../../constants/app";
 import Hidden from "@material-ui/core/Hidden";
 import { connect } from "react-redux";
-import { setSideBarIsOpen } from "../../redux/navs/action";
+import { DRAWER_WIDTH } from "Constants/app";
+import { setSideBarIsOpen } from "Redux/navs/action";
 
 const styles = theme => ({
   root: {

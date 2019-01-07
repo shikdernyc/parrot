@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import Paper from "@material-ui/core/Paper";
-import AutosizerTable from "../../../components/table/AutosizerTable";
-import { setTopNavProps } from "../../../redux/navs/action";
+import AutosizerTable from "Components/table/AutosizerTable";
+import { setTopNavProps } from "Redux/navs/action";
 
 class DomainTable extends Component {
   componentDidMount(){

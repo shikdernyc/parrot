@@ -2,8 +2,8 @@ import React from "react";
 import SideNav from "./SideNav/index";
 import TopNav from "./TopNav";
 import { withStyles } from "@material-ui/core/styles";
-import {DRAWER_WIDTH} from '../constants/app'
-import MainApp from '../routes'
+import {DRAWER_WIDTH} from 'Constants/app'
+import MainApp from 'Routes'
 import withRoot from '../withRoot'
 
 const styles = theme => ({
