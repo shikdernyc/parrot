@@ -4,15 +4,13 @@ import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import { NavLink } from "react-router-dom";
 import Hidden from "@material-ui/core/Hidden";
 import { connect } from "react-redux";
 import { DRAWER_WIDTH } from "Constants/app";
 import { setSideBarIsOpen } from "Redux/navs/action";
+import ListNavs from './ListNavs'
+import AgentNav from './AgentNav'
+import Header from './header'
 
 const styles = theme => ({
   root: {
@@ -36,30 +34,6 @@ const styles = theme => ({
   }
 });
 
-const NavList = props => {
-  let navLinkMapping = [
-    { title: "Domains", link: "/domains" },
-    { title: "Intents", link: "/intents" },
-    { title: "Entitys", link: "/entities" }
-  ];
-
-  return navLinkMapping.map((item, key) => (
-    <NavLink
-      to={item.link}
-      style={{
-        textDecoration: "none"
-      }}
-    >
-      <ListItem button key={key + item}>
-        <ListItemIcon>
-          <InboxIcon />
-        </ListItemIcon>
-        <ListItemText>{item.title}</ListItemText>
-      </ListItem>
-    </NavLink>
-  ));
-};
-
 class SideNav extends React.Component {
   state = {
     mobileOpen: false
@@ -72,14 +46,17 @@ class SideNav extends React.Component {
 
   render() {
     const { classes, theme } = this.props;
-    console.log(this.props);
 
     const drawer = (
       <div>
-        <div className={classes.toolbar} />
+        <div className={classes.toolbar}>
+          <Header />
+        </div>
         <Divider />
         <List>
-          <NavList />
+          <AgentNav />
+          <Divider />
+          <ListNavs />
         </List>
         <Divider />
       </div>
