@@ -8,24 +8,24 @@ import Hidden from "@material-ui/core/Hidden";
 import { connect } from "react-redux";
 import { DRAWER_WIDTH } from "Constants/app";
 import { setSideBarIsOpen } from "Redux/navs/action";
-import ListNavs from './ListNavs'
-import AgentNav from './AgentNav'
-import Header from './header'
+import ListNavs from './ListNavs';
+import AgentNav from './AgentNav';
+import Header from './header';
 
 const styles = theme => ({
   root: {
-    display: "flex"
+    display: 'flex'
   },
   drawer: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: DRAWER_WIDTH,
       flexShrink: 0
     }
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
     }
   },
   toolbar: theme.mixins.toolbar,
@@ -44,7 +44,7 @@ class SideNav extends React.Component {
     setIsOpen(!isOpen);
   };
 
-  render() {
+  render () {
     const { classes, theme } = this.props;
 
     const drawer = (
