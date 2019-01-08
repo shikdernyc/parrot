@@ -4,7 +4,8 @@
         "ecmaVersion": 6,
         "sourceType": "module",
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": true,
+            "experimentalObjectRestSpread": true
         }
     },
     "parser": "babel-eslint",
@@ -12,7 +13,9 @@
         "semi": [2, "always"],
         "strict": 0,
         "react/jsx-uses-react": "error",
-        "react/jsx-uses-vars": "error"
+        "react/jsx-uses-vars": "error",
+        "no-unused-vars": "warn",
+        "no-unexpected-multiline": "warn"
     },
     "env": {
         "es6": true,
@@ -20,16 +23,19 @@
         "jest": true
     },
     "settings": {
-    "react": {
-      "createClass": "createReactClass",
-      "pragma": "React",
-      "version": "detect",
-      "flowVersion": "0.53"
-    },
-    "propWrapperFunctions": [
-        "forbidExtraProps",
-        {"property": "freeze", "object": "Object"},
-        {"property": "myFavoriteWrapper"}
-    ]
-  }
+        "react": {
+        "createClass": "createReactClass",
+        "pragma": "React",
+        "version": "detect",
+        "flowVersion": "0.53"
+      },
+      "propWrapperFunctions": [
+          "forbidExtraProps",
+          {"property": "freeze", "object": "Object"},
+          {"property": "myFavoriteWrapper"}
+      ]
+   },
+   "globals": {
+        "fetch": false
+   }
 }

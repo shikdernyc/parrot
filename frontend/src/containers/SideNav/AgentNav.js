@@ -1,13 +1,14 @@
-import React, { Fragment, Component } from "react";
-import { NavLink } from "react-router-dom";
-import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
-import { withStyles } from "@material-ui/core";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import Queue from "@material-ui/icons/Queue";
-import {connect} from 'react-redux'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Queue from '@material-ui/icons/Queue';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -15,12 +16,12 @@ const styles = theme => ({
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
     }
   },
   textField: {
-    display: "block",
+    display: 'block',
     marginBottom: theme.spacing.unit
   }
 });
@@ -36,7 +37,7 @@ class AgentNavs extends Component {
     });
   };
 
-  render() {
+  render () {
     const { classes, agents } = this.props;
     return (
       <div className={classes.root}>
@@ -65,7 +66,7 @@ class AgentNavs extends Component {
         <NavLink
           to={`/agents/create`}
           style={{
-            textDecoration: "none"
+            textDecoration: 'none'
           }}
         >
           <ListItem button>
@@ -80,10 +81,17 @@ class AgentNavs extends Component {
   }
 }
 
-const mapStateToProps = function(reduxState){
+const mapStateToProps = function (reduxState) {
   return {
     agents: reduxState.agents.agentList
-  }
-}
+  };
+};
+
+AgentNavs.propTypes = {
+  classes: PropTypes.object.isRequired,
+  // Injected by the documentation to work in an iframe.
+  // You won't need it on your project.
+  agents: PropTypes.object
+};
 
 export default connect(mapStateToProps, null)(withStyles(styles, { withTheme: true })(AgentNavs));

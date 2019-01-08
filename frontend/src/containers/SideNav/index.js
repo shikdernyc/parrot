@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import Hidden from "@material-ui/core/Hidden";
-import { connect } from "react-redux";
-import { DRAWER_WIDTH } from "Constants/app";
-import { setSideBarIsOpen } from "Redux/navs/action";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import Hidden from '@material-ui/core/Hidden';
+import { connect } from 'react-redux';
+import { DRAWER_WIDTH } from 'Constants/app';
+import { setSideBarIsOpen } from 'Redux/navs/action';
 import ListNavs from './ListNavs';
 import AgentNav from './AgentNav';
 import Header from './header';
@@ -70,7 +70,7 @@ class SideNav extends React.Component {
             <Drawer
               container={this.props.container}
               variant="temporary"
-              anchor={theme.direction === "rtl" ? "right" : "left"}
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
               open={this.props.isOpen}
               onClose={this.handleDrawerToggle}
               classes={{
@@ -114,7 +114,9 @@ SideNav.propTypes = {
   // Injected by the documentation to work in an iframe.
   // You won't need it on your project.
   container: PropTypes.object,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
+  isOpen: PropTypes.bool,
+  setIsOpen: PropTypes.fun
 };
 
 export default connect(
