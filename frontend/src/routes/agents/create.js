@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import { withStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
-import ListInputWithDelete from "Components/inputs/ListInputWithDelete";
-import SaveAlt from "@material-ui/icons/SaveAlt";
+import React, { Component } from 'react';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListInputWithDelete from 'Components/inputs/ListInputWithDelete';
+import SaveAlt from '@material-ui/icons/SaveAlt';
 
 const styles = theme => ({
   button: {
@@ -24,26 +24,26 @@ const styles = theme => ({
 
 const languages = [
   {
-    value: "english",
-    label: "English"
+    value: 'english',
+    label: 'English'
   },
   {
-    value: "cantonese",
-    label: "Cantonese"
+    value: 'cantonese',
+    label: 'Cantonese'
   },
   {
-    value: "french",
-    label: "French"
+    value: 'french',
+    label: 'French'
   }
 ];
 
 class Create extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
-      name: "",
-      description: "",
-      language: "english",
+      name: '',
+      description: '',
+      language: 'english',
       fallbackResponse: []
     };
   }
@@ -54,7 +54,7 @@ class Create extends Component {
     });
   };
 
-  render() {
+  render () {
     const { classes } = this.props;
     return (
       <form>

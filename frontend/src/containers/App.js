@@ -1,10 +1,11 @@
-import React from "react";
-import SideNav from "./SideNav/index";
-import TopNav from "./TopNav";
-import { withStyles } from "@material-ui/core/styles";
-import {DRAWER_WIDTH} from 'Constants/app'
-import MainApp from 'Routes'
-import withRoot from '../withRoot'
+import React from 'react';
+import PropTypes from 'prop-types';
+import SideNav from './SideNav/index';
+import TopNav from './TopNav';
+import { withStyles } from '@material-ui/core/styles';
+import { DRAWER_WIDTH } from 'Constants/app';
+import MainApp from 'Routes';
+import withRoot from '../withRoot';
 
 const styles = theme => ({
   content: {
@@ -16,7 +17,7 @@ const styles = theme => ({
 });
 
 class App extends React.Component {
-  render() {
+  render () {
     const { classes } = this.props;
     return (
       <div>
@@ -29,5 +30,9 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 export default withRoot(withStyles(styles)(App));

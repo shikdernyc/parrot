@@ -1,26 +1,27 @@
-import React, { Component } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import { DRAWER_WIDTH } from "Constants/app";
-import { withStyles } from "@material-ui/core/styles";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import { DRAWER_WIDTH } from 'Constants/app';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   appBar: {
     marginLeft: DRAWER_WIDTH,
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${DRAWER_WIDTH}px)`
     }
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
     }
   }
 });
 
 class Base extends Component {
-  render() {
+  render () {
     const { classes } = this.props;
     return (
       <AppBar position="fixed" className={classes.appBar}>
@@ -29,5 +30,10 @@ class Base extends Component {
     );
   }
 }
+
+Base.propTypes = {
+  classes: PropTypes.object,
+  children: PropTypes.object
+};
 
 export default withStyles(styles)(Base);
