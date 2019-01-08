@@ -6,8 +6,10 @@ import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import MenuIcon from "@material-ui/icons/Menu";
 import { NavLink } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 const styles = theme => {
+  console.log(theme);
   return {
     root: {
       flexGrow: 1
@@ -21,18 +23,9 @@ const styles = theme => {
     },
     buttonLink: {
       textDecoration: "none",
-      fontWeight: 400,
-      display: "inline-block",
-      // margin: "8px 3px",
-      paddingTop: 10,
-      paddingBottom: 10,
-      paddingLeft: 3,
-      paddingRight: 3
+      color: theme.palette.text.primary
     },
-    paperButton: {
-      ...theme.palette.action,
-      background: theme.palette.grey[50]
-    }
+    button: {}
   };
 };
 
@@ -50,11 +43,15 @@ class BreadCrumbAndButton extends Component {
         </IconButton>
         <div className={classes.grow} />
         {buttonText != "" && (
-          <Paper className={classes.paperButton}>
-            <NavLink to={buttonLink} className={classes.buttonLink}>
+          <NavLink to={buttonLink} className={classes.buttonLink}>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+            >
               {buttonText}
-            </NavLink>
-          </Paper>
+            </Button>
+          </NavLink>
         )}
       </Base>
     );
