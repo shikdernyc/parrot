@@ -11,6 +11,10 @@ class DomainTable extends Component {
     this.props.setNavButton()
   }
 
+  componentWillUnmount(){
+    this.props.setNavButton("", "")
+  }
+
   render() {
     let { classes, rows } = this.props;
     rows = rows.map(item => ({
@@ -61,7 +65,7 @@ const mapDispatchToProps = function(dispatch) {
   return {
     setNavButton: function(
       buttonText = "Create Domain",
-      buttonLink = "/domain/create"
+      buttonLink = "/domains/create"
     ) {
       dispatch(
         setTopNavProps({

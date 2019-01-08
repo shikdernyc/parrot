@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import DomainList from "./domainTable/index";
-import Create from './create'
+import Create from './create.js'
 export default ({ match }) => {
   return (
     <Switch>
