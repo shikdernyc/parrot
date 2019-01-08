@@ -1,31 +1,31 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import { NavLink } from "react-router-dom";
-import { DRAWER_WIDTH } from "../../constants/app";
-import Hidden from "@material-ui/core/Hidden";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import { NavLink } from 'react-router-dom';
+import { DRAWER_WIDTH } from '../../constants/app';
+import Hidden from '@material-ui/core/Hidden';
 
 const styles = theme => ({
   root: {
-    display: "flex"
+    display: 'flex'
   },
   drawer: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: DRAWER_WIDTH,
       flexShrink: 0
     }
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
     }
   },
   toolbar: theme.mixins.toolbar,
@@ -36,9 +36,9 @@ const styles = theme => ({
 
 const NavList = props => {
   let navLinkMapping = [
-    { title: "Domains", link: "/domains" },
-    { title: "Intents", link: "/intents" },
-    { title: "Entitys", link: "/entities" }
+    { title: 'Domains', link: '/domains' },
+    { title: 'Intents', link: '/intents' },
+    { title: 'Entitys', link: '/entities' }
   ];
 
   return navLinkMapping.map((item, key) => (
@@ -49,7 +49,7 @@ const NavList = props => {
       <NavLink
         to={item.link}
         style={{
-          textDecoration: "none"
+          textDecoration: 'none'
         }}
       >
         <ListItemText>{item.title}</ListItemText>
@@ -67,7 +67,7 @@ class SideNav extends React.Component {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
-  render() {
+  render () {
     const { classes, theme } = this.props;
     console.log(this.props);
 
@@ -88,7 +88,7 @@ class SideNav extends React.Component {
             <Drawer
               container={this.props.container}
               variant="temporary"
-              anchor={theme.direction === "rtl" ? "right" : "left"}
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
               open={this.state.mobileOpen}
               onClose={this.handleDrawerToggle}
               classes={{
