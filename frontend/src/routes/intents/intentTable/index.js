@@ -7,9 +7,14 @@ import AutosizerTable from "Components/table/AutosizerTable";
 import { setTopNavProps } from "Redux/navs/action";
 
 class IntentTable extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.setNavButton();
   }
+
+  componentWillUnmount() {
+    this.props.setNavButton("", "");
+  }
+
   render() {
     let { classes, rows } = this.props;
     return (
