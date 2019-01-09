@@ -1,5 +1,9 @@
 const router = require('express').Router();
 
-router.use('/', require('./root'));
+const AgentRouter = require('./agent');
+const RootRouter = require('./root');
+
+router.use('/', RootRouter);
+router.use('/agents', AgentRouter);
 
 module.exports = router;
