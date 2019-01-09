@@ -85,7 +85,7 @@ IntentTable.propTypes = {
   classes: PropTypes.object.isRequired,
   rows: PropTypes.array,
   setNavButton: PropTypes.func,
-  history: PropTypes.array
+  history: PropTypes.object
 };
 
 export default connect(

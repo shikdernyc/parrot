@@ -5,7 +5,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import SaveAlt from '@material-ui/icons/SaveAlt';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 
 const styles = theme => ({
   slider: {
@@ -69,10 +69,15 @@ class Create extends Component {
             />
           </Grid>
         </Grid>
-        <Button variant="extendedFab" size="medium" color="secondary" className={classes.button}>
+        <Fab
+          variant="extended"
+          size="medium"
+          color="secondary"
+          className={classes.button}
+        >
           <SaveAlt className={classes.icon} />
           Create Domain
-        </Button>
+        </Fab>
       </form>
     );
   }

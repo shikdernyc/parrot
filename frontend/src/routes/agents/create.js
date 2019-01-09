@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListInputWithDelete from 'Components/inputs/ListInputWithDelete';
@@ -130,10 +130,15 @@ class Create extends Component {
             });
           }}
         />
-        <Button variant="extendedFab" size="medium" color="secondary" className={classes.button}>
+        <Fab
+          variant="extended"
+          size="medium"
+          color="secondary"
+          className={classes.button}
+        >
           <SaveAlt className={classes.icon} />
           Create Agent
-        </Button>
+        </Fab>
       </form>
     );
   }

@@ -8,7 +8,6 @@ import { NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 const styles = theme => {
-  console.log(theme);
   return {
     root: {
       flexGrow: 1

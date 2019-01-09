@@ -16,10 +16,7 @@ const Intent = ({ match }) => {
 
 Intent.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.shape({
-      field1: PropTypes.number.isRequired,
-      field2: PropTypes.string
-    })
+    url: PropTypes.string.isRequired
   })
 };
 
