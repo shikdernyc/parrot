@@ -1,9 +1,15 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const errorHandler = require('./handlers/error');
-const PORT = process.env.PORT || 8000;
 const routes = require('./routes');
+const { db } = require('./models');
 
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log('db connected');
+});
+
+const PORT = process.env.PORT || 8000;
 const app = express();
 
 // body parser

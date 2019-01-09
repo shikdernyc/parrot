@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 mongoose.set('debug', true);
 mongoose.Promise = Promise;
 // TODO: Set connection to env variable
-mongoose.connect('mongodb://localhost/parrot', {
-  keepAlive: true
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/parrot', {
+  keepAlive: true,
+  useNewUrlParser: true
 });
 
 module.exports = {
