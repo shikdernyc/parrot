@@ -6,4 +6,9 @@ mongoose.connect('mongodb://localhost/parrot', {
   keepAlive: true
 });
 
-// module.exports.Agent = require("./agent");
+module.exports = {
+  db: mongoose.connection,
+  Agent: require('./Agent'),
+  Intent: require('./Intent'),
+  Domain: require('./Domain')
+};
