@@ -1,5 +1,5 @@
 {
-    "extends": "standard",
+    "extends": ["standard", "plugin:node/recommended"],
     "parserOptions": {
         "ecmaVersion": 6,
         "sourceType": "module",
@@ -11,7 +11,13 @@
         "semi": [2, "always"],
         "strict": 0,
         "no-unused-vars": "warn",
-        "no-unexpected-multiline": "warn"
+        "no-unexpected-multiline": "warn",
+        "node/exports-style": ["error", "module.exports"],
+        "node/prefer-global/buffer": ["error", "always"],
+        "node/prefer-global/console": ["error", "always"],
+        "node/prefer-global/process": ["error", "always"],
+        "node/prefer-global/url-search-params": ["error", "always"],
+        "node/prefer-global/url": ["error", "always"]
     },
     "env": {
         "es6": true,
