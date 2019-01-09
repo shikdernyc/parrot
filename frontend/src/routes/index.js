@@ -1,14 +1,15 @@
-import React, { Component } from "react";
-import { Route, withRouter, Switch, Redirect } from "react-router-dom";
-import domains from './domains'
-import intents from "./intents";
-import root from './root'
-import agents from './agents'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
+import domains from './domains';
+import intents from './intents';
+import root from './root';
+import agents from './agents';
 
 class MainApp extends Component {
-  render() {
+  render () {
     const { match } = this.props;
-    console.log(`Match: ${match.url}`)
+    console.log(`Match: ${match.url}`);
     return (
       <main>
         <Switch>
@@ -24,4 +25,13 @@ class MainApp extends Component {
   }
 }
 
-export default withRouter(MainApp)
+MainApp.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      field1: PropTypes.number.isRequired,
+      field2: PropTypes.string
+    })
+  })
+};
+
+export default withRouter(MainApp);

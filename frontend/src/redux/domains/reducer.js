@@ -1,10 +1,10 @@
-import { ADD_TO_DOMAIN_LIST } from "Constants/actionTypes";
+import { ADD_TO_DOMAIN_LIST } from 'Constants/actionTypes';
 
 // TEMP Code
 
 let counter = 0;
 
-function createDomainItem(domainName, enabled, threshold) {
+function createDomainItem (domainName, enabled, threshold) {
   return {
     id: counter++,
     domainName,
@@ -13,14 +13,13 @@ function createDomainItem(domainName, enabled, threshold) {
   };
 }
 
-function createDomainList(){
-    let domainList=[]
-    for(let i = 0 ; i < 10 ; i++){
-        domainList.push(createDomainItem(`Domain ${i}`, i % 2 == 0, 50))
-    }
-    return domainList
+function createDomainList () {
+  let domainList = [];
+  for (let i = 0; i < 10; i++) {
+    domainList.push(createDomainItem(`Domain ${i}`, i % 2 === 0, 50));
+  }
+  return domainList;
 }
-
 
 const initialState = {
   domainList: [

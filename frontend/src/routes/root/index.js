@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Typography } from "@material-ui/core";
+import React, { Component } from 'react';
+import { Typography } from '@material-ui/core';
 
 class Root extends Component {
-  render() {
+  render () {
     return <Typography>Hello, World</Typography>;
   }
 }

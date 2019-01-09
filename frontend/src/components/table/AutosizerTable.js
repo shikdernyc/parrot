@@ -1,27 +1,27 @@
 /* eslint-disable no-console */
 
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { withStyles } from "@material-ui/core/styles";
-import TableCell from "@material-ui/core/TableCell";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import { AutoSizer, Column, SortDirection, Table } from "react-virtualized";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import TableCell from '@material-ui/core/TableCell';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import { AutoSizer, Column, SortDirection, Table } from 'react-virtualized';
 
 const styles = theme => ({
   table: {
     fontFamily: theme.typography.fontFamily
   },
   flexContainer: {
-    display: "flex",
-    alignItems: "center",
-    boxSizing: "border-box"
+    display: 'flex',
+    alignItems: 'center',
+    boxSizing: 'border-box'
   },
   tableRow: {
-    cursor: "pointer"
+    cursor: 'pointer'
   },
   tableRowHover: {
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.grey[200]
     }
   },
@@ -29,7 +29,7 @@ const styles = theme => ({
     flex: 1
   },
   noClick: {
-    cursor: "initial"
+    cursor: 'initial'
   }
 });
 
@@ -54,8 +54,8 @@ class AutozierTable extends React.PureComponent {
         style={{ height: rowHeight }}
         align={
           (columnIndex != null && columns[columnIndex].numeric) || false
-            ? "right"
-            : "left"
+            ? 'right'
+            : 'left'
         }
       >
         {cellData}
@@ -66,8 +66,8 @@ class AutozierTable extends React.PureComponent {
   headerRenderer = ({ label, columnIndex, dataKey, sortBy, sortDirection }) => {
     const { headerHeight, columns, classes, sort } = this.props;
     const direction = {
-      [SortDirection.ASC]: "asc",
-      [SortDirection.DESC]: "desc"
+      [SortDirection.ASC]: 'asc',
+      [SortDirection.DESC]: 'desc'
     };
 
     const inner =
@@ -92,14 +92,14 @@ class AutozierTable extends React.PureComponent {
         )}
         variant="head"
         style={{ height: headerHeight }}
-        align={columns[columnIndex].numeric || false ? "right" : "left"}
+        align={columns[columnIndex].numeric || false ? 'right' : 'left'}
       >
         {inner}
       </TableCell>
     );
   };
 
-  render() {
+  render () {
     const { classes, columns, ...tableProps } = this.props;
     return (
       <AutoSizer>

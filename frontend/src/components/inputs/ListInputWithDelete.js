@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import TextField from "@material-ui/core/TextField";
-import ListItemText from "@material-ui/core/ListItemText";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import TextField from '@material-ui/core/TextField';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
   list: {
@@ -22,10 +22,10 @@ const styles = theme => ({
 });
 
 class ListInput extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
-      newItem: ""
+      newItem: ''
     };
   }
 
@@ -36,10 +36,10 @@ class ListInput extends Component {
   };
 
   handleKeyPress = e => {
-    if (e.key == "Enter") {
+    if (e.key === 'Enter') {
       this.props.onNewItem(this.state.newItem);
       this.setState({
-        newItem: ""
+        newItem: ''
       });
     }
   };
@@ -48,7 +48,7 @@ class ListInput extends Component {
     this.props.onDeleteItem(item);
   };
 
-  render() {
+  render () {
     const { classes, value, label, placeholder } = this.props;
     // console.log(value);
     let items = [];
@@ -73,7 +73,7 @@ class ListInput extends Component {
       );
     }
 
-    console.log(`items ${items}`)
+    console.log(`items ${items}`);
 
     return (
       <Fragment>
@@ -81,8 +81,8 @@ class ListInput extends Component {
           name="newItem"
           value={this.state.newItem}
           className={classes.textField}
-          label={label || ""}
-          placeholder={placeholder || ""}
+          label={label || ''}
+          placeholder={placeholder || ''}
           fullWidth
           margin="normal"
           variant="outlined"
@@ -99,9 +99,12 @@ class ListInput extends Component {
 }
 
 ListInput.propTypes = {
+  classes: PropTypes.object,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
   value: PropTypes.array.isRequired,
   onNewItem: PropTypes.func.isRequired,
   onDeleteItem: PropTypes.func.isRequired
-}
+};
 
 export default withStyles(styles, { withTheme: true })(ListInput);

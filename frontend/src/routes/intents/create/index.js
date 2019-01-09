@@ -1,15 +1,14 @@
-import React, { Component } from "react";
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
+import React, { Component } from 'react';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 
 class Create extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       domainID: 4,
-      intentName: "",
+      intentName: '',
       userSays: [],
       agentResponses: []
     };
@@ -21,7 +20,7 @@ class Create extends Component {
     });
   };
 
-  render() {
+  render () {
     return (
       // <h1>Hi</h1>
       <form>
