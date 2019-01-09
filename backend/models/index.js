@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-mongoose.set("debug", true);
+const mongoose = require('mongoose');
+mongoose.set('debug', true);
 mongoose.Promise = Promise;
 // TODO: Set connection to env variable
-mongoose.connect("mongodb://localhost/parrot", {
+mongoose.connect('mongodb://localhost/parrot', {
   keepAlive: true
 });
 

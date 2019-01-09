@@ -2,10 +2,10 @@
  * Simple error handler
  * @returns - the error message specified in next(error.message) and next(error.status)
  */
-function errorHandler(error, request, response, next) {
+function errorHandler (error, request, response, next) {
   return response.status(error.status || 500).json({
     error: {
-      message: error.message || "Oops! Something went wrong."
+      message: error.message || 'Oops! Something went wrong.'
     }
   });
 }
