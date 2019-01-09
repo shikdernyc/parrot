@@ -1,26 +1,27 @@
-import React, { Component } from "react";
-import { TextField } from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import SaveAlt from "@material-ui/icons/SaveAlt";
-import Button from "@material-ui/core/Button";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { TextField } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   slider: {
-    padding: "22px 0px"
+    padding: '22px 0px'
   },
   button: {
     margin: theme.spacing.unit
   },
   icon: {
     marginRight: theme.spacing.unit
-  },
+  }
 });
 
 class Create extends Component {
   state = {
-    domainName: "",
+    domainName: '',
     intentThreshold: 65
   };
 
@@ -30,7 +31,7 @@ class Create extends Component {
     });
   };
 
-  render() {
+  render () {
     const { classes } = this.props;
     return (
       <form>
@@ -42,7 +43,6 @@ class Create extends Component {
               label="Domain Name"
               variant="outlined"
               placeholder="Type in your domain name"
-              variant="outlined"
               value={this.state.domainName}
               InputLabelProps={{
                 shrink: true
@@ -77,5 +77,9 @@ class Create extends Component {
     );
   }
 }
+
+Create.propTypes = {
+  classes: PropTypes.object
+};
 
 export default withStyles(styles, { withTheme: true })(Create);

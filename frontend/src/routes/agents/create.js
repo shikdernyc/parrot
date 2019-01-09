@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
@@ -137,5 +138,9 @@ class Create extends Component {
     );
   }
 }
+
+Create.propTypes = {
+  classes: PropTypes.object
+};
 
 export default withStyles(styles, { withTheme: true })(Create);
