@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import DomainList from './domainTable/index';
+import DomainList from './domainTable';
 import Create from './create.js';
 
 const Domain = ({ match }) => (
