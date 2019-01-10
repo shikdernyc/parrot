@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use(routes);
+
 app.use(errorHandler);
 
 // server initialization
