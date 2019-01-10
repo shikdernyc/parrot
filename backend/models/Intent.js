@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const ExampleIntent = require('./ExampleIntent');
 
 const IntentSchema = new mongoose.Schema({
-  agent: {
+  agent_id: {
     type: String,
     trim: true
   },
-  domain: {
+  domain_id: {
     type: String,
     trim: true
   },
@@ -16,7 +16,8 @@ const IntentSchema = new mongoose.Schema({
   },
   examples: [ExampleIntent.schema],
   useWebhook: Boolean,
-  usePostFormat: Boolean
+  usePostFormat: Boolean,
+  createTimestamp: Date
 });
 
 const Intent = mongoose.model('Intent', IntentSchema);
