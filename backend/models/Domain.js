@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
 const DomainSchema = new mongoose.Schema({
-  id: Number,
-  agent: {
+  agent_id: {
     type: String,
     trim: true
   },
@@ -21,7 +20,8 @@ const DomainSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  extraTrainingData: Boolean
+  extraTrainingData: Boolean,
+  createTimestamp: Date
 });
 
 const Domain = mongoose.model('Domain', DomainSchema);

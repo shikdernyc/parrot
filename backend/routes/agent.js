@@ -26,21 +26,21 @@ router.route('/')
     });
   })
   .get((req, res) => {
-    Agent.find({}).sort('-createTimestamp').exec(function (err, posts) {
+    Agent.find({}).sort('-createTimestamp').exec(function (err, agents) {
       if (err) throw err;
-      res.send(posts);
+      res.send(agents);
     });
   });
 
 router.route('/:agent_id')
   .get((req, res) => {
-    Agent.findById(req.params.post_id, function (err, agent) {
+    Agent.findById(req.params.agent_id, function (err, agent) {
       if (err) throw err;
       res.send(agent);
     });
   })
   .put((req, res) => {
-    Agent.findById(req.params.post_id, function (err, agent) {
+    Agent.findById(req.params.agent_id, function (err, agent) {
       if (err) throw err;
       // update agent
       // agent.agentName = req.body.agentName;
@@ -52,7 +52,7 @@ router.route('/:agent_id')
   })
   .delete((req, res) => {
     // console.log(req.params.post_id);
-    Agent.remove({ _id: req.params.post_id }, function (err) {
+    Agent.deleteOne({ _id: req.params.agent_id }, function (err) {
       if (err) throw err;
       res.sendStatus(204);
     });

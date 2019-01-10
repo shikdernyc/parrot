@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const AgentSchema = new mongoose.Schema({
-  id: Number,
   agentName: {
     type: String,
     trim: true
@@ -32,7 +31,8 @@ const AgentSchema = new mongoose.Schema({
   model: {
     type: String,
     trim: true
-  }
+  },
+  createTimestamp: Date
 });
 
 const Agent = mongoose.model('Agent', AgentSchema);

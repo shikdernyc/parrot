@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const IntentEntity = require('./IntentEntity');
 
 const ExampleIntentSchema = new mongoose.Schema({
-  id: Number,
   userSays: {
     type: String,
     trim: true
