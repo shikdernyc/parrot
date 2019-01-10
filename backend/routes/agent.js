@@ -26,9 +26,9 @@ router.route('/')
     });
   })
   .get((req, res) => {
-    Agent.find({}).sort('-createTimestamp').exec(function (err, posts) {
+    Agent.find({}).sort('-createTimestamp').exec(function (err, agents) {
       if (err) throw err;
-      res.send(posts);
+      res.send(agents);
     });
   });
 
