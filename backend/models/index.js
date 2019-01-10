@@ -11,5 +11,6 @@ module.exports = {
   db: mongoose.connection,
   Agent: require('./Agent'),
   Intent: require('./Intent'),
-  Domain: require('./Domain')
+  Domain: require('./Domain'),
+  Entity: require('./Entity')
 };
