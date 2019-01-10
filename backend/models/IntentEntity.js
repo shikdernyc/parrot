@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const IntentEntitySchema = new mongoose.Schema({
-  start: Number,
   end: Number,
   value: {
     type: String,

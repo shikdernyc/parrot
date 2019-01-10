@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const DomainSchema = new mongoose.Schema({
-  id: Number,
   agent: {
     type: String,
     trim: true

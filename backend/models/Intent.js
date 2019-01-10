@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const ExampleIntent = require('./ExampleIntent');
 
 const IntentSchema = new mongoose.Schema({
-  id: Number,
   agent: {
     type: String,
     trim: true
