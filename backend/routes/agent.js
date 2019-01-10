@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Agent } = require('../models');
 
 router.route('/')
-  .post((req, res) => {
+  .post((req, res, next) => {
     Agent({
       agentName: req.body.agentName,
       description: req.body.description,
@@ -19,16 +19,24 @@ router.route('/')
       model: req.body.model,
       createTimestamp: Date.now()
     }).save(function (err, data) {
-      if (err) throw err;
-      // console.log(data);
-      res.status(201);
-      res.send(data);
+      if (err) {
+        // let err = new Error('not found');
+        err.status = 400;
+        next(err);
+      } else {
+        res.status(201);
+        res.send(data);
+      }
     });
   })
-  .get((req, res) => {
+  .get((req, res, next) => {
     Agent.find({}).sort('-createTimestamp').exec(function (err, agents) {
-      if (err) throw err;
-      res.send(agents);
+      if (err) {
+        err.status = 400;
+        next(err);
+      } else {
+        res.send(agents);
+      }
     });
   });
 
