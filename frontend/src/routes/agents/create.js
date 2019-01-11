@@ -1,27 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
-import Fab from '@material-ui/core/Fab';
-import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListInputWithDelete from 'Components/inputs/ListInputWithDelete';
 import SaveAlt from '@material-ui/icons/SaveAlt';
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit
-  },
-  menu: {
-    width: 200
-  },
-  icon: {
-    marginRight: theme.spacing.unit
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
-  }
-});
+import { StyledTextField, StyledMenuSelect } from 'Components/inputs/TextField';
+import { StyledFab } from 'Components/buttons';
 
 const languages = [
   {
@@ -56,55 +38,29 @@ class Create extends Component {
   };
 
   render () {
-    const { classes } = this.props;
     return (
       <form>
-        <TextField
+        <StyledTextField
           name="name"
           value={this.state.name}
-          className={classes.textField}
           label="Agent Name"
           placeholder="Type your agent's name"
           fullWidth
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true
-          }}
           onChange={this.handleChange}
         />
-        <TextField
+        <StyledTextField
           name="description"
           value={this.state.description}
-          className={classes.textField}
           label="Agent Description"
           placeholder="What does your agent do?"
           fullWidth
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true
-          }}
           onChange={this.handleChange}
         />
-        <TextField
-          select
+        <StyledMenuSelect
           name="language"
-          helperText="Please select your agent's language"
           value={this.state.language}
-          className={classes.textField}
           label="Language"
-          // fullWidth
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true
-          }}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu
-            }
-          }}
+          helperText="Please select your agent's language"
           onChange={this.handleChange}
         >
           {languages.map(language => (
@@ -112,7 +68,7 @@ class Create extends Component {
               {language.label}
             </MenuItem>
           ))}
-        </TextField>
+        </StyledMenuSelect>
         <ListInputWithDelete
           value={this.state.fallbackResponse}
           label="Fallback Response"
@@ -130,22 +86,10 @@ class Create extends Component {
             });
           }}
         />
-        <Fab
-          variant="extended"
-          size="medium"
-          color="secondary"
-          className={classes.button}
-        >
-          <SaveAlt className={classes.icon} />
-          Create Agent
-        </Fab>
+        <StyledFab Icon={SaveAlt}>Create Agent</StyledFab>
       </form>
     );
   }
 }
 
-Create.propTypes = {
-  classes: PropTypes.object
-};
-
-export default withStyles(styles, { withTheme: true })(Create);
+export default Create;
