@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.set('debug', true);
+mongoose.set('debug', process.env.DEBUG || true);
 mongoose.Promise = Promise;
 // TODO: Set connection to env variable
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/parrot', {
