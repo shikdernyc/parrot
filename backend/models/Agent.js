@@ -1,39 +1,29 @@
 const mongoose = require('mongoose');
 
-const AgentSchema = new mongoose.Schema({
-  agentName: {
-    type: String,
-    trim: true
+const AgentSchema = new mongoose.Schema(
+  {
+    agentName: {
+      type: String,
+      trim: true
+    },
+    description: {
+      type: String,
+      trim: true
+    },
+    language: {
+      type: String,
+      trim: true
+    },
+    timezone: {
+      type: String,
+      trim: true
+    },
+    fallbackResponses: [{ type: String, trim: true }]
   },
-  description: {
-    type: String,
-    trim: true
-  },
-  language: {
-    type: String,
-    trim: true
-  },
-  timezone: {
-    type: String,
-    trim: true
-  },
-  useWebhook: Boolean,
-  usePostFormat: Boolean,
-  domainClassifierThreshold: Number,
-  fallbackResponses: [{ type: String, trim: true }],
-  status: {
-    type: String,
-    trim: true
-  },
-  lastTraining: Date,
-  extraTrainingData: Boolean,
-  enableModelsPerDomain: Boolean,
-  model: {
-    type: String,
-    trim: true
-  },
-  createTimestamp: Date
-});
+  {
+    timestamps: { createdAt: 'created_at' }
+  }
+);
 
 const Agent = mongoose.model('Agent', AgentSchema);
 
