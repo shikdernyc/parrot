@@ -18,6 +18,7 @@ export const StyledTextField = withStyles(textFieldStyles, { withTheme: true })(
       name,
       label,
       placeholder,
+      helperText,
       fullWidth,
       value,
       onChange,
@@ -31,6 +32,7 @@ export const StyledTextField = withStyles(textFieldStyles, { withTheme: true })(
         name={name || ''}
         label={label || ''}
         placeholder={placeholder || ''}
+        helperText={helperText || ''}
         fullWidth={fullWidth || false}
         onChange={onChange || null}
         variant="outlined"
@@ -70,21 +72,21 @@ export const StyledMenuSelect = withStyles(selectStyles, { withTheme: true })(
       name,
       label,
       placeholder,
+      helperText,
       fullWidth,
       value,
       onChange,
       overrides
     } = props;
-    const control = value ? { value: value } : {};
+    const control = value ? { value } : {};
     return (
       <StyledTextField
-        margin="normal"
         name={name || ''}
         label={label || ''}
         placeholder={placeholder || ''}
+        helperText={helperText || ''}
         fullWidth={fullWidth || false}
         onChange={onChange || null}
-        variant="outlined"
         InputLabelProps={{
           shrink: true
         }}
