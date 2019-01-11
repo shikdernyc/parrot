@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import intentTable from './intentTable';
-import Create from './create';
+import intentTable from './intentTable.js';
+import Create from './create.js';
 
 const Intent = ({ match }) => {
   return (
