@@ -64,16 +64,37 @@ const selectStyles = theme => ({
 
 export const StyledMenuSelect = withStyles(selectStyles, { withTheme: true })(
   props => {
-    const { classes, children, overrides } = props;
+    const {
+      classes,
+      children,
+      name,
+      label,
+      placeholder,
+      fullWidth,
+      value,
+      onChange,
+      overrides
+    } = props;
+    const control = value ? { value: value } : {};
     return (
       <StyledTextField
-        select
+        margin="normal"
+        name={name || ''}
+        label={label || ''}
+        placeholder={placeholder || ''}
+        fullWidth={fullWidth || false}
+        onChange={onChange || null}
+        variant="outlined"
+        InputLabelProps={{
+          shrink: true
+        }}
         SelectProps={{
           MenuProps: {
             className: classes.menu
           }
         }}
-        {...overrides}
+        {...control}
+        overrides={{ select: true, ...overrides }}
       >
         {children}
       </StyledTextField>
