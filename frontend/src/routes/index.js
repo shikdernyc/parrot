@@ -8,8 +8,7 @@ import agents from './agents';
 
 class MainApp extends Component {
   render () {
-    const { match } = this.props;
-    console.log(`Match: ${match.url}`);
+    // const { match } = this.props;
     return (
       <main>
         <Switch>
@@ -27,10 +26,7 @@ class MainApp extends Component {
 
 MainApp.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.shape({
-      field1: PropTypes.number.isRequired,
-      field2: PropTypes.string
-    })
+    url: PropTypes.string.isRequired
   })
 };
 

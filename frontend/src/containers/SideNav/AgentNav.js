@@ -91,7 +91,7 @@ AgentNavs.propTypes = {
   classes: PropTypes.object.isRequired,
   // Injected by the documentation to work in an iframe.
   // You won't need it on your project.
-  agents: PropTypes.object
+  agents: PropTypes.array
 };
 
 export default connect(mapStateToProps, null)(withStyles(styles, { withTheme: true })(AgentNavs));

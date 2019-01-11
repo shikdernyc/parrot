@@ -73,8 +73,6 @@ class ListInput extends Component {
       );
     }
 
-    console.log(`items ${items}`);
-
     return (
       <Fragment>
         <TextField
