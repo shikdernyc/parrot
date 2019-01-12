@@ -1,6 +1,18 @@
+const server = require('../index');
+const supertest = require('supertest');
+const chai = require('chai');
+const chaiExclude = require('chai-exclude');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
+// init chai
+chai.use(chaiExclude);
+global.expect = chai.expect;
+
+// init express app
+global.app = supertest.agent(server);
+
+// init mongodb
 let mongoServer;
 const opts = { useNewUrlParser: true };
 
@@ -13,7 +25,10 @@ before((done) => {
   }).then(() => done());
 });
 
-after(() => {
+after((done) => {
+  console.log('after');
   mongoose.disconnect();
   mongoServer.stop();
+  server.close();
+  done();
 });

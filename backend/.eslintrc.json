@@ -18,7 +18,8 @@
         "node/prefer-global/process": ["error", "always"],
         "node/prefer-global/url-search-params": ["error", "always"],
         "node/prefer-global/url": ["error", "always"],
-        "node/no-unpublished-require": 0
+        "node/no-unpublished-require": 0,
+        "no-undef": ["error", { "typeof": true }]
     },
     "env": {
         "es6": true,

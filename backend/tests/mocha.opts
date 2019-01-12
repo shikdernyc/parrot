@@ -1,4 +1,5 @@
 --recursive
 --reporter spec
 --full-trace
---file ./tests/db_init.js
+--file ./tests/setup.js
+--exit
