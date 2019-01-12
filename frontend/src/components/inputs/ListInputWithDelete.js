@@ -8,8 +8,14 @@ import TextField from '@material-ui/core/TextField';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
+  Paper: {
+    marginLeft: theme.spacing.unit * 1.5,
+    marginRight: theme.spacing.unit * 1.5,
+    background: theme.palette.secondary.main
+  },
   list: {
     marginLeft: theme.spacing.unit * 1.5,
     marginRight: theme.spacing.unit * 1.5
@@ -49,7 +55,7 @@ class ListInput extends Component {
   };
 
   render () {
-    const { classes, value, label, placeholder } = this.props;
+    const { classes, value, label, placeholder, exampleText } = this.props;
     // console.log(value);
     let items = [];
 
@@ -73,8 +79,6 @@ class ListInput extends Component {
       );
     }
 
-    console.log(`items ${items}`);
-
     return (
       <Fragment>
         <TextField
@@ -92,7 +96,16 @@ class ListInput extends Component {
           onChange={this.handleChange}
           onKeyPress={this.handleKeyPress}
         />
-        <List className={classes.list}>{items}</List>
+        <List className={classes.list}>
+          <Paper className={classes.paper} elevation={1}>
+            {value.length === 0 && exampleText && (
+              <ListItem button divider className={classes.listItem}>
+                <ListItemText primary={`Example: ${exampleText}`} />
+              </ListItem>
+            )}
+            {items}
+          </Paper>
+        </List>
       </Fragment>
     );
   }
@@ -102,6 +115,7 @@ ListInput.propTypes = {
   classes: PropTypes.object,
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  exampleText: PropTypes.string,
   value: PropTypes.array.isRequired,
   onNewItem: PropTypes.func.isRequired,
   onDeleteItem: PropTypes.func.isRequired

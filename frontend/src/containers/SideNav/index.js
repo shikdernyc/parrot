@@ -116,7 +116,7 @@ SideNav.propTypes = {
   container: PropTypes.object,
   theme: PropTypes.object.isRequired,
   isOpen: PropTypes.bool,
-  setIsOpen: PropTypes.fun
+  setIsOpen: PropTypes.func.isRequired
 };
 
 export default connect(

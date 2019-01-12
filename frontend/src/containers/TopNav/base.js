@@ -33,7 +33,7 @@ class Base extends Component {
 
 Base.propTypes = {
   classes: PropTypes.object,
-  children: PropTypes.object
+  children: PropTypes.array
 };
 
 export default withStyles(styles)(Base);

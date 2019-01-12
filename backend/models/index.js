@@ -1,11 +1,19 @@
+const path = require('path');
+let envPath = __dirname.split('/');
+envPath.pop();
+envPath = envPath.join('/');
+require('dotenv').config({ path: `${envPath}/.env` });
+
 const mongoose = require('mongoose');
 mongoose.set('debug', process.env.DEBUG || true);
 mongoose.Promise = Promise;
-// TODO: Set connection to env variable
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/parrot', {
-  keepAlive: true,
-  useNewUrlParser: true
-});
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost/parrot',
+  {
+    keepAlive: true,
+    useNewUrlParser: true
+  }
+);
 
 module.exports = {
   db: mongoose.connection,

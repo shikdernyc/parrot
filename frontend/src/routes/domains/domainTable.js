@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import AutosizerTable from 'Components/table/AutosizerTable';
 import { setTopNavProps } from 'Redux/navs/action';
 
-class IntentTable extends Component {
+class DomainTable extends Component {
   componentDidMount () {
     this.props.setNavButton();
   }
@@ -17,6 +17,10 @@ class IntentTable extends Component {
 
   render () {
     let { classes, rows } = this.props;
+    rows = rows.map(item => ({
+      ...item,
+      enabled: item.enabled ? 'Yes' : 'No'
+    }));
     return (
       <Fragment>
         <Paper className={classes.root}>
@@ -24,24 +28,24 @@ class IntentTable extends Component {
             rowCount={rows.length}
             rowGetter={({ index }) => rows[index]}
             onRowClick={event => {
-              this.props.history.push(`/intents/${event.rowData.id}`);
+              this.props.history.push(`/domains/${event.rowData.id}`);
             }}
             columns={[
               {
-                width: 250,
+                width: 300,
                 flexGrow: 1.0,
-                label: 'Intent Name',
-                dataKey: 'name'
+                label: 'Domain Name',
+                dataKey: 'domainName'
               },
               {
                 width: 250,
-                label: 'Domain',
-                dataKey: 'domain'
+                label: 'Enabled',
+                dataKey: 'enabled'
               },
               {
                 width: 250,
-                label: 'Examples',
-                dataKey: 'examples'
+                label: 'Intent Threshold',
+                dataKey: 'threshold'
               }
             ]}
           />
@@ -53,15 +57,15 @@ class IntentTable extends Component {
 
 const mapStateToProps = function (reduxState) {
   return {
-    rows: reduxState.intents.intentList
+    rows: reduxState.domains.domainList
   };
 };
 
 const mapDispatchToProps = function (dispatch) {
   return {
     setNavButton: function (
-      buttonText = 'Create Intent',
-      buttonLink = '/intents/create'
+      buttonText = 'Create Domain',
+      buttonLink = '/domains/create'
     ) {
       dispatch(
         setTopNavProps({
@@ -73,7 +77,7 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-const styles = theme => ({
+const domainTableStyles = theme => ({
   root: {
     width: '100%',
     height: window.innerHeight * 0.65,
@@ -81,14 +85,14 @@ const styles = theme => ({
   }
 });
 
-IntentTable.propTypes = {
+DomainTable.propTypes = {
   classes: PropTypes.object.isRequired,
   rows: PropTypes.array,
   setNavButton: PropTypes.func,
-  history: PropTypes.array
+  history: PropTypes.object
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(IntentTable));
+)(withStyles(domainTableStyles)(DomainTable));

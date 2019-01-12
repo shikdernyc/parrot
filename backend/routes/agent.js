@@ -1,70 +1,72 @@
 const router = require('express').Router();
 const { Agent } = require('../models');
+const {
+  create,
+  findAndSort,
+  findById,
+  deleteById,
+  updateById
+} = require('../handlers/database');
 
-router.route('/')
+router
+  .route('/')
   .post((req, res, next) => {
-    Agent({
-      agentName: req.body.agentName,
-      description: req.body.description,
-      language: req.body.language,
-      timezone: req.body.timezone,
-      useWebhook: req.body.useWebhook,
-      usePostFormat: req.body.usePostFormat,
-      domainClassifierThreshold: req.body.domainClassifierThreshold,
-      fallbackResponses: req.body.fallbackResponses,
-      status: req.body.status,
-      lastTraining: req.body.lastTraining,
-      extraTrainingData: req.body.extraTrainingData,
-      enableModelsPerDomain: req.body.enableModelsPerDomain,
-      model: req.body.model,
-      createTimestamp: Date.now()
-    }).save(function (err, data) {
-      if (err) {
-        // let err = new Error('not found');
-        err.status = 400;
-        next(err);
-      } else {
-        res.status(201);
-        res.send(data);
-      }
-    });
+    create(Agent, req.body)
+      .then(agent => {
+        res.status(201).json(agent);
+      })
+      .catch(error => {
+        error.status = 400;
+        error.message = 'Unable to create agent';
+        next(error);
+      });
   })
   .get((req, res, next) => {
-    Agent.find({}).sort('-createTimestamp').exec(function (err, agents) {
-      if (err) {
-        err.status = 400;
-        next(err);
-      } else {
-        res.send(agents);
-      }
-    });
+    findAndSort(Agent, 'created_at')
+      .then(agents => {
+        res.status(200).json(agents);
+      })
+      .catch(error => {
+        error.status = 400;
+        error.message = 'Unable to find all agents';
+        next(error);
+      });
   });
 
-router.route('/:agent_id')
+router
+  .route('/:agent_id')
   .get((req, res) => {
-    Agent.findById(req.params.agent_id, function (err, agent) {
-      if (err) throw err;
-      res.send(agent);
-    });
+    findById(Agent, req.params.agent_id)
+      .then(agent => {
+        res.status(200).json(agent);
+      })
+      .catch(error => {
+        error.message = 'Unable to find agent';
+        next(error);
+      });
   })
   .put((req, res) => {
-    Agent.findById(req.params.agent_id, function (err, agent) {
-      if (err) throw err;
-      // update agent
-      // agent.agentName = req.body.agentName;
-      agent.save(function (err, data) {
-        if (err) throw err;
-        res.send(agent);
+    updateById(agent, req.params.agent_id, req.body)
+      .then(agent => {
+        res.status(200).json(agent);
+      })
+      .catch(error => {
+        error.message = 'Unable to update agent';
+        next(error);
       });
-    });
   })
   .delete((req, res) => {
     // console.log(req.params.post_id);
-    Agent.deleteOne({ _id: req.params.agent_id }, function (err) {
-      if (err) throw err;
-      res.sendStatus(204);
-    });
-    // res.send(req.body);
+    deleteById(agent, req.params.agent_id)
+      .then(() => {
+        res.status(204).json({
+          message: 'Delete successful'
+        });
+      })
+      .catch(error => {
+        error.message = 'Unable to delete';
+        next(error);
+      });
   });
 
 module.exports = router;
