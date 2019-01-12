@@ -1,5 +1,4 @@
 const create = async function (model, schema) {
-  console.log(schema);
   try {
     return await model.create(schema);
   } catch (error) {

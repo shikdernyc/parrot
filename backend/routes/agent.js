@@ -17,7 +17,7 @@ router
       })
       .catch(error => {
         error.status = 400;
-        error.message = 'Unable to create agent';
+        error.message = 'Unable to create the agent';
         next(error);
       });
   })
@@ -35,36 +35,38 @@ router
 
 router
   .route('/:agent_id')
-  .get((req, res) => {
+  .get((req, res, next) => {
     findById(Agent, req.params.agent_id)
       .then(agent => {
         res.status(200).json(agent);
       })
       .catch(error => {
-        error.message = 'Unable to find agent';
+        error.status = 400;
+        error.message = 'Unable to find the agent';
         next(error);
       });
   })
-  .put((req, res) => {
-    updateById(agent, req.params.agent_id, req.body)
+  .put((req, res, next) => {
+    updateById(Agent, req.params.agent_id, req.body)
       .then(agent => {
         res.status(200).json(agent);
       })
       .catch(error => {
-        error.message = 'Unable to update agent';
+        error.status = 400;
+        error.message = 'Unable to update the agent';
         next(error);
       });
   })
-  .delete((req, res) => {
-    // console.log(req.params.post_id);
-    deleteById(agent, req.params.agent_id)
+  .delete((req, res, next) => {
+    deleteById(Agent, req.params.agent_id)
       .then(() => {
         res.status(204).json({
           message: 'Delete successful'
         });
       })
       .catch(error => {
-        error.message = 'Unable to delete';
+        error.status = 400;
+        error.message = 'Unable to delete the agent';
         next(error);
       });
   });

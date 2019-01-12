@@ -5,7 +5,7 @@ envPath = envPath.join('/');
 require('dotenv').config({ path: `${envPath}/.env` });
 
 const mongoose = require('mongoose');
-mongoose.set('debug', true);
+mongoose.set('debug', process.env.DEBUG || true);
 mongoose.Promise = Promise;
 mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost/parrot',
