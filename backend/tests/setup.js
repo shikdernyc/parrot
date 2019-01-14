@@ -26,7 +26,6 @@ before((done) => {
 });
 
 after((done) => {
-  console.log('after');
   mongoose.disconnect();
   mongoServer.stop();
   server.close();

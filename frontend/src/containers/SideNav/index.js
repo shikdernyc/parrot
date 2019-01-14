@@ -11,6 +11,7 @@ import { setSideBarIsOpen } from 'Redux/navs/action';
 import ListNavs from './ListNavs';
 import AgentNav from './AgentNav';
 import Header from './header';
+import logo from 'Assets/images/logo-ny.svg';
 
 const styles = theme => ({
   root: {
@@ -28,7 +29,14 @@ const styles = theme => ({
       display: 'none'
     }
   },
-  toolbar: theme.mixins.toolbar,
+  toolbar: {
+    ...theme.mixins.toolbar,
+    backgroundImage: `url(${logo})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center center',
+    width: '100%',
+    height: '100%'
+  },
   drawerPaper: {
     width: DRAWER_WIDTH
   }
@@ -49,9 +57,9 @@ class SideNav extends React.Component {
 
     const drawer = (
       <div>
-        <div className={classes.toolbar}>
-          <Header />
-        </div>
+        <div className={classes.toolbar} />
+        {/* <Header /> */}
+        {/* </div> */}
         <Divider />
         <List>
           <AgentNav />
