@@ -1,4 +1,3 @@
-const path = require('path');
 let envPath = __dirname.split('/');
 envPath.pop();
 envPath = envPath.join('/');
