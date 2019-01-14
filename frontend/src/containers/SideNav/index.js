@@ -10,7 +10,7 @@ import { DRAWER_WIDTH } from 'Constants/app';
 import { setSideBarIsOpen } from 'Redux/navs/action';
 import ListNavs from './ListNavs';
 import AgentNav from './AgentNav';
-import Header from './header';
+// import Header from './header';
 import logo from 'Assets/images/logo-ny.svg';
 
 const styles = theme => ({
@@ -34,8 +34,8 @@ const styles = theme => ({
     backgroundImage: `url(${logo})`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center center',
-    width: '100%',
-    height: '100%'
+    height: '100%',
+    margin: '5px'
   },
   drawerPaper: {
     width: DRAWER_WIDTH
