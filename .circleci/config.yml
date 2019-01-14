@@ -6,8 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Backend: install packages
-        command: cd backend && npm install
+          name: Backend: install packages
+          command: cd backend && npm install
       - run:
-        name: Backend: run test
-        command: cd backend && npm test
+          name: Backend: run test
+          command: cd backend && npm test
