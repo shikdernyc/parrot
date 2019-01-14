@@ -6,6 +6,14 @@ const create = async function (model, schema) {
   }
 };
 
+const find = async function (model, findParams) {
+  try {
+    await model.find(findParams);
+  } catch (error) {
+    throw error;
+  }
+};
+
 const findAll = async function (model) {
   try {
     return await model.find({});
@@ -14,7 +22,7 @@ const findAll = async function (model) {
   }
 };
 
-const findAndSort = async function (model, sortBy, order = 'desc') {
+const findAndSortAll = async function (model, sortBy, order = 'desc') {
   try {
     return await model.find({}).sort({ [sortBy]: order });
   } catch (error) {
@@ -48,8 +56,9 @@ const updateById = async function (model, id, updates) {
 
 module.exports = {
   create,
+  find,
   findAll,
-  findAndSort,
+  findAndSortAll,
   findById,
   deleteById,
   updateById
