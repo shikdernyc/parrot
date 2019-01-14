@@ -1,25 +1,29 @@
-const mongoose = require('mongoose');
-const ExampleIntent = require('./ExampleIntent');
+const mongoose = require("mongoose");
+const { ExampleIntentSchema } = require("./ExampleIntent");
 
-const IntentSchema = new mongoose.Schema({
-  agent_id: {
-    type: String,
-    trim: true
+const IntentSchema = new mongoose.Schema(
+  {
+    agent_id: {
+      type: String,
+      trim: true
+    },
+    domain_id: {
+      type: String,
+      trim: true
+    },
+    intentName: {
+      type: String,
+      trim: true
+    },
+    examples: [ExampleIntentSchema],
+    useWebhook: Boolean,
+    usePostFormat: Boolean
   },
-  domain_id: {
-    type: String,
-    trim: true
-  },
-  intentName: {
-    type: String,
-    trim: true
-  },
-  examples: [ExampleIntent.schema],
-  useWebhook: Boolean,
-  usePostFormat: Boolean,
-  createTimestamp: Date
-});
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+  }
+);
 
-const Intent = mongoose.model('Intent', IntentSchema);
+const Intent = mongoose.model("Intent", IntentSchema);
 
-module.exports = Intent;
+module.exports = { Intent };

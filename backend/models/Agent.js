@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const AgentSchema = new mongoose.Schema(
   {
@@ -21,10 +21,10 @@ const AgentSchema = new mongoose.Schema(
     fallbackResponses: [{ type: String, trim: true }]
   },
   {
-    timestamps: { createdAt: 'created_at' }
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
   }
 );
 
-const Agent = mongoose.model('Agent', AgentSchema);
+const Agent = mongoose.model("Agent", AgentSchema);
 
-module.exports = Agent;
+module.exports = { Agent };

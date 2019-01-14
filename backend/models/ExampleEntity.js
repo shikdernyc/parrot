@@ -1,17 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const { synonymSchema } = require("./synonym");
 
-const ExampleEntitySchema = new mongoose.Schema({
-  value: {
-    type: String,
-    trim: true
+const ExampleEntitySchema = new mongoose.Schema(
+  {
+    value: {
+      type: String,
+      trim: true
+    },
+    synonyms: [synonymSchema]
   },
-  synonyms: [{
-    type: String,
-    trim: true
-  }],
-  createTimestamp: Date
-});
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+  }
+);
 
-const ExampleEntity = mongoose.model('ExampleEntity', ExampleEntitySchema);
-
-module.exports = ExampleEntity;
+module.exports = { ExampleEntitySchema };
