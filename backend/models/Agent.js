@@ -21,7 +21,7 @@ const AgentSchema = new mongoose.Schema(
     fallbackResponses: [{ type: String, trim: true }]
   },
   {
-    timestamps: { createdAt: 'created_at' }
+    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
   }
 );
 
