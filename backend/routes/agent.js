@@ -9,7 +9,6 @@ const {
 } = require('../handlers/routes/database');
 
 const {
-  setExtras,
   setAgentModel,
   setEntityModel,
   setIntentModel,
@@ -18,11 +17,10 @@ const {
 
 router
   .route('/')
-  .post(setExtras, setAgentModel, create)
-  .get(setExtras, setAgentModel, findAndSortAllByCreated);
+  .post(setAgentModel, create)
+  .get(setAgentModel, findAndSortAllByCreated);
 
 router.route('/:id/domains').get(
-  setExtras,
   setDomainModel,
   (req, res, next) => {
     req.extras.findParams = { agent_id: req.params.id };
@@ -32,7 +30,6 @@ router.route('/:id/domains').get(
 );
 
 router.route('/:id/entities').get(
-  setExtras,
   setEntityModel,
   (req, res, next) => {
     req.extras.findParams = { agent_id: req.params.id };
@@ -41,7 +38,6 @@ router.route('/:id/entities').get(
 );
 
 router.route('/:id/intents').get(
-  setExtras,
   setIntentModel,
   (req, res, next) => {
     req.extras.findParams = { agent_id: req.params.id };
@@ -52,8 +48,8 @@ router.route('/:id/intents').get(
 
 router
   .route('/:id')
-  .get(setExtras, setAgentModel, findById)
-  .put(setExtras, setAgentModel, updateById)
-  .delete(setExtras, setAgentModel, deleteById);
+  .get(setAgentModel, findById)
+  .put(setAgentModel, updateById)
+  .delete(setAgentModel, deleteById);
 
 module.exports = router;

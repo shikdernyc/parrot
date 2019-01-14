@@ -8,19 +8,14 @@ const {
   find
 } = require('../handlers/routes/database');
 
-const {
-  setExtras,
-  setDomainModel,
-  setIntentModel
-} = require('../handlers/middlewares');
+const { setDomainModel, setIntentModel } = require('../handlers/middlewares');
 
 router
   .route('/')
-  .post(setExtras, setDomainModel, create)
-  .get(setExtras, setDomainModel, findAndSortAllByCreated);
+  .post(setDomainModel, create)
+  .get(setDomainModel, findAndSortAllByCreated);
 
 router.route('/:id/intents').get(
-  setExtras,
   setIntentModel,
   (req, res, next) => {
     req.extras.findParams = { domain_id: req.params.id };
@@ -31,8 +26,8 @@ router.route('/:id/intents').get(
 
 router
   .route('/:id')
-  .get(setExtras, setDomainModel, findById)
-  .put(setExtras, setDomainModel, updateById)
-  .delete(setExtras, setDomainModel, deleteById);
+  .get(setDomainModel, findById)
+  .put(setDomainModel, updateById)
+  .delete(setDomainModel, deleteById);
 
 module.exports = router;

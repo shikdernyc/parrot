@@ -7,17 +7,17 @@ const {
   deleteById
 } = require('../handlers/routes/database');
 
-const { setExtras, setIntentModel } = require('../handlers/middlewares');
+const { setIntentModel } = require('../handlers/middlewares');
 
 router
   .route('/')
-  .post(setExtras, setIntentModel, create)
-  .get(setExtras, setIntentModel, findAndSortAllByCreated);
+  .post(setIntentModel, create)
+  .get(setIntentModel, findAndSortAllByCreated);
 
 router
   .route('/:id')
-  .get(setExtras, setIntentModel, findById)
-  .put(setExtras, setIntentModel, updateById)
-  .delete(setExtras, setIntentModel, deleteById);
+  .get(setIntentModel, findById)
+  .put(setIntentModel, updateById)
+  .delete(setIntentModel, deleteById);
 
 module.exports = router;

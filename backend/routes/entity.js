@@ -4,21 +4,20 @@ const {
   findById,
   findAndSortAllByCreated,
   updateById,
-  deleteById,
-  find
+  deleteById
 } = require('../handlers/routes/database');
 
-const { setExtras, setEntityModel } = require('../handlers/middlewares');
+const { setEntityModel } = require('../handlers/middlewares');
 
 router
   .route('/')
-  .get(setExtras, setEntityModel, findAndSortAllByCreated)
-  .post(setExtras, setEntityModel, create);
+  .get(setEntityModel, findAndSortAllByCreated)
+  .post(setEntityModel, create);
 
 router
   .route('/:id')
-  .get(setExtras, setEntityModel, findById)
-  .put(setExtras, setEntityModel, updateById)
-  .delete(setExtras, setEntityModel, deleteById);
+  .get(setEntityModel, findById)
+  .put(setEntityModel, updateById)
+  .delete(setEntityModel, deleteById);
 
 module.exports = router;
