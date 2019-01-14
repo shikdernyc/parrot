@@ -1,56 +1,33 @@
 const router = require('express').Router({ mergeParams: true });
-const { Domain } = require('../models');
+const {
+  create,
+  findById,
+  findAndSortAllByCreated,
+  updateById,
+  deleteById,
+  find
+} = require('../handlers/routes/database');
 
-router.route('/')
-  .post((req, res) => {
-    Domain({
-      agent_id: req.body.agent_id,
-      domainName: req.body.domainName,
-      enabled: req.body.enabled,
-      intentThreshold: req.body.intentThreshold,
-      status: req.body.status,
-      lastTraining: req.body.lastTraining,
-      model: req.body.model,
-      extraTrainingData: req.body.extraTrainingData,
-      createTimestamp: Date.now()
-    }).save(function (err, data) {
-      if (err) throw err;
-      // console.log(data);
-      res.status(201);
-      res.send(data);
-    });
-  })
-  .get((req, res) => {
-    Domain.find({ agent_id: req.params.agent_id }).sort('-createTimestamp').exec(function (err, domains) {
-      if (err) throw err;
-      res.send(domains);
-    });
-  });
+const { setDomainModel, setIntentModel } = require('../handlers/middlewares');
 
-router.route('/:domain_id')
-  .get((req, res) => {
-    Domain.findById(req.params.domain_id, function (err, domain) {
-      if (err) throw err;
-      res.send(domain);
-    });
-  })
-  .put((req, res) => {
-    Domain.findById(req.params.domain_id, function (err, domain) {
-      if (err) throw err;
-      // update domain
-      domain.save(function (err, data) {
-        if (err) throw err;
-        res.send(domain);
-      });
-    });
-  })
-  .delete((req, res) => {
-    // console.log(req.params.post_id);
-    Domain.deleteOne({ _id: req.params.domain_id }, function (err) {
-      if (err) throw err;
-      res.sendStatus(204);
-    });
-    // res.send(req.body);
-  });
+router
+  .route('/')
+  .post(setDomainModel, create)
+  .get(setDomainModel, findAndSortAllByCreated);
+
+router.route('/:id/intents').get(
+  setIntentModel,
+  (req, res, next) => {
+    req.extras.findParams = { domain_id: req.params.id };
+    next();
+  },
+  find
+);
+
+router
+  .route('/:id')
+  .get(setDomainModel, findById)
+  .put(setDomainModel, updateById)
+  .delete(setDomainModel, deleteById);
 
 module.exports = router;

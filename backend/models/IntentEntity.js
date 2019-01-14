@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const IntentEntitySchema = new mongoose.Schema({
   end: Number,
@@ -17,6 +17,4 @@ const IntentEntitySchema = new mongoose.Schema({
   }
 });
 
-const IntentEntity = mongoose.model('IntentEntity', IntentEntitySchema);
-
-module.exports = IntentEntity;
+module.exports = { IntentEntitySchema };

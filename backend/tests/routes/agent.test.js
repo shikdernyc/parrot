@@ -1,5 +1,5 @@
 /* global app, expect */
-const Agent = require('../../models/Agent');
+const Agent = require('../../models/Agent').Agent;
 
 const agt1 = {
   agentName: 'agent_1',
@@ -27,17 +27,21 @@ describe('Test agent route', () => {
     expect(cnt).to.equal(0);
   });
 
-  it('create agents', (done) => {
-    app.post('/agents')
+  it('create agents', done => {
+    app
+      .post('/agents')
       .set('Accept', 'application/json')
       .send(agt1)
       .expect(201)
       .end(function (err, res) {
         if (err) throw err;
-        expect(res.body).excluding(exclude).to.deep.equal(agt1);
+        expect(res.body)
+          .excluding(exclude)
+          .to.deep.equal(agt1);
         agr1Id = res.body._id;
       });
-    app.post('/agents')
+    app
+      .post('/agents')
       .set('Accept', 'application/json')
       .send(agt2)
       .expect(201)
@@ -48,13 +52,18 @@ describe('Test agent route', () => {
       });
   });
 
-  it('retrieve agents', (done) => {
-    app.get('/agents')
+  it('retrieve agents', done => {
+    app
+      .get('/agents')
       .expect(200)
       .end(function (err, res) {
         if (err) throw err;
-        expect(res.body[0]).excluding(exclude).to.deep.equal(agt2);
-        expect(res.body[1]).excluding(exclude).to.deep.equal(agt1);
+        expect(res.body[0])
+          .excluding(exclude)
+          .to.deep.equal(agt2);
+        expect(res.body[1])
+          .excluding(exclude)
+          .to.deep.equal(agt1);
         done();
       });
   });
@@ -70,13 +79,15 @@ describe('Test agent route', () => {
   //     });
   // });
 
-  it('delete agents', (done) => {
-    app.delete('/agents/' + agr1Id)
+  it('delete agents', done => {
+    app
+      .delete('/agents/' + agr1Id)
       .expect(204)
       .end(function (err, res) {
         if (err) throw err;
       });
-    app.delete('/agents/' + agr2Id)
+    app
+      .delete('/agents/' + agr2Id)
       .expect(204)
       .end(function (err, res) {
         if (err) throw err;

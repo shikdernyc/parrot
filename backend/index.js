@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const errorHandler = require('./handlers/error');
 const routes = require('./routes');
+const { setExtras } = require('./handlers/middlewares');
 
 if (process.env.NODE_ENV !== 'test') {
   const { db } = require('./models');
@@ -15,10 +16,14 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 
 // body parser
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
 app.use(bodyParser.json());
+
+app.use(setExtras);
 
 app.use(routes);
 

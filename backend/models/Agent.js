@@ -27,4 +27,4 @@ const AgentSchema = new mongoose.Schema(
 
 const Agent = mongoose.model('Agent', AgentSchema);
 
-module.exports = Agent;
+module.exports = { Agent };
