@@ -19,8 +19,8 @@ if (process.env.MODE !== 'testing') {
 
 module.exports = {
   db: mongoose.connection,
-  Agent: require('./Agent'),
-  Intent: require('./Intent'),
-  Domain: require('./Domain'),
-  Entity: require('./Entity')
+  Agent: require('./Agent').Agent,
+  Intent: require('./Intent').Intent,
+  Domain: require('./Domain').Domain,
+  Entity: require('./Entity').Entity
 };
