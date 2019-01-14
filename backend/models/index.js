@@ -6,13 +6,16 @@ require('dotenv').config({ path: `${envPath}/.env` });
 const mongoose = require('mongoose');
 mongoose.set('debug', process.env.DEBUG || true);
 mongoose.Promise = Promise;
-mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost/parrot',
-  {
-    keepAlive: true,
-    useNewUrlParser: true
-  }
-);
+
+if (process.env.MODE !== 'testing') {
+  mongoose.connect(
+    process.env.MONGODB_URI || 'mongodb://localhost/parrot',
+    {
+      keepAlive: true,
+      useNewUrlParser: true
+    }
+  );
+}
 
 module.exports = {
   db: mongoose.connection,
