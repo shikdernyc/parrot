@@ -20,13 +20,12 @@ before((done) => {
   mongoServer = new MongoMemoryServer({ debug: false });
   mongoServer.getConnectionString().then((mongoUri) => {
     return mongoose.connect(mongoUri, opts, (err) => {
-      if (err) done(err);
+      if (err) throw err;
     });
   }).then(() => done());
 });
 
 after((done) => {
-  console.log('after');
   mongoose.disconnect();
   mongoServer.stop();
   server.close();

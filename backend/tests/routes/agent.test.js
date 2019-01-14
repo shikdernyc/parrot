@@ -6,15 +6,7 @@ const agt1 = {
   description: 'agent_1',
   language: 'EN',
   timezone: '12',
-  useWebhook: false,
-  usePostFormat: false,
-  domainClassifierThreshold: 5,
-  fallbackResponses: ['hello', 'hi'],
-  status: 'test',
-  lastTraining: Date.now(),
-  extraTrainingData: false,
-  enableModelsPerDomain: true,
-  model: 'test'
+  fallbackResponses: ['hello', 'hi']
 };
 
 const agt2 = {
@@ -22,18 +14,10 @@ const agt2 = {
   description: 'agent_2',
   language: 'EN',
   timezone: '12',
-  useWebhook: false,
-  usePostFormat: false,
-  domainClassifierThreshold: 5,
-  fallbackResponses: ['hello', 'hi'],
-  status: 'test',
-  lastTraining: Date.now(),
-  extraTrainingData: false,
-  enableModelsPerDomain: true,
-  model: 'test'
+  fallbackResponses: ['hello', 'hi', 'whatup']
 };
 
-const exclude = ['_id', '__v', 'createTimestamp', 'lastTraining'];
+const exclude = ['_id', '__v', 'created_at', 'updated_at'];
 
 describe('Test agent route', () => {
   let agr1Id;
