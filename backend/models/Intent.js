@@ -4,11 +4,11 @@ const { ExampleIntentSchema } = require('./ExampleIntent');
 const IntentSchema = new mongoose.Schema(
   {
     agentID: {
-      type: String,
+      type: Number,
       trim: true
     },
     domainID: {
-      type: String,
+      type: Number,
       trim: true
     },
     intentName: {

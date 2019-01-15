@@ -1,17 +1,13 @@
-const mongoose = require("mongoose");
-const { ExampleEntitySchema } = require("./ExampleEntity");
+const mongoose = require('mongoose');
+const { ExampleEntitySchema } = require('./ExampleEntity');
 
 const EntitySchema = new mongoose.Schema(
   {
     agentID: {
-      type: String,
+      type: Number,
       trim: true
     },
     entityName: {
-      type: String,
-      trim: true
-    },
-    uiColor: {
       type: String,
       trim: true
     },
@@ -26,10 +22,10 @@ const EntitySchema = new mongoose.Schema(
     }
   },
   {
-    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
   }
 );
 
-const Entity = mongoose.model("Entity", EntitySchema);
+const Entity = mongoose.model('Entity', EntitySchema);
 
 module.exports = { Entity };
