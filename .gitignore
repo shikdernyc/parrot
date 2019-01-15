@@ -1,1 +1,7 @@
 .DS_Store
+
+.backend_env
+.mongodb_password
+.mongodb_username
+.mongodb_root_password
+.mongodb_root_username

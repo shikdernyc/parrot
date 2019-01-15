@@ -1,6 +1,6 @@
 {
   "name": "backend",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "engines": {
     "node": ">=11.0.0"
@@ -8,10 +8,11 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --opts ./tests/mocha.opts ./tests/**/*.test.js",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "start_prod": "node -r dotenv/config index.js dotenv_config_path=/run/secrets/backend_env"
   },
   "author": "gammalab",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
