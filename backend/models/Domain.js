@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const DomainSchema = new mongoose.Schema(
   {
-    agent_id: {
+    agentID: {
       type: String,
       trim: true
     },

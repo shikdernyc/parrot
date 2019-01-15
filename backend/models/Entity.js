@@ -3,7 +3,7 @@ const { ExampleEntitySchema } = require("./ExampleEntity");
 
 const EntitySchema = new mongoose.Schema(
   {
-    agent_id: {
+    agentID: {
       type: String,
       trim: true
     },
