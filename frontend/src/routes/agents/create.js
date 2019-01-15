@@ -4,6 +4,10 @@ import ListInputWithDelete from 'Components/inputs/ListInputWithDelete';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import { StyledTextField, StyledMenuSelect } from 'Components/inputs/TextField';
 import { StyledFab } from 'Components/buttons';
+import { createAgent as actionCreateAgent } from 'Redux/agents/actions';
+import { agentSchema } from 'Data/models/Schemas';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const languages = [
   {
@@ -35,6 +39,15 @@ class Create extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+  };
+
+  handleCreate = () => {
+    const { createAgent, history } = this.props;
+    const { name, description, language, fallbackResponse } = this.state;
+    createAgent(
+      history,
+      agentSchema(name, description, language, fallbackResponse)
+    );
   };
 
   render () {
@@ -86,10 +99,28 @@ class Create extends Component {
             });
           }}
         />
-        <StyledFab Icon={SaveAlt}>Create Agent</StyledFab>
+        <StyledFab Icon={SaveAlt} onClick={this.handleCreate}>
+          Create Agent
+        </StyledFab>
       </form>
     );
   }
 }
 
-export default Create;
+const mapDispatchToProps = dispatch => {
+  return {
+    createAgent: agentSchema => {
+      dispatch(actionCreateAgent(agentSchema));
+    }
+  };
+};
+
+Create.propTypes = {
+  createAgent: PropTypes.func,
+  history: PropTypes.object
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Create);
