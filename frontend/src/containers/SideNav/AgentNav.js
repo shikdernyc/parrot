@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core';
@@ -9,6 +9,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Queue from '@material-ui/icons/Queue';
 import { connect } from 'react-redux';
+import { setCurrentAgent } from 'Redux/agents/actions';
 
 const styles = theme => ({
   root: {
@@ -37,6 +38,11 @@ class AgentNavs extends Component {
     });
   };
 
+  handleChangeAgent = e => {
+    this.handleChange(e);
+    this.props.setAgent(this.props.history, e.target.value);
+  };
+
   render () {
     const { classes, agents } = this.props;
     return (
@@ -48,7 +54,7 @@ class AgentNavs extends Component {
           label="Agent"
           className={classes.textField}
           value={this.state.agentID}
-          onChange={this.handleChange}
+          onChange={this.handleChangeAgent}
           SelectProps={{
             MenuProps: {
               className: classes.menu
@@ -58,8 +64,8 @@ class AgentNavs extends Component {
           variant="outlined"
         >
           {agents.map(option => (
-            <MenuItem key={option.id} value={option.id}>
-              {option.name}
+            <MenuItem key={option._id} value={option._id}>
+              {option.agentName}
             </MenuItem>
           ))}
         </TextField>
@@ -87,11 +93,24 @@ const mapStateToProps = function (reduxState) {
   };
 };
 
-AgentNavs.propTypes = {
-  classes: PropTypes.object.isRequired,
-  // Injected by the documentation to work in an iframe.
-  // You won't need it on your project.
-  agents: PropTypes.array
+const mapDispatchToProps = function (dispatch) {
+  return {
+    setAgent: function (history, id) {
+      dispatch(setCurrentAgent(history, id));
+    }
+  };
 };
 
-export default connect(mapStateToProps, null)(withStyles(styles, { withTheme: true })(AgentNavs));
+AgentNavs.propTypes = {
+  classes: PropTypes.object.isRequired,
+  agents: PropTypes.array,
+  setAgent: PropTypes.func,
+  history: PropTypes.object
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withStyles(styles, { withTheme: true })(AgentNavs))
+);
