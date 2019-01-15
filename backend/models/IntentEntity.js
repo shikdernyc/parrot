@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const IntentEntitySchema = new mongoose.Schema({
   end: Number,
@@ -10,7 +10,7 @@ const IntentEntitySchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  entityId: Number,
+  entityID: Number,
   extractor: {
     type: String,
     trim: true

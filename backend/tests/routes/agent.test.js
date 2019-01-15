@@ -5,7 +5,6 @@ const agt1 = {
   agentName: 'agent_1',
   description: 'agent_1',
   language: 'EN',
-  timezone: '12',
   fallbackResponses: ['hello', 'hi']
 };
 
@@ -13,7 +12,6 @@ const agt2 = {
   agentName: 'agent_2',
   description: 'agent_2',
   language: 'EN',
-  timezone: '12',
   fallbackResponses: ['hello', 'hi', 'whatup']
 };
 
