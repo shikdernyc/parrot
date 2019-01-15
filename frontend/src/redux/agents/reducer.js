@@ -1,21 +1,31 @@
-const createAgent = function (id, name, description) {
-  return {
-    id,
-    name,
-    description
-  };
-};
+import {
+  UPDATE_AGENT_LIST,
+  UPDATE_CURRENT_AGENT,
+  ADD_TO_AGENT_LIST
+} from 'Constants/actionTypes.js';
 
 const initialState = {
-  agentList: [
-    createAgent(0, 'Lily', 'Lorem Ipsum'),
-    createAgent(1, 'Lucy', 'Lorem Ipsum'),
-    createAgent(2, 'Leslie', 'Lorem Ipsum')
-  ]
+  currentAgent: {},
+  agentList: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case UPDATE_AGENT_LIST:
+      return {
+        ...state,
+        agentList: action.updatedList
+      };
+    case ADD_TO_AGENT_LIST:
+      return {
+        ...state,
+        agentList: [...state.agentList, action.newAget]
+      };
+    case UPDATE_CURRENT_AGENT:
+      return {
+        ...state,
+        currentAgent: action.agent
+      };
     default:
       return state;
   }
