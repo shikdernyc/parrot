@@ -4,14 +4,6 @@ const errorHandler = require('./handlers/error');
 const routes = require('./routes');
 const { setExtras } = require('./handlers/middlewares');
 
-if (process.env.NODE_ENV !== 'test') {
-  const { db } = require('./models');
-  db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function () {
-    console.log('db connected');
-  });
-}
-
 const PORT = process.env.PORT || 8000;
 const app = express();
 
