@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 mongoose.set('debug', process.env.DEBUG || true);
 mongoose.Promise = Promise;
 
-if (process.env.MODE !== 'testing') {
+if (process.env.NODE_ENV !== 'test') {
   mongoose.connect(
     process.env.MONGODB_URI || 'mongodb://localhost/parrot',
     {
