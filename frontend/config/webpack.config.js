@@ -268,6 +268,7 @@ module.exports = function (webpackEnv) {
         Components: path.resolve(__dirname, '../src/components/'),
         Containers: path.resolve(__dirname, '../src/containers/'),
         Constants: path.resolve(__dirname, '../src/constants/'),
+        Data: path.resolve(__dirname, '../src/data/'),
         Redux: path.resolve(__dirname, '../src/redux/'),
         Routes: path.resolve(__dirname, '../src/routes/'),
         Services: path.resolve(__dirname, '../src/services/')
