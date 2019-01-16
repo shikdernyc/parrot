@@ -1,13 +1,12 @@
 version: "3.5"
 services:
-  # frontend:
-  #   build: ./frontend
-  #   command: python app.py
-  #   ports:
-  #     - target: 3000
-  #       published: 3000
-  #   networks:
-  #     - counter-net
+  frontend:
+    build: ./frontend
+    ports:
+      - target: 5000
+        published: 5000
+    networks:
+      - counter-net
   backend:
     build: ./backend
     ports:
@@ -16,8 +15,6 @@ services:
       - mongodb
     networks:
       counter-net:
-    links:
-      - mongodb
     secrets:
       - backend_env
   mongodb:
