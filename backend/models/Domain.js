@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const DomainSchema = new mongoose.Schema(
   {
-    agent_id: {
+    agentID: {
       type: String,
       trim: true
     },
@@ -10,15 +10,13 @@ const DomainSchema = new mongoose.Schema(
       type: String,
       trim: true
     },
-    enabled: Boolean,
-    intentThreshold: Number,
-    createTimestamp: Date
+    intentThreshold: Number
   },
   {
-    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
   }
 );
 
-const Domain = mongoose.model("Domain", DomainSchema);
+const Domain = mongoose.model('Domain', DomainSchema);
 
 module.exports = { Domain };

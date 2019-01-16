@@ -14,10 +14,7 @@ const AgentSchema = new mongoose.Schema(
       type: String,
       trim: true
     },
-    timezone: {
-      type: String,
-      trim: true
-    },
+    // TODO: Refactor to it's own schema
     fallbackResponses: [{ type: String, trim: true }]
   },
   {
