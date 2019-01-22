@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -53,7 +53,7 @@ class SideNav extends React.Component {
   };
 
   render () {
-    const { classes, theme } = this.props;
+    const { classes, theme, currentAgentId } = this.props;
 
     const drawer = (
       <div>
@@ -62,9 +62,13 @@ class SideNav extends React.Component {
         {/* </div> */}
         <Divider />
         <List>
-          <AgentNav />
-          <Divider />
-          <ListNavs />
+          <AgentNav currentAgentId={currentAgentId} />
+          {currentAgentId && (
+            <Fragment>
+              <Divider />
+              <ListNavs currentAgentId={currentAgentId}/>
+            </Fragment>
+          )}
         </List>
         <Divider />
       </div>
@@ -107,7 +111,8 @@ class SideNav extends React.Component {
 
 const mapStateToProps = reduxState => {
   return {
-    isOpen: reduxState.navs.sideBarIsOpen
+    isOpen: reduxState.navs.sideBarIsOpen,
+    currentAgentId: reduxState.agents.currentAgent._id
   };
 };
 
@@ -124,7 +129,8 @@ SideNav.propTypes = {
   container: PropTypes.object,
   theme: PropTypes.object.isRequired,
   isOpen: PropTypes.bool,
-  setIsOpen: PropTypes.func.isRequired
+  setIsOpen: PropTypes.func.isRequired,
+  currentAgentId: PropTypes.string
 };
 
 export default connect(
