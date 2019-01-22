@@ -6,12 +6,13 @@ import {
   GET_ALL_AGENTS,
   SET_CURRENT_AGENT
 } from 'Constants/actionTypes.js';
-import { updateAgentList, addToAgentList, updateCurrentAgent } from './actions';
+import { updateAgentList, updateCurrentAgent } from './actions';
 
 function * handleCreateAgent ({ agentSchema, history }) {
   try {
     const agent = yield call(create, AGENT_ROUTE, agentSchema);
-    yield put(addToAgentList(agent));
+    history.push('/domains');
+    // TODO: push to agent's route
   } catch (error) {
     console.log(error);
     throw error;
