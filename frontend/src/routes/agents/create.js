@@ -42,12 +42,10 @@ class Create extends Component {
   };
 
   handleCreate = () => {
-    const { createAgent, history } = this.props;
+    const { history, createAgent } = this.props;
     const { name, description, language, fallbackResponse } = this.state;
-    createAgent(
-      history,
-      agentSchema(name, description, language, fallbackResponse)
-    );
+    const agent = agentSchema(name, description, language, fallbackResponse);
+    createAgent(history, agent);
   };
 
   render () {
@@ -109,8 +107,8 @@ class Create extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createAgent: agentSchema => {
-      dispatch(actionCreateAgent(agentSchema));
+    createAgent: (history, agentSchema) => {
+      dispatch(actionCreateAgent(history, agentSchema));
     }
   };
 };
