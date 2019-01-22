@@ -61,7 +61,7 @@ const mapDispatchToProps = function (dispatch) {
   return {
     setNavButton: function (
       buttonText = 'Create Intent',
-      buttonLink = '/intents/create'
+      buttonLink = 'intents/create'
     ) {
       dispatch(
         setTopNavProps({
