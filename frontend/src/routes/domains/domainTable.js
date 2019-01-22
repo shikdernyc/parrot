@@ -21,6 +21,7 @@ class DomainTable extends Component {
       ...item,
       enabled: item.enabled ? 'Yes' : 'No'
     }));
+    console.log(this.props.match);
     return (
       <Fragment>
         <Paper className={classes.root}>
@@ -65,7 +66,7 @@ const mapDispatchToProps = function (dispatch) {
   return {
     setNavButton: function (
       buttonText = 'Create Domain',
-      buttonLink = '/domains/create'
+      buttonLink = 'domains/create'
     ) {
       dispatch(
         setTopNavProps({
@@ -89,7 +90,10 @@ DomainTable.propTypes = {
   classes: PropTypes.object.isRequired,
   rows: PropTypes.array,
   setNavButton: PropTypes.func,
-  history: PropTypes.object
+  history: PropTypes.object,
+  match: PropTypes.shape({
+    params: PropTypes.object
+  })
 };
 
 export default connect(

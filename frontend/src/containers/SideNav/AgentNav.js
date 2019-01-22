@@ -9,7 +9,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Queue from '@material-ui/icons/Queue';
 import { connect } from 'react-redux';
-import { setCurrentAgent } from 'Redux/agents/actions';
+import {
+  setCurrentAgent,
+  setCurrentAgent as actionSetCurrentAgent
+} from 'Redux/agents/actions';
 
 const styles = theme => ({
   root: {
@@ -28,23 +31,16 @@ const styles = theme => ({
 });
 
 class AgentNavs extends Component {
-  state = {
-    agentID: 0
-  };
-
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: [e.target.value]
-    });
-  };
-
   handleChangeAgent = e => {
-    this.handleChange(e);
-    this.props.setAgent(this.props.history, e.target.value);
+    const agentID = e.target.value;
+    if (agentID !== -1) {
+      this.props.history.push(`/agent/${agentID}/domains`);
+      this.props.setCurrentAgent(this.props.history, agentID);
+    }
   };
 
   render () {
-    const { classes, agents } = this.props;
+    const { classes, agents, currentAgentId } = this.props;
     return (
       <div className={classes.root}>
         <TextField
@@ -53,16 +49,16 @@ class AgentNavs extends Component {
           name="agentID"
           label="Agent"
           className={classes.textField}
-          value={this.state.agentID}
+          value={currentAgentId || -1}
           onChange={this.handleChangeAgent}
           SelectProps={{
             MenuProps: {
               className: classes.menu
             }
           }}
-          // margin="normal"
           variant="outlined"
         >
+          <MenuItem value={-1}>None</MenuItem>
           {agents.map(option => (
             <MenuItem key={option._id} value={option._id}>
               {option.agentName}
@@ -97,6 +93,9 @@ const mapDispatchToProps = function (dispatch) {
   return {
     setAgent: function (history, id) {
       dispatch(setCurrentAgent(history, id));
+    },
+    setCurrentAgent: (history, id) => {
+      dispatch(actionSetCurrentAgent(history, id));
     }
   };
 };
@@ -105,7 +104,9 @@ AgentNavs.propTypes = {
   classes: PropTypes.object.isRequired,
   agents: PropTypes.array,
   setAgent: PropTypes.func,
-  history: PropTypes.object
+  history: PropTypes.object,
+  currentAgentId: PropTypes.string,
+  setCurrentAgent: PropTypes.func
 };
 
 export default withRouter(
