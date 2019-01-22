@@ -6,8 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { DRAWER_WIDTH } from 'Constants/app';
 import MainApp from 'Routes';
 import withRoot from '../withRoot';
-import { connect } from 'react-redux';
-import { getAllAgents } from 'Redux/agents/actions';
 
 const styles = theme => ({
   content: {
@@ -19,11 +17,6 @@ const styles = theme => ({
 });
 
 class App extends React.Component {
-  componentWillMount () {
-    const { populateAgentList } = this.props;
-    populateAgentList();
-  }
-
   render () {
     const { classes } = this.props;
     return (
@@ -38,20 +31,8 @@ class App extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    populateAgentList: () => {
-      dispatch(getAllAgents());
-    }
-  };
-};
-
 App.propTypes = {
-  classes: PropTypes.object.isRequired,
-  populateAgentList: PropTypes.func
+  classes: PropTypes.object.isRequired
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(withRoot(withStyles(styles)(App)));
+export default withRoot(withStyles(styles)(App));

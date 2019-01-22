@@ -5,8 +5,15 @@ import domains from './domains';
 import intents from './intents';
 import root from './root';
 import agents from './agents';
+import { connect } from 'react-redux';
+import { getAllAgents } from 'Redux/agents/actions';
 
 class MainApp extends Component {
+  componentWillMount () {
+    const { populateAgentList } = this.props;
+    populateAgentList();
+  }
+
   render () {
     // const { match } = this.props;
     return (
@@ -24,10 +31,24 @@ class MainApp extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    populateAgentList: () => {
+      dispatch(getAllAgents());
+    }
+  };
+};
+
 MainApp.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string.isRequired
-  })
+  }),
+  populateAgentList: PropTypes.func
 };
 
-export default withRouter(MainApp);
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(MainApp)
+);
