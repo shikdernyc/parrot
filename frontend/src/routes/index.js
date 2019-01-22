@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
-import domains from './domains';
-import intents from './intents';
 import root from './root';
 import agents from './agents';
 import { connect } from 'react-redux';
 import { getAllAgents } from 'Redux/agents/actions';
+import AgentRouter from './agentRouter';
 
 class MainApp extends Component {
   componentWillMount () {
@@ -15,14 +14,11 @@ class MainApp extends Component {
   }
 
   render () {
-    // const { match } = this.props;
     return (
       <main>
         <Switch>
           <Route path={`/agents`} component={agents} />
-          <Route path={`/domains`} component={domains} />
-          <Route path={`/intents`} component={intents} />
-          <Route path={`/entities`} component={domains} />
+          <Route path={`/agent`} component={AgentRouter} />
           <Route exact path={`/`} component={root} />
           <Redirect to="/error/404" />
         </Switch>
