@@ -10,35 +10,46 @@ const textFieldStyles = theme => ({
   }
 });
 
-export const StyledTextField = withStyles(textFieldStyles, { withTheme: true })(
-  props => {
+class StyledTextFieldComponent extends React.Component {
+  state = {
+    value: ''
+  };
+
+  onChange = (event) => {
+    this.setState({
+      value: event.target.value
+    });
+    this.props.onChange(event);
+  }
+
+  render () {
     const {
       classes,
       children,
       name,
       label,
       placeholder,
-      helperText,
       fullWidth,
       value,
-      onChange,
-      overrides
-    } = props;
+      overrides,
+      required
+    } = this.props;
     const control = value ? { value: value } : {};
     return (
       <TextField
         className={classes.textField}
+        value={this.state.value}
         margin="normal"
         name={name || ''}
         label={label || ''}
         placeholder={placeholder || ''}
-        helperText={helperText || ''}
         fullWidth={fullWidth || false}
-        onChange={onChange || null}
+        onChange={this.onChange}
         variant="outlined"
         InputLabelProps={{
           shrink: true
         }}
+        required={required}
         {...control}
         {...overrides}
       >
@@ -46,17 +57,22 @@ export const StyledTextField = withStyles(textFieldStyles, { withTheme: true })(
       </TextField>
     );
   }
-);
-StyledTextField.propTypes = {
+}
+
+StyledTextFieldComponent.propTypes = {
+  classes: PropTypes.object,
   children: PropTypes.array,
   name: PropTypes.string,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   fullWidth: PropTypes.bool,
+  required: PropTypes.bool,
   value: PropTypes.node,
   onChange: PropTypes.func,
   overrides: PropTypes.object
 };
+
+export const StyledTextField = withStyles(textFieldStyles, { withTheme: true })(StyledTextFieldComponent);
 
 const selectStyles = theme => ({
   menu: {
@@ -64,53 +80,55 @@ const selectStyles = theme => ({
   }
 });
 
-export const StyledMenuSelect = withStyles(selectStyles, { withTheme: true })(
-  props => {
-    const {
-      classes,
-      children,
-      name,
-      label,
-      placeholder,
-      helperText,
-      fullWidth,
-      value,
-      onChange,
-      overrides
-    } = props;
-    const control = value ? { value } : {};
-    return (
-      <StyledTextField
-        name={name || ''}
-        label={label || ''}
-        placeholder={placeholder || ''}
-        helperText={helperText || ''}
-        fullWidth={fullWidth || false}
-        onChange={onChange || null}
-        InputLabelProps={{
-          shrink: true
-        }}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu
-          }
-        }}
-        {...control}
-        overrides={{ select: true, ...overrides }}
-      >
-        {children}
-      </StyledTextField>
-    );
-  }
-);
+const StyledMenuSelectComponent = (props) => {
+  const {
+    classes,
+    children,
+    name,
+    label,
+    placeholder,
+    helperText,
+    fullWidth,
+    value,
+    onChange,
+    overrides
+  } = props;
+  const control = value ? { value } : {};
+  return (
+    <StyledTextField
+      name={name || ''}
+      label={label || ''}
+      placeholder={placeholder || ''}
+      helperText={helperText || ''}
+      fullWidth={fullWidth || false}
+      onChange={onChange || null}
+      InputLabelProps={{
+        shrink: true
+      }}
+      SelectProps={{
+        MenuProps: {
+          className: classes.menu
+        }
+      }}
+      {...control}
+      overrides={{ select: true, ...overrides }}
+    >
+      {children}
+    </StyledTextField>
+  );
+};
 
-StyledMenuSelect.propTypes = {
+StyledMenuSelectComponent.propTypes = {
+  classes: PropTypes.object,
   children: PropTypes.array,
   name: PropTypes.string,
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  helperText: PropTypes.string,
   fullWidth: PropTypes.bool,
   value: PropTypes.node,
   onChange: PropTypes.func,
   overrides: PropTypes.object
 };
+
+export const StyledMenuSelect = withStyles(selectStyles, { withTheme: true })(StyledMenuSelectComponent);

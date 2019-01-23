@@ -41,16 +41,24 @@ class NewAgentForm extends Component {
     });
   };
 
-  handleCreate = () => {
+  handleSubmit = event => {
+    event.preventDefault();
     const { history, createAgent } = this.props;
     const { name, description, language, fallbackResponse } = this.state;
     const agent = agentSchema(name, description, language, fallbackResponse);
     createAgent(history, agent);
   };
 
+  // handleCreate = () => {
+  //   const { history, createAgent } = this.props;
+  //   const { name, description, language, fallbackResponse } = this.state;
+  //   const agent = agentSchema(name, description, language, fallbackResponse);
+  //   createAgent(history, agent);
+  // };
+
   render () {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <StyledTextField
           name="name"
           value={this.state.name}
@@ -76,8 +84,11 @@ class NewAgentForm extends Component {
           helperText="Please select your agent's language"
           onChange={this.handleChange}
         >
-          {languages.map(language => (
-            <MenuItem key={language.value} value={language.value}>
+          {languages.map((language, index) => (
+            <MenuItem
+              key={language.value}
+              value={language.value}
+              selected={index === 0}>
               {language.label}
             </MenuItem>
           ))}
@@ -102,7 +113,7 @@ class NewAgentForm extends Component {
             });
           }}
         />
-        <StyledFab Icon={SaveAlt} onClick={this.handleCreate}>
+        <StyledFab type='submit' Icon={SaveAlt}>
           Create Agent
         </StyledFab>
       </form>
