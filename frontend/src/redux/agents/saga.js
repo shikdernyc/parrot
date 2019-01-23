@@ -4,18 +4,21 @@ import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import {
   CREATE_AGENT,
   GET_ALL_AGENTS,
-  SET_CURRENT_AGENT
+  SET_CURRENT_AGENT,
+  CREATE_AGENT_FAILED,
+  CREATE_AGENT_SUCCEEDED
 } from 'Constants/actionTypes.js';
 import { updateAgentList, updateCurrentAgent } from './actions';
 
 function * handleCreateAgent ({ agentSchema, history }) {
   try {
-    const agent = yield call(create, AGENT_ROUTE, agentSchema);
-    history.push(`/agent/${agent._id}/domains`);
+    const result = yield call(create, AGENT_ROUTE, agentSchema);
+    yield put({ type: CREATE_AGENT_SUCCEEDED, payload: result });
+    history.push(`/agent/${result._id}/domains`);
     // TODO: push to agent's route
   } catch (error) {
-    console.log(error);
-    throw error;
+    console.error(error);
+    yield put({ type: CREATE_AGENT_FAILED, payload: error });
   }
 }
 

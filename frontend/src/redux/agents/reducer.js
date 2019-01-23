@@ -1,7 +1,8 @@
 import {
   UPDATE_AGENT_LIST,
   UPDATE_CURRENT_AGENT,
-  ADD_TO_AGENT_LIST
+  CREATE_AGENT_SUCCEEDED,
+  CREATE_AGENT_FAILED
 } from 'Constants/actionTypes.js';
 
 const initialState = {
@@ -16,10 +17,11 @@ export default (state = initialState, action) => {
         ...state,
         agentList: action.updatedList
       };
-    case ADD_TO_AGENT_LIST:
+    case CREATE_AGENT_SUCCEEDED:
       return {
         ...state,
-        agentList: state.agentList.push(action.newAget)
+        agentList: state.agentList.concat(action.payload),
+        currentAgent: action.payload
       };
     case UPDATE_CURRENT_AGENT:
       return {
