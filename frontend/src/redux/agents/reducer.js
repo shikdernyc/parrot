@@ -28,6 +28,10 @@ export default (state = initialState, action) => {
         ...state,
         currentAgent: action.agent
       };
+    case CREATE_AGENT_FAILED:
+      return {
+        ...state
+      };
     default:
       return state;
   }
