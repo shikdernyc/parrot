@@ -7,7 +7,8 @@ import {
 
 const initialState = {
   currentAgent: {},
-  agentList: []
+  agentList: [],
+  form_error: null
 };
 
 export default (state = initialState, action) => {
@@ -21,7 +22,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         agentList: state.agentList.concat(action.payload),
-        currentAgent: action.payload
+        currentAgent: action.payload,
+        form_error: null
       };
     case UPDATE_CURRENT_AGENT:
       return {
@@ -30,7 +32,8 @@ export default (state = initialState, action) => {
       };
     case CREATE_AGENT_FAILED:
       return {
-        ...state
+        ...state,
+        form_error: action.payload
       };
     default:
       return state;
