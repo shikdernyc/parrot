@@ -11,7 +11,7 @@ import { updateAgentList, updateCurrentAgent } from './actions';
 function * handleCreateAgent ({ agentSchema, history }) {
   try {
     const agent = yield call(create, AGENT_ROUTE, agentSchema);
-    history.push('/domains');
+    history.push(`/agent/${agent._id}/domains`);
     // TODO: push to agent's route
   } catch (error) {
     console.log(error);
