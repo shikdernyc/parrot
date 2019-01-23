@@ -2,7 +2,7 @@ import {
   CREATE_AGENT,
   GET_ALL_AGENTS,
   UPDATE_AGENT_LIST,
-  ADD_TO_AGENT_LIST,
+  // ADD_TO_AGENT_LIST,
   SET_CURRENT_AGENT,
   UPDATE_CURRENT_AGENT
 } from 'Constants/actionTypes.js';
@@ -28,12 +28,12 @@ export function updateAgentList (updatedList) {
   };
 }
 
-export function addToAgentList (newAgent) {
-  return {
-    type: ADD_TO_AGENT_LIST,
-    newAgent
-  };
-}
+// export function addToAgentList (newAgent) {
+//   return {
+//     type: ADD_TO_AGENT_LIST,
+//     newAgent
+//   };
+// }
 
 export function setCurrentAgent (history, id) {
   return {
