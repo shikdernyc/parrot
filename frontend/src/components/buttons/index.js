@@ -13,9 +13,10 @@ const buttonStyles = theme => ({
 
 export const StyledFab = withStyles(buttonStyles, { withTheme: true })(
   props => {
-    const { classes, children, Icon, overrides, onClick } = props;
+    const { classes, type, children, Icon, overrides, onClick } = props;
     return (
       <Fab
+        type={type || 'button'}
         variant="extended"
         size="medium"
         className={classes.button}
