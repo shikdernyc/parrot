@@ -76,8 +76,11 @@ class NewAgentForm extends Component {
           helperText="Please select your agent's language"
           onChange={this.handleChange}
         >
-          {languages.map(language => (
-            <MenuItem key={language.value} value={language.value}>
+          {languages.map((language, index) => (
+            <MenuItem
+              key={language.value}
+              value={language.value}
+              selected={index === 0}>
               {language.label}
             </MenuItem>
           ))}
