@@ -43,6 +43,7 @@ class ListInput extends Component {
 
   handleKeyPress = e => {
     if (e.key === 'Enter') {
+      event.preventDefault();
       this.props.onNewItem(this.state.newItem);
       this.setState({
         newItem: ''
