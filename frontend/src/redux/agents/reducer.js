@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
     case ADD_TO_AGENT_LIST:
       return {
         ...state,
-        agentList: [...state.agentList, action.newAget]
+        agentList: state.agentList.push(action.newAget)
       };
     case UPDATE_CURRENT_AGENT:
       return {

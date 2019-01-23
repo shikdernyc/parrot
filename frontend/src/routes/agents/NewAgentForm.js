@@ -13,18 +13,18 @@ const languages = [
   {
     value: 'english',
     label: 'English'
-  },
-  {
-    value: 'cantonese',
-    label: 'Cantonese'
-  },
-  {
-    value: 'french',
-    label: 'French'
   }
+  // {
+  //   value: 'cantonese',
+  //   label: 'Cantonese'
+  // },
+  // {
+  //   value: 'french',
+  //   label: 'French'
+  // }
 ];
 
-class Create extends Component {
+class NewAgentForm extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -57,6 +57,7 @@ class Create extends Component {
           label="Agent Name"
           placeholder="Type your agent's name"
           fullWidth
+          required
           onChange={this.handleChange}
         />
         <StyledTextField
@@ -65,6 +66,7 @@ class Create extends Component {
           label="Agent Description"
           placeholder="What does your agent do?"
           fullWidth
+          required
           onChange={this.handleChange}
         />
         <StyledMenuSelect
@@ -83,11 +85,14 @@ class Create extends Component {
         <ListInputWithDelete
           value={this.state.fallbackResponse}
           label="Fallback Response"
-          placeholder="Example: Sorry, I didn't get that "
+          placeholder="Example: Sorry, I didn't get that."
           onNewItem={item => {
-            this.setState({
-              fallbackResponse: [item, ...this.state.fallbackResponse]
-            });
+            if (!this.state.fallbackResponse.includes(item)) {
+              // create a new array with the new item at beginning of it.
+              this.setState({
+                fallbackResponse: [item].concat(this.state.fallbackResponse)
+              });
+            }
           }}
           onDeleteItem={item => {
             let newArr = [...this.state.fallbackResponse];
@@ -113,7 +118,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-Create.propTypes = {
+NewAgentForm.propTypes = {
   createAgent: PropTypes.func,
   history: PropTypes.object
 };
@@ -121,4 +126,4 @@ Create.propTypes = {
 export default connect(
   null,
   mapDispatchToProps
-)(Create);
+)(NewAgentForm);
