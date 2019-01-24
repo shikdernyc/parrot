@@ -8,7 +8,7 @@ import { getAllAgents } from 'Redux/agents/actions';
 import AgentRouter from './agentRouter';
 
 class MainApp extends Component {
-  componentWillMount () {
+  componentDidMount () {
     const { populateAgentList } = this.props;
     populateAgentList();
   }
