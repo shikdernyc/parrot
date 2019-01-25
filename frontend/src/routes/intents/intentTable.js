@@ -16,13 +16,13 @@ class IntentTable extends Component {
   }
 
   render () {
-    let { classes, rows } = this.props;
+    const { classes, intentList } = this.props;
     return (
       <Fragment>
         <Paper className={classes.root}>
           <AutosizerTable
-            rowCount={rows.length}
-            rowGetter={({ index }) => rows[index]}
+            rowCount={intentList.length}
+            rowGetter={({ index }) => intentList[index]}
             onRowClick={event => {
               this.props.history.push(`/intents/${event.rowData.id}`);
             }}
@@ -31,12 +31,12 @@ class IntentTable extends Component {
                 width: 250,
                 flexGrow: 1.0,
                 label: 'Intent Name',
-                dataKey: 'name'
+                dataKey: 'intentName'
               },
               {
                 width: 250,
                 label: 'Domain',
-                dataKey: 'domain'
+                dataKey: 'domainID'
               },
               {
                 width: 250,
@@ -53,7 +53,14 @@ class IntentTable extends Component {
 
 const mapStateToProps = function (reduxState) {
   return {
-    rows: reduxState.intents.intentList
+    intentList: reduxState.intents.intentList.map(
+      ({ intentName, domainID, userSays }) => ({
+        intentName,
+        domainID,
+        examples: userSays.length
+      })
+    ),
+    domainList: reduxState.domains.domainList
   };
 };
 
@@ -83,7 +90,7 @@ const styles = theme => ({
 
 IntentTable.propTypes = {
   classes: PropTypes.object.isRequired,
-  rows: PropTypes.array,
+  intentList: PropTypes.array,
   setNavButton: PropTypes.func,
   history: PropTypes.object
 };

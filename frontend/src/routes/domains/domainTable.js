@@ -40,16 +40,6 @@ class DomainTable extends Component {
                 flexGrow: 1.0,
                 label: 'Domain Name',
                 dataKey: 'domainName'
-              },
-              {
-                width: 250,
-                label: 'Enabled',
-                dataKey: 'enabled'
-              },
-              {
-                width: 250,
-                label: 'Intent Threshold',
-                dataKey: 'threshold'
               }
             ]}
           />
