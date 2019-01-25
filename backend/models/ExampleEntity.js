@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { synonymSchema } = require("./synonym");
+const mongoose = require('mongoose');
+const { SynonymSchema } = require('./Synonym');
 
 const ExampleEntitySchema = new mongoose.Schema(
   {
@@ -7,10 +7,10 @@ const ExampleEntitySchema = new mongoose.Schema(
       type: String,
       trim: true
     },
-    synonyms: [synonymSchema]
+    synonyms: [SynonymSchema]
   },
   {
-    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
   }
 );
 

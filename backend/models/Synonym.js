@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const synonymSchema = new mongoose.Schema({
+const SynonymSchema = new mongoose.Schema({
   synonym: {
     type: String,
     trim: true
   }
 });
 
-module.exports = { synonymSchema };
+module.exports = { SynonymSchema };
