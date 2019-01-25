@@ -16,18 +16,21 @@ class DomainTable extends Component {
   }
 
   render () {
-    let { classes, rows } = this.props;
-    rows = rows.map(item => ({
-      ...item,
-      enabled: item.enabled ? 'Yes' : 'No'
-    }));
-    console.log(this.props.match);
+    const { classes, domainList } = this.props;
+    const domains =
+      domainList.length > 0
+        ? domainList.map(item => ({
+          ...item,
+          enabled: item.enabled ? 'Yes' : 'No'
+        }))
+        : [];
+
     return (
       <Fragment>
         <Paper className={classes.root}>
           <AutosizerTable
-            rowCount={rows.length}
-            rowGetter={({ index }) => rows[index]}
+            rowCount={domains.length}
+            rowGetter={({ index }) => domains[index]}
             onRowClick={event => {
               this.props.history.push(`/domains/${event.rowData.id}`);
             }}
@@ -58,7 +61,7 @@ class DomainTable extends Component {
 
 const mapStateToProps = function (reduxState) {
   return {
-    rows: reduxState.domains.domainList
+    domainList: reduxState.domains.domainList
   };
 };
 
@@ -88,7 +91,7 @@ const domainTableStyles = theme => ({
 
 DomainTable.propTypes = {
   classes: PropTypes.object.isRequired,
-  rows: PropTypes.array,
+  domainList: PropTypes.array,
   setNavButton: PropTypes.func,
   history: PropTypes.object,
   match: PropTypes.shape({
