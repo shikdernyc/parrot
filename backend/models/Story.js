@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // const { ExampleIntentSchema } = require('./ExampleIntent');
 
-const intentSchema = new Schema(
+const storySchema = new Schema(
   {
     agentID: {
       type: String,
@@ -12,18 +12,23 @@ const intentSchema = new Schema(
     //   type: String,
     //   trim: true
     // },
-    intentName: {
+    storyName: {
       type: String,
       trim: true
     },
-    userSays: [String]
-    // agentResponses: [String]
+    // userSays: [String]
+    events: [
+      {
+        intent: { type: Schema.Types.ObjectId, ref: 'Intent' },
+        actions: [{ type: Schema.Types.ObjectId, ref: 'Action' }]
+      }
+    ]
   },
   {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
   }
 );
 
-const Intent = mongoose.model('Intent', intentSchema);
+const Action = mongoose.model('Action', actionSchema);
 
-module.exports = { Intent };
+module.exports = { Action };

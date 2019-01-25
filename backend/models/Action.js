@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // const { ExampleIntentSchema } = require('./ExampleIntent');
 
-const intentSchema = new Schema(
+const actionSchema = new Schema(
   {
     agentID: {
       type: String,
@@ -12,18 +12,18 @@ const intentSchema = new Schema(
     //   type: String,
     //   trim: true
     // },
-    intentName: {
+    actionName: {
       type: String,
       trim: true
     },
-    userSays: [String]
-    // agentResponses: [String]
+    // userSays: [String]
+    agentResponses: [String]
   },
   {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
   }
 );
 
-const Intent = mongoose.model('Intent', intentSchema);
+const Action = mongoose.model('Action', actionSchema);
 
-module.exports = { Intent };
+module.exports = { Action };

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const AgentSchema = new mongoose.Schema(
+const AgentSchema = new Schema(
   {
     agentName: {
       type: String,
@@ -10,15 +11,10 @@ const AgentSchema = new mongoose.Schema(
       type: String,
       trim: true
     },
-    language: {
-      type: String,
-      trim: true
-    },
-    // TODO: Refactor to it's own schema
-    fallbackResponses: [{ type: String, trim: true }]
+    domains: [{ type: Schema.Types.ObjectId, ref: 'Domain' }]
   },
   {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+    timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
   }
 );
 

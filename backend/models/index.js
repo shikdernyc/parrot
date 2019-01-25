@@ -37,5 +37,7 @@ module.exports = {
   Agent: require('./Agent').Agent,
   Intent: require('./Intent').Intent,
   Domain: require('./Domain').Domain,
-  Entity: require('./Entity').Entity
+  Entity: require('./Entity').Entity,
+  Action: require('./Action').Entity,
+  Story: require('./Story').Entity
 };
