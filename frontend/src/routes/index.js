@@ -18,7 +18,7 @@ class MainApp extends Component {
       <main>
         <Switch>
           <Route path={`/agents`} component={Agent} />
-          <Route path={`/agent`} component={AgentRouter} />
+          <Route path={`/agent/:agentID`} component={AgentRouter} />
           <Route exact path={`/`} component={root} />
           <Redirect to="/error/404" />
         </Switch>

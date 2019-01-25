@@ -8,21 +8,23 @@ import { setCurrentAgent as actionSetCurrentAgent } from 'Redux/agents/actions';
 import { connect } from 'react-redux';
 
 class AgentRouter extends Component {
-  handleSetCurrentAgent (id) {
-    // TODO: Check if current agent is set to id. If not, set it
+  handleSetCurrentAgent (agentID) {
+    if (agentID !== this.props.currentAgentID) {
+      this.props.setCurrentAgent(agentID);
+    }
   }
 
   render () {
     // TODO:
     const { match } = this.props;
-    const { id } = match.params;
-    if (id) this.handleSetCurrentAgent(id);
+    const { agentID } = match.params;
+    if (agentID) this.handleSetCurrentAgent(agentID);
     return (
       <Switch>
-        <Route path={`${match.url}/:agentID/domains`} component={Domains} />
-        <Route path={`${match.url}/:agentID/intents`} component={Intents} />
-        <Route path={`${match.url}/:agentID/entities`} component={Domains} />
-        <Route path={`${match.url}/:agentID/actions`} component={Actions} />
+        <Route path={`${match.url}/domains`} component={Domains} />
+        <Route path={`${match.url}/intents`} component={Intents} />
+        <Route path={`${match.url}/entities`} component={Domains} />
+        <Route path={`${match.url}/actions`} component={Actions} />
         <Redirect to="/error/404" />
       </Switch>
     );
@@ -30,9 +32,13 @@ class AgentRouter extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentAgent: (history, id) => {
-    dispatch(actionSetCurrentAgent(history, id));
+  setCurrentAgent: id => {
+    dispatch(actionSetCurrentAgent(id));
   }
+});
+
+const mapStateToProps = reduxState => ({
+  currentAgentID: reduxState.agents.currentAgent._id
 });
 
 AgentRouter.propTypes = {
@@ -40,12 +46,13 @@ AgentRouter.propTypes = {
     url: PropTypes.string.isRequired
   }),
   history: PropTypes.object,
-  setCurrentAgent: PropTypes.func
+  setCurrentAgent: PropTypes.func,
+  currentAgentID: PropTypes.string
 };
 
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(AgentRouter)
 );

@@ -28,14 +28,7 @@ export function updateAgentList (updatedList) {
   };
 }
 
-// export function addToAgentList (newAgent) {
-//   return {
-//     type: ADD_TO_AGENT_LIST,
-//     newAgent
-//   };
-// }
-
-export function setCurrentAgent (history, id) {
+export function setCurrentAgent (id) {
   return {
     type: SET_CURRENT_AGENT,
     id,
