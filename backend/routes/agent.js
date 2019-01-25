@@ -23,7 +23,7 @@ router
 router.route('/:id/domains').get(
   setDomainModel,
   (req, res, next) => {
-    req.extras.findParams = { agent_id: req.params.id };
+    req.extras.findParams = { agentID: req.params.id };
     next();
   },
   find
@@ -32,7 +32,7 @@ router.route('/:id/domains').get(
 router.route('/:id/entities').get(
   setEntityModel,
   (req, res, next) => {
-    req.extras.findParams = { agent_id: req.params.id };
+    req.extras.findParams = { agentID: req.params.id };
   },
   find
 );
@@ -40,7 +40,7 @@ router.route('/:id/entities').get(
 router.route('/:id/intents').get(
   setIntentModel,
   (req, res, next) => {
-    req.extras.findParams = { agent_id: req.params.id };
+    req.extras.findParams = { agentID: req.params.id };
     next();
   },
   find
