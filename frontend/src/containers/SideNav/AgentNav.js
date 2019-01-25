@@ -34,8 +34,8 @@ class AgentNavs extends Component {
   handleChangeAgent = e => {
     const agentID = e.target.value;
     if (agentID !== -1) {
-      this.props.history.push(`/agent/${agentID}/domains`);
       this.props.setCurrentAgent(this.props.history, agentID);
+      this.props.history.push(`/agent/${agentID}/domains`);
     }
   };
 
