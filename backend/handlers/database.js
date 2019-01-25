@@ -8,7 +8,7 @@ const create = async function (model, schema) {
 
 const find = async function (model, findParams) {
   try {
-    await model.find(findParams);
+    return await model.find(findParams);
   } catch (error) {
     throw error;
   }
