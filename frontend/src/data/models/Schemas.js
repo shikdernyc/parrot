@@ -21,6 +21,24 @@ export function agentSchema (
 
 /**
  *
+ * @param {String} actionName
+ * @param {String} description
+ * @param {[String]} templates
+ */
+export function actionSchema (
+  actionName,
+  description,
+  templates
+) {
+  return {
+    actionName,
+    description,
+    templates
+  };
+}
+
+/**
+ *
  * @param {Number} agentID
  * @param {String} domainName
  * @param {Number} intentThreshold
