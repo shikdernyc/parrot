@@ -1,30 +1,7 @@
-import { ADD_TO_DOMAIN_LIST } from 'Constants/actionTypes';
-
-// TEMP Code
-
-let counter = 0;
-
-function createDomainItem (domainName, enabled, threshold) {
-  return {
-    id: counter++,
-    domainName,
-    enabled,
-    threshold
-  };
-}
-
-function createDomainList () {
-  let domainList = [];
-  for (let i = 0; i < 10; i++) {
-    domainList.push(createDomainItem(`Domain ${i}`, i % 2 === 0, 50));
-  }
-  return domainList;
-}
+import { ADD_TO_DOMAIN_LIST, UPDATE_DOMAIN_LIST } from 'Constants/actionTypes';
 
 const initialState = {
-  domainList: [
-    ...createDomainList()
-  ]
+  domainList: []
 };
 
 export default (state = initialState, action) => {
@@ -34,6 +11,12 @@ export default (state = initialState, action) => {
         ...state,
         domainList: [...state.domainList, action.domain]
       };
+    case UPDATE_DOMAIN_LIST: {
+      return {
+        ...state,
+        domainList: action.payload.newDomainList
+      };
+    }
     default:
       return state;
   }
