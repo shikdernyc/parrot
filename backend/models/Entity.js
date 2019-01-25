@@ -4,7 +4,7 @@ const { ExampleEntitySchema } = require('./ExampleEntity');
 const EntitySchema = new mongoose.Schema(
   {
     agentID: {
-      type: Number,
+      type: String,
       trim: true
     },
     entityName: {

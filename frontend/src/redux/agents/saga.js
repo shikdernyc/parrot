@@ -1,5 +1,4 @@
-import { AGENT_ROUTE } from 'Constants/app.js';
-import { create, getAll, findById } from 'Data/models/ServerModel';
+import { create, getAll, findById } from 'Data/models/Agent';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import {
   CREATE_AGENT,
@@ -9,13 +8,15 @@ import {
   CREATE_AGENT_SUCCEEDED
 } from 'Constants/actionTypes.js';
 import { updateAgentList, updateCurrentAgent } from './actions';
+import { setDomainListAgent } from '../domains/actions';
+import { setIntentListAgent } from '../intents/actions';
 
 function * handleCreateAgent ({ agentSchema, history }) {
   try {
-    const result = yield call(create, AGENT_ROUTE, agentSchema);
+    const result = yield call(create, agentSchema);
     yield put({ type: CREATE_AGENT_SUCCEEDED, payload: result });
-    history.push(`/agent/${result._id}/domains`);
     // TODO: push to agent's route
+    history.push(`/agent/${result._id}/domains`);
   } catch (error) {
     console.error(error);
     yield put({ type: CREATE_AGENT_FAILED, payload: error });
@@ -24,7 +25,7 @@ function * handleCreateAgent ({ agentSchema, history }) {
 
 function * handleGetAllAgents () {
   try {
-    const agents = yield call(getAll, AGENT_ROUTE);
+    const agents = yield call(getAll);
     yield put(updateAgentList(agents));
   } catch (error) {
     console.log(error);
@@ -34,9 +35,10 @@ function * handleGetAllAgents () {
 
 function * handleSetCurrentAgent ({ id }) {
   try {
-    const agent = yield call(findById, AGENT_ROUTE, id);
-    // TODO: Update intent, domain and entity list as well
+    const agent = yield call(findById, id);
     yield put(updateCurrentAgent(agent));
+    yield put(setDomainListAgent(id));
+    yield put(setIntentListAgent(id));
   } catch (error) {}
 }
 
@@ -53,7 +55,6 @@ export function * watchSetCurrentAgent () {
 }
 
 export default function * rootSaga () {
-  console.log('agent sagas');
   yield all([
     fork(watchCreateAgent),
     fork(watchGetAllAgents),
