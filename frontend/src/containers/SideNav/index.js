@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { DRAWER_WIDTH } from 'Constants/app';
 import { setSideBarIsOpen } from 'Redux/navs/action';
 import ListNavs from './ListNavs';
-import AgentNav from './AgentNav';
+import DomainNav from './DomainNav';
 // import Header from './header';
 import logo from 'Assets/images/logo-ny.svg';
 
@@ -62,11 +62,12 @@ class SideNav extends React.Component {
         {/* </div> */}
         <Divider />
         <List>
-          <AgentNav currentAgentId={currentAgentId} />
+          {/* <AgentNav currentAgentId={currentAgentId} /> */}
+          <DomainNav />
           {currentAgentId && (
             <Fragment>
               <Divider />
-              <ListNavs currentAgentId={currentAgentId}/>
+              <ListNavs currentAgentId={currentAgentId} />
             </Fragment>
           )}
         </List>
