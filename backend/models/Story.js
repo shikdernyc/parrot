@@ -2,33 +2,31 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // const { ExampleIntentSchema } = require('./ExampleIntent');
 
+const storyEvent = new Schema({
+  // ENUM: "Intent" || "Action"
+  ref: { type: String, trim: true },
+  id: { type: String, trim: true }
+});
+
 const storySchema = new Schema(
   {
-    agentID: {
+    domainID: {
       type: String,
       trim: true
     },
-    // domainID: {
-    //   type: String,
-    //   trim: true
-    // },
     storyName: {
       type: String,
       trim: true
     },
-    // userSays: [String]
-    events: [
-      {
-        intent: { type: Schema.Types.ObjectId, ref: 'Intent' },
-        actions: [{ type: Schema.Types.ObjectId, ref: 'Action' }]
-      }
-    ]
+    intents: [{ type: Schema.Types.ObjectId, ref: 'Intent' }],
+    actions: [{ type: Schema.Types.ObjectId, ref: 'Action' }],
+    sequence: [storyEvent]
   },
   {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
   }
 );
 
-const Action = mongoose.model('Action', actionSchema);
+const Story = mongoose.model('Story', storySchema);
 
-module.exports = { Action };
+module.exports = { Story };

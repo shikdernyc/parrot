@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const DomainSchema = new Schema(
+const domainSchema = new Schema(
   {
     agentID: {
       type: String,
@@ -21,6 +21,6 @@ const DomainSchema = new Schema(
   }
 );
 
-const Domain = mongoose.model('Domain', DomainSchema);
+const Domain = mongoose.model('Domain', domainSchema);
 
 module.exports = { Domain };

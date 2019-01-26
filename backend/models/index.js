@@ -38,6 +38,6 @@ module.exports = {
   Intent: require('./Intent').Intent,
   Domain: require('./Domain').Domain,
   Entity: require('./Entity').Entity,
-  Action: require('./Action').Entity,
-  Story: require('./Story').Entity
+  Action: require('./Action').Action,
+  Story: require('./Story').Story
 };

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const AgentSchema = new Schema(
+const agentSchema = new Schema(
   {
     agentName: {
       type: String,
@@ -18,6 +18,6 @@ const AgentSchema = new Schema(
   }
 );
 
-const Agent = mongoose.model('Agent', AgentSchema);
+const Agent = mongoose.model('Agent', agentSchema);
 
 module.exports = { Agent };

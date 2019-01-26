@@ -4,14 +4,10 @@ const Schema = mongoose.Schema;
 
 const actionSchema = new Schema(
   {
-    agentID: {
+    domainID: {
       type: String,
       trim: true
     },
-    // domainID: {
-    //   type: String,
-    //   trim: true
-    // },
     actionName: {
       type: String,
       trim: true

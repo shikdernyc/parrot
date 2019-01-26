@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// const { ExampleEntitySchema } = require('./ExampleEntity');
+const { ExampleEntitySchema } = require('./ExampleEntity');
 
 const EntitySchema = new mongoose.Schema(
   {

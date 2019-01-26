@@ -4,14 +4,10 @@ const Schema = mongoose.Schema;
 
 const intentSchema = new Schema(
   {
-    agentID: {
+    domainID: {
       type: String,
       trim: true
     },
-    // domainID: {
-    //   type: String,
-    //   trim: true
-    // },
     intentName: {
       type: String,
       trim: true
