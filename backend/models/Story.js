@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // const { ExampleIntentSchema } = require('./ExampleIntent');
 
-const storyEvent = new Schema({
-  // ENUM: "Intent" || "Action"
-  ref: { type: String, trim: true },
-  id: { type: String, trim: true }
-});
+// const storyEvent = new Schema({
+//   // ENUM: "Intent" || "Action"
+//   ref: { type: String, trim: true },
+//   id: { type: String, trim: true }
+// });
 
 const storySchema = new Schema(
   {
@@ -20,7 +20,8 @@ const storySchema = new Schema(
     },
     intents: [{ type: Schema.Types.ObjectId, ref: 'Intent' }],
     actions: [{ type: Schema.Types.ObjectId, ref: 'Action' }],
-    sequence: [storyEvent]
+    // ENUM: "Intent" | "Action"
+    sequence: [String]
   },
   {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
