@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import root from './root';
-import Agent from './agents';
 import { connect } from 'react-redux';
 import { getAllAgents } from 'Redux/agents/actions';
 import AgentRouter from './agentRouter';
@@ -17,7 +16,6 @@ class MainApp extends Component {
     return (
       <main>
         <Switch>
-          <Route path={`/agents`} component={Agent} />
           <Route path={`/agent/:agentID`} component={AgentRouter} />
           <Route exact path={`/`} component={root} />
           <Redirect to="/error/404" />

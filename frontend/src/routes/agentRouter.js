@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import Domains from './domains';
-import Intents from './intents';
+import DomainRouter from './domainRouter';
 import { setCurrentAgent as actionSetCurrentAgent } from 'Redux/agents/actions';
 import { connect } from 'react-redux';
+
+import Dashboard from './agents/dashboard';
 
 class AgentRouter extends Component {
   handleSetCurrentAgent (agentID) {
@@ -20,9 +22,11 @@ class AgentRouter extends Component {
     if (agentID) this.handleSetCurrentAgent(agentID);
     return (
       <Switch>
-        <Route path={`${match.url}/domains`} component={Domains} />
-        <Route path={`${match.url}/intents`} component={Intents} />
-        <Route path={`${match.url}/entities`} component={Domains} />
+        <Route
+          path={`${match.url}/domain/:domainID`}
+          component={DomainRouter}
+        />
+        <Route exact path={`${match.url}`} component={Dashboard} />
         <Redirect to="/error/404" />
       </Switch>
     );
