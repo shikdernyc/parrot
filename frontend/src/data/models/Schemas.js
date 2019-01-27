@@ -2,75 +2,59 @@
  *
  * @param {String} agentName
  * @param {String} description
- * @param {String} language
- * @param {[String]} fallbackResponses
  */
-export function agentSchema (
-  agentName,
-  description,
-  language,
-  fallbackResponses
-) {
+export function agentSchema (agentName, description) {
   return {
     agentName,
-    description,
-    language,
-    fallbackResponses
+    description
   };
 }
 
 /**
  *
- * @param {Number} agentID
+ * @param {String} agentID
  * @param {String} domainName
- * @param {Number} intentThreshold
  */
-export function domainSchema (agentID, domainName, intentThreshold) {
-  return { agentID, domainName, intentThreshold };
+export function domainSchema (agentID, domainName) {
+  return { agentID, domainName };
 }
 
 /**
  *
- * @param {Number} agentID
- * @param {Number} domainID
- * @param {String} intentName
- * @param {exampleIntentSchema} examples
+ * @param {String} domainID
+ * @param {String} actionName
+ * @param {String} agentResponse
  */
-export function intentSchema (agentID, domainID, intentName, examples) {
+export function actionSchema (domainID, actionName, agentResponse) {
   return {
-    agentID,
+    domainID,
+    actionName,
+    agentResponse
+  };
+}
+
+/**
+ *
+ * @param {String} domainID
+ * @param {String} intentName
+ * @param {[String]} userSays
+ */
+export function intentSchema (domainID, intentName, userSays) {
+  return {
     domainID,
     intentName,
-    examples
+    userSays
   };
 }
 
 /**
  *
- * @param {String} userSays
- * @param {intentEntitySchema} entities
+ * @param {String} domainID
+ * @param {String} storyName
+ * @param {[id]} intents
+ * @param {[id]} actions
+ * @param {[STRING_ENUM(Intent | Action)]} sequences
  */
-export function exampleIntentSchema (userSays, entities = []) {
-  return {
-    userSays,
-    entities
-  };
-}
-
-/**
- *
- * @param {Number} end
- * @param {String} value
- * @param {String} entity
- * @param {Number} entityID
- * @param {String} extractor
- */
-export function intentEntitySchema (end, value, entity, entityID, extractor) {
-  return {
-    end,
-    value,
-    entity,
-    entityID,
-    extractor
-  };
+export function storySchema (domainID, storyName, intents, actions, sequences) {
+  return { domainID, storyName, intents, actions, sequences };
 }
