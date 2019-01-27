@@ -5,6 +5,7 @@ const agt1 = {
   agentName: 'agent_1',
   description: 'agent_1',
   language: 'EN',
+  domains: [],
   fallbackResponses: ['hello', 'hi']
 };
 
@@ -12,10 +13,11 @@ const agt2 = {
   agentName: 'agent_2',
   description: 'agent_2',
   language: 'EN',
+  domains: [],
   fallbackResponses: ['hello', 'hi', 'whatup']
 };
 
-const exclude = ['_id', '__v', 'created_at', 'updated_at'];
+const exclude = ['_id', '__v', 'createdAt', 'updatedAt'];
 
 describe('Test agent route', () => {
   let agr1Id;
@@ -27,7 +29,7 @@ describe('Test agent route', () => {
 
   it('create agents', done => {
     app
-      .post('/agents')
+      .post('/api/agents')
       .set('Accept', 'application/json')
       .send(agt1)
       .expect(201)
@@ -39,7 +41,7 @@ describe('Test agent route', () => {
         agr1Id = res.body._id;
       });
     app
-      .post('/agents')
+      .post('/api/agents')
       .set('Accept', 'application/json')
       .send(agt2)
       .expect(201)
@@ -52,7 +54,7 @@ describe('Test agent route', () => {
 
   it('retrieve agents', done => {
     app
-      .get('/agents')
+      .get('/api/agents')
       .expect(200)
       .end(function (err, res) {
         if (err) throw err;
@@ -79,13 +81,13 @@ describe('Test agent route', () => {
 
   it('delete agents', done => {
     app
-      .delete('/agents/' + agr1Id)
+      .delete('/api/agents/' + agr1Id)
       .expect(204)
       .end(function (err, res) {
         if (err) throw err;
       });
     app
-      .delete('/agents/' + agr2Id)
+      .delete('/api/agents/' + agr2Id)
       .expect(204)
       .end(function (err, res) {
         if (err) throw err;
