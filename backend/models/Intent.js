@@ -1,12 +1,9 @@
 const mongoose = require('mongoose');
-const { ExampleIntentSchema } = require('./ExampleIntent');
+const Schema = mongoose.Schema;
+// const { ExampleIntentSchema } = require('./ExampleIntent');
 
-const intentSchema = new mongoose.Schema(
+const intentSchema = new Schema(
   {
-    agentID: {
-      type: String,
-      trim: true
-    },
     domainID: {
       type: String,
       trim: true
@@ -15,11 +12,11 @@ const intentSchema = new mongoose.Schema(
       type: String,
       trim: true
     },
-    userSays: [String],
-    agentResponses: [String]
+    userSays: [String]
+    // agentResponses: [String]
   },
   {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+    timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
   }
 );
 
