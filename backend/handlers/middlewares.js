@@ -1,4 +1,4 @@
-const { Agent, Domain, Intent, Entity } = require('../models');
+const { Agent, Domain, Intent, Entity, Action } = require('../models');
 
 const setExtras = function (req, res, next) {
   if (!req.hasOwnProperty('extras')) {
@@ -27,10 +27,16 @@ const setEntityModel = function (req, res, next) {
   next();
 };
 
+const setActionModel = function (req, res, next) {
+  req.extras.model = Action;
+  next();
+};
+
 module.exports = {
   setExtras,
   setAgentModel,
   setDomainModel,
   setIntentModel,
-  setEntityModel
+  setEntityModel,
+  setActionModel
 };

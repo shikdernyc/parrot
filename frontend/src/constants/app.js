@@ -11,3 +11,4 @@ export const AGENT_ROUTE = 'agents';
 export const INTENT_ROUTE = 'intents';
 export const DOMAIN_ROUTE = 'domains';
 export const ENTITY_ROUTE = 'entities';
+export const ACTION_ROUTE = 'actions';

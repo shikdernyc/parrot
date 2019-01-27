@@ -5,6 +5,7 @@ import stories from './stories/reducer';
 import intents from './intents/reducer';
 import navs from './navs/reducer';
 import agents from './agents/reducer';
+import actions from './actions/reducer';
 
 const reducers = combineReducers({
   app,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
   domains,
   stories,
   intents,
-  navs
+  navs,
+  actions
 });
 
 export default reducers;
