@@ -9,8 +9,7 @@ import { connect } from 'react-redux';
 import { DRAWER_WIDTH } from 'Constants/app';
 import { setSideBarIsOpen } from 'Redux/navs/action';
 import ListNavs from './ListNavs';
-import AgentNav from './AgentNav';
-// import Header from './header';
+import DomainNav from './DomainNav';
 import logo from 'Assets/images/logo-ny.svg';
 
 const styles = theme => ({
@@ -53,7 +52,7 @@ class SideNav extends React.Component {
   };
 
   render () {
-    const { classes, theme, currentAgentId } = this.props;
+    const { classes, theme, currentAgentId, currentDomainId } = this.props;
 
     const drawer = (
       <div>
@@ -62,11 +61,12 @@ class SideNav extends React.Component {
         {/* </div> */}
         <Divider />
         <List>
-          <AgentNav currentAgentId={currentAgentId} />
+          {/* <AgentNav currentAgentId={currentAgentId} /> */}
+          <DomainNav />
           {currentAgentId && (
             <Fragment>
               <Divider />
-              <ListNavs currentAgentId={currentAgentId}/>
+              <ListNavs currentAgentId={currentAgentId} currentDomainId={currentDomainId} />
             </Fragment>
           )}
         </List>
@@ -112,7 +112,8 @@ class SideNav extends React.Component {
 const mapStateToProps = reduxState => {
   return {
     isOpen: reduxState.navs.sideBarIsOpen,
-    currentAgentId: reduxState.agents.currentAgent._id
+    currentAgentId: reduxState.agents.currentAgent._id,
+    currentDomainId: reduxState.domains.currentDomain ? reduxState.domains.currentDomain._id : undefined
   };
 };
 
@@ -124,13 +125,12 @@ const mapDispatchToProps = dispatch => {
 
 SideNav.propTypes = {
   classes: PropTypes.object.isRequired,
-  // Injected by the documentation to work in an iframe.
-  // You won't need it on your project.
   container: PropTypes.object,
   theme: PropTypes.object.isRequired,
   isOpen: PropTypes.bool,
   setIsOpen: PropTypes.func.isRequired,
-  currentAgentId: PropTypes.string
+  currentAgentId: PropTypes.string,
+  currentDomainId: PropTypes.string
 };
 
 export default connect(

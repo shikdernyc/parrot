@@ -2,13 +2,34 @@ import {
   ADD_TO_DOMAIN_LIST,
   UPDATE_DOMAIN_LIST,
   SET_DOMAIN_LIST_AGENT,
-  CREATE_DOMAIN
+  CREATE_DOMAIN,
+  SET_CURRENT_DOMAIN,
+  UPDATE_CURRENT_DOMAIN
 } from 'Constants/actionTypes';
 
 export function createDomain (domainSchema) {
   return {
     type: CREATE_DOMAIN,
     payload: { domainSchema }
+  };
+}
+
+export function setCurrentDomain (id, history = null) {
+  return {
+    type: SET_CURRENT_DOMAIN,
+    payload: {
+      id,
+      history
+    }
+  };
+}
+
+export function updateCurrentDomain (newDomain) {
+  return {
+    type: UPDATE_CURRENT_DOMAIN,
+    payload: {
+      newDomain
+    }
   };
 }
 

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import BreakCrumbWithButtons from './breadCrumbAndButton';
 import { connect } from 'react-redux';
+import TitleWithAgentMenu from './titleWithAgentMenu';
 
 class TopNav extends Component {
   render () {
     const { navProps } = this.props;
-    return (
-      <BreakCrumbWithButtons {...navProps} />
-    );
+    return <TitleWithAgentMenu {...navProps} />;
   }
 }
 

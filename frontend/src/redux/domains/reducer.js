@@ -1,11 +1,19 @@
-import { ADD_TO_DOMAIN_LIST, UPDATE_DOMAIN_LIST } from 'Constants/actionTypes';
+import {
+  ADD_TO_DOMAIN_LIST,
+  UPDATE_DOMAIN_LIST,
+  UPDATE_CURRENT_DOMAIN
+} from 'Constants/actionTypes';
 
 const initialState = {
+  currentDomain: {},
   domainList: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case UPDATE_CURRENT_DOMAIN: {
+      return { ...state, currentDomain: action.payload.newDomain };
+    }
     case ADD_TO_DOMAIN_LIST:
       return {
         ...state,

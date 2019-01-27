@@ -5,21 +5,22 @@ import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/icons/List';
 import { NavLink } from 'react-router-dom';
 
-function ListNavs ({ currentAgentId }) {
+function ListNavs ({ currentAgentId, currentDomainId }) {
+  const prefix = `/agent/${currentAgentId}/domain/${currentDomainId}`;
   const listNavs = [
     {
-      title: 'Domains',
-      link: `/agent/${currentAgentId}/domains`,
+      title: 'Stories',
+      link: `${prefix}/stories`,
       icon: <List />
     },
     {
       title: 'Intents',
-      link: `/agent/${currentAgentId}/intents`,
+      link: `${prefix}/intents`,
       icon: <List />
     },
     {
-      title: 'Entitys',
-      link: `/agent/${currentAgentId}/entities`,
+      title: 'Actions',
+      link: `${prefix}/actions`,
       icon: <List />
     }
   ];
