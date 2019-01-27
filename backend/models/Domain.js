@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const domainSchema = new Schema(
   {
     agentID: {
-      type: String,
-      trim: true
+      type: Schema.Types.ObjectId,
+      ref: 'Agent'
     },
     domainName: {
       type: String,
