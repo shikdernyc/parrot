@@ -28,7 +28,7 @@ export function updateAgentList (updatedList) {
   };
 }
 
-export function setCurrentAgent (id) {
+export function setCurrentAgent (id, history = null) {
   return {
     type: SET_CURRENT_AGENT,
     id,

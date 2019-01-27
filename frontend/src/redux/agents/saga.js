@@ -9,7 +9,6 @@ import {
 } from 'Constants/actionTypes.js';
 import { updateAgentList, updateCurrentAgent } from './actions';
 import { setDomainListAgent } from '../domains/actions';
-import { setIntentListAgent } from '../intents/actions';
 
 function * handleCreateAgent ({ agentSchema, history }) {
   try {
@@ -33,12 +32,15 @@ function * handleGetAllAgents () {
   }
 }
 
-function * handleSetCurrentAgent ({ id }) {
+function * handleSetCurrentAgent ({ id, history }) {
   try {
     const agent = yield call(findById, id);
     yield put(updateCurrentAgent(agent));
     yield put(setDomainListAgent(id));
-    yield put(setIntentListAgent(id));
+    // yield put(setIntentListAgent(id));
+    if (history) {
+      history.push(`/agent/${id}`);
+    }
   } catch (error) {}
 }
 
