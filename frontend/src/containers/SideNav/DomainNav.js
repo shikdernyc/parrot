@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter, Link } from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core';
@@ -9,10 +9,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Queue from '@material-ui/icons/Queue';
 import { connect } from 'react-redux';
-import {
-  setCurrentAgent,
-  setCurrentAgent as actionSetCurrentAgent
-} from 'Redux/agents/actions';
 
 const styles = theme => ({
   root: {
@@ -29,44 +25,40 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit
   }
 });
-
-class AgentNavs extends Component {
-  handleChangeAgent = e => {
-    const agentID = e.target.value;
-    if (agentID !== -1) {
-      this.props.setCurrentAgent(this.props.history, agentID);
-      this.props.history.push(`/agent/${agentID}/domains`);
-    }
+class DomainNav extends Component {
+  handleSelectDomain = e => {
+    const { history, currentAgentID } = this.props;
+    history.push(`/agent/${currentAgentID}/domain/${e.target.value}`);
   };
 
   render () {
-    const { classes, agents, currentAgentId } = this.props;
+    const { classes, domains, currentDomainID } = this.props;
     return (
       <div className={classes.root}>
         <TextField
           select
           fullWidth
-          name="agentID"
-          label="Agent"
+          name="domainID"
+          label="Domains"
           className={classes.textField}
-          value={currentAgentId || -1}
-          onChange={this.handleChangeAgent}
+          value={currentDomainID || -1}
           SelectProps={{
             MenuProps: {
               className: classes.menu
             }
           }}
+          onChange={this.handleSelectDomain}
           variant="outlined"
         >
           <MenuItem value={-1}>None</MenuItem>
-          {agents.map(option => (
+          {domains.map(option => (
             <MenuItem key={option._id} value={option._id}>
-              {option.agentName}
+              {option.domainName}
             </MenuItem>
           ))}
         </TextField>
         <NavLink
-          to={`/agents/create`}
+          to={`/domains/create`}
           style={{
             textDecoration: 'none'
           }}
@@ -85,33 +77,26 @@ class AgentNavs extends Component {
 
 const mapStateToProps = function (reduxState) {
   return {
-    agents: reduxState.agents.agentList
+    domains: reduxState.domains.domainList,
+    currentDomainID: reduxState.domains.currentDomain
+      ? reduxState.domains.currentDomain._id
+      : undefined,
+    currentAgentID: reduxState.agents.currentAgent._id
   };
 };
 
-const mapDispatchToProps = function (dispatch) {
-  return {
-    setAgent: function (history, id) {
-      dispatch(setCurrentAgent(history, id));
-    },
-    setCurrentAgent: (history, id) => {
-      dispatch(actionSetCurrentAgent(history, id));
-    }
-  };
-};
-
-AgentNavs.propTypes = {
+DomainNav.propTypes = {
   classes: PropTypes.object.isRequired,
-  agents: PropTypes.array,
+  domains: PropTypes.array,
   setAgent: PropTypes.func,
   history: PropTypes.object,
-  currentAgentId: PropTypes.string,
-  setCurrentAgent: PropTypes.func
+  currentDomainID: PropTypes.string,
+  currentAgentID: PropTypes.string
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps
-  )(withStyles(styles, { withTheme: true })(AgentNavs))
+    null
+  )(withStyles(styles, { withTheme: true })(DomainNav))
 );

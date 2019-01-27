@@ -5,6 +5,7 @@ const initialState = {
     buttonLink: '',
     buttonText: ''
   },
+  topNavTitle: 'Example Title',
   sideBarIsOpen: false
 };
 

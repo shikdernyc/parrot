@@ -2,15 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import NewAgentForm from './NewAgentForm';
-import Dashboard from './dashboard';
+import StoryList from './StoryList';
 
 const Agent = ({ match }) => {
   return (
     <Switch>
-      <Route exact path={`${match.url}/create`} component={NewAgentForm} />
-      <Route exact path={`${match.url}/dashboard`} component={NewAgentForm} />
-      <Route exact path={`${match.url}`} component={Dashboard} />
+      <Route exact path={`${match.url}`} component={StoryList} />
       <Redirect to="/error/404" />
     </Switch>
   );
