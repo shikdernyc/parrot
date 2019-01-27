@@ -16,7 +16,7 @@ class StoryListItem extends Component {
     const { story, selected, onClick } = this.props;
     return (
       <ListItem button selected={selected} onClick={onClick}>
-        <ListItemText primary={story} />
+        <ListItemText primary={story.storyName} />
         <ListItemSecondaryAction>
           <IconButton aria-label="Edit">
             <Edit />
