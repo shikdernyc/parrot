@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter, Link } from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core';
@@ -9,7 +9,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Queue from '@material-ui/icons/Queue';
 import { connect } from 'react-redux';
-import { setCurrentDomain as actionSetCurrentDomain } from 'Redux/domains/actions';
 
 const styles = theme => ({
   root: {
@@ -26,13 +25,10 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit
   }
 });
-
 class DomainNav extends Component {
-  handleChangeDomain = e => {
-    const domainID = e.target.value;
-    if (domainID !== -1) {
-      this.props.setCurrentDomain(domainID, this.props.history);
-    }
+  handleSelectDomain = e => {
+    const { history, currentAgentID } = this.props;
+    history.push(`/agent/${currentAgentID}/domain/${e.target.value}`);
   };
 
   render () {
@@ -46,12 +42,12 @@ class DomainNav extends Component {
           label="Domains"
           className={classes.textField}
           value={currentDomainID || -1}
-          onChange={this.handleChangeDomain}
           SelectProps={{
             MenuProps: {
               className: classes.menu
             }
           }}
+          onChange={this.handleSelectDomain}
           variant="outlined"
         >
           <MenuItem value={-1}>None</MenuItem>
@@ -82,15 +78,10 @@ class DomainNav extends Component {
 const mapStateToProps = function (reduxState) {
   return {
     domains: reduxState.domains.domainList,
-    currentDomainID: reduxState.domains.currentDomain._id
-  };
-};
-
-const mapDispatchToProps = function (dispatch) {
-  return {
-    setCurrentDomain: (id, history) => {
-      dispatch(actionSetCurrentDomain(id, history));
-    }
+    currentDomainID: reduxState.domains.currentDomain
+      ? reduxState.domains.currentDomain._id
+      : undefined,
+    currentAgentID: reduxState.agents.currentAgent._id
   };
 };
 
@@ -100,12 +91,12 @@ DomainNav.propTypes = {
   setAgent: PropTypes.func,
   history: PropTypes.object,
   currentDomainID: PropTypes.string,
-  setCurrentDomain: PropTypes.func
+  currentAgentID: PropTypes.string
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps
+    null
   )(withStyles(styles, { withTheme: true })(DomainNav))
 );
