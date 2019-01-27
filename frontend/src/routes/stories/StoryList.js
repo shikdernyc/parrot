@@ -1,21 +1,31 @@
 import React, { Component, Fragment } from 'react';
 import { List, TextField } from '@material-ui/core';
 import StoryListItem from 'Components/list/StoryListItem';
+import { connect } from 'react-redux';
+import { createStory as createStoryAction } from 'Redux/stories/actions';
+import PropTypes from 'prop-types';
+import CreateStory from 'Components/forms/CreateStory';
 
 class StoryList extends Component {
   state = {
-    selectedIndex: 1,
-    newStory: '',
-    storyList: ['Story 1', 'Story 2', 'Story 3', 'Story 4', 'Story 5']
+    errorMessage: '',
+    selectedStoryId: 1,
+    newStory: ''
+  };
+
+  onCreateSuccess = story => {
+    const { history, domainID, agentID } = this.props;
+    history.push(`/agent/${agentID}/domain/${domainID}/stories/${story._id}`);
+  };
+
+  onCreateFail = error => {
+    this.setState({ errorMessage: error.message });
   };
 
   handleNewStoryAdd = e => {
-    console.log(e.key);
     if (e.key === 'Enter' && e.target.value !== '') {
-      this.setState({
-        storyList: [...this.state.storyList, this.state.newStory],
-        newStory: ''
-      });
+      const { create } = this.props;
+      create();
     }
   };
   handleNewStory = e => {
@@ -24,29 +34,30 @@ class StoryList extends Component {
     });
   };
 
-  handleListItemClick = (event, index) => {
-    this.setState({ selectedIndex: index });
+  handleListItemClick = (event, id) => {
+    const { history, domainID, agentID } = this.props;
+    history.push(`/agent/${agentID}/domain/${domainID}/stories/${id}`);
   };
 
   render () {
-    const stories = this.state.storyList.map((story, index) => (
+    const { storyList } = this.props;
+    const stories = storyList.map(story => (
       <StoryListItem
-        key={index}
+        key={story._id}
         story={story}
-        selected={this.state.selectedIndex === index}
-        onClick={event => this.handleListItemClick(event, index)}
+        selected={
+          this.props.match.params.storyID === story._id
+        }
+        onClick={event => this.handleListItemClick(event, story._id)}
       />
     ));
 
     return (
       <Fragment>
-        <TextField
-          fullWidth
-          margin="normal"
-          placeholder="Enter story name and press enter"
-          value={this.state.newStory}
-          onChange={this.handleNewStory}
-          onKeyPress={this.handleNewStoryAdd}
+        <CreateStory
+          onSuccess={this.onCreateSuccess}
+          onFailure={this.onCreateFail}
+          domainID={this.props.domainID}
         />
         <List component="nav">{stories}</List>
       </Fragment>
@@ -54,4 +65,32 @@ class StoryList extends Component {
   }
 }
 
-export default StoryList;
+const mapDispatchToProps = dispatch => ({
+  create: function (storySchema, onCreateSuccess, onFailure) {
+    dispatch(createStoryAction(storySchema, onCreateSuccess, onFailure));
+  }
+});
+
+const mapStateToProps = reduxState => ({
+  storyList: reduxState.stories.storyList,
+  agentID: reduxState.agents.currentAgent
+    ? reduxState.agents.currentAgent._id
+    : null,
+  domainID: reduxState.domains.currentDomain
+    ? reduxState.domains.currentDomain._id
+    : null
+});
+
+StoryList.propTypes = {
+  create: PropTypes.func,
+  storyList: PropTypes.array,
+  history: PropTypes.object,
+  match: PropTypes.object,
+  domainID: PropTypes.string,
+  agentID: PropTypes.string
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StoryList);
