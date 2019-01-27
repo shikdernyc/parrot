@@ -17,9 +17,12 @@ const {
 
 router
   .route('/')
+  // create an agent
   .post(setAgentModel, create)
+  // return all agents
   .get(setAgentModel, findAndSortAllByCreated);
 
+// return all domains of an agents
 router.route('/:id/domains').get(
   setDomainModel,
   (req, res, next) => {
