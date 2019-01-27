@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const { ExampleEntitySchema } = require('./ExampleEntity');
 
 const EntitySchema = new mongoose.Schema(
@@ -22,7 +23,7 @@ const EntitySchema = new mongoose.Schema(
     }
   },
   {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+    timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
   }
 );
 

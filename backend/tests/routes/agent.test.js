@@ -4,17 +4,13 @@ const Agent = require('../../models/Agent').Agent;
 const agt1 = {
   agentName: 'agent_1',
   description: 'agent_1',
-  language: 'EN',
-  domains: [],
-  fallbackResponses: ['hello', 'hi']
+  domains: []
 };
 
 const agt2 = {
   agentName: 'agent_2',
   description: 'agent_2',
-  language: 'EN',
-  domains: [],
-  fallbackResponses: ['hello', 'hi', 'whatup']
+  domains: []
 };
 
 const exclude = ['_id', '__v', 'createdAt', 'updatedAt'];
@@ -58,10 +54,10 @@ describe('Test agent route', () => {
       .expect(200)
       .end(function (err, res) {
         if (err) throw err;
-        expect(res.body[0])
+        expect(res.body[1])
           .excluding(exclude)
           .to.deep.equal(agt2);
-        expect(res.body[1])
+        expect(res.body[0])
           .excluding(exclude)
           .to.deep.equal(agt1);
         done();

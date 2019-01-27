@@ -1,33 +1,25 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+// const { ExampleIntentSchema } = require('./ExampleIntent');
 
-const ActionSchema = new mongoose.Schema(
+const actionSchema = new Schema(
   {
-    actionName: {
-      type: String,
-      trim: true,
-      required: true
-    },
-    description: {
-      type: String,
-      trim: true,
-      required: true
-    },
-    agent_id: {
+    domainID: {
       type: String,
       trim: true
     },
-    // language: {
-    //   type: String,
-    //   trim: true
-    // },
-    // TODO: Refactor to it's own schema
-    templates: [{ type: String, trim: true }]
+    actionName: {
+      type: String,
+      trim: true
+    },
+    // userSays: [String]
+    agentResponses: [String]
   },
   {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+    timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
   }
 );
 
-const Action = mongoose.model('Action', ActionSchema);
+const Action = mongoose.model('Action', actionSchema);
 
 module.exports = { Action };
