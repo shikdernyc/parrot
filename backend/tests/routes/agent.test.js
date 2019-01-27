@@ -25,7 +25,7 @@ describe('Test agent route', () => {
 
   it('create agents', done => {
     app
-      .post('/agents')
+      .post('/api/agents')
       .set('Accept', 'application/json')
       .send(agt1)
       .expect(201)
@@ -37,7 +37,7 @@ describe('Test agent route', () => {
         agr1Id = res.body._id;
       });
     app
-      .post('/agents')
+      .post('/api/agents')
       .set('Accept', 'application/json')
       .send(agt2)
       .expect(201)
@@ -50,7 +50,7 @@ describe('Test agent route', () => {
 
   it('retrieve agents', done => {
     app
-      .get('/agents')
+      .get('/api/agents')
       .expect(200)
       .end(function (err, res) {
         if (err) throw err;
@@ -77,13 +77,13 @@ describe('Test agent route', () => {
 
   it('delete agents', done => {
     app
-      .delete('/agents/' + agr1Id)
+      .delete('/api/agents/' + agr1Id)
       .expect(204)
       .end(function (err, res) {
         if (err) throw err;
       });
     app
-      .delete('/agents/' + agr2Id)
+      .delete('/api/agents/' + agr2Id)
       .expect(204)
       .end(function (err, res) {
         if (err) throw err;

@@ -21,6 +21,11 @@ function ListNavs ({ currentAgentId }) {
       title: 'Entitys',
       link: `/agent/${currentAgentId}/entities`,
       icon: <List />
+    },
+    {
+      title: 'Actions',
+      link: `/agent/${currentAgentId}/actions`,
+      icon: <List />
     }
   ];
 
