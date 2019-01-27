@@ -12,9 +12,12 @@ const { setDomainModel, setIntentModel } = require('../handlers/middlewares');
 
 router
   .route('/')
+  // create a domain
   .post(setDomainModel, create)
+  // return all domains
   .get(setDomainModel, findAndSortAllByCreated);
 
+// return all intents of a domain
 router.route('/:id/intents').get(
   setIntentModel,
   (req, res, next) => {

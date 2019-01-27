@@ -1,60 +1,48 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
-import Domains from './domains';
-import DomainRouter from './domainRouter';
-import { setCurrentAgent as actionSetCurrentAgent } from 'Redux/agents/actions';
+import root from './root';
 import { connect } from 'react-redux';
+import { getAllAgents } from 'Redux/agents/actions';
+import AgentRouter from './agentRouter';
 
-import Dashboard from './agents/dashboard';
-
-class AgentRouter extends Component {
-  handleSetCurrentAgent (agentID) {
-    if (agentID !== this.props.currentAgentID) {
-      this.props.setCurrentAgent(agentID);
-    }
+class MainApp extends Component {
+  componentDidMount () {
+    const { populateAgentList } = this.props;
+    populateAgentList();
   }
 
   render () {
-    // TODO:
-    const { match } = this.props;
-    const { agentID } = match.params;
-    if (agentID) this.handleSetCurrentAgent(agentID);
     return (
-      <Switch>
-        <Route
-          path={`${match.url}/domain/:domainID`}
-          component={DomainRouter}
-        />
-        <Route exact path={`${match.url}`} component={Dashboard} />
-        <Redirect to="/error/404" />
-      </Switch>
+      <main>
+        <Switch>
+          <Route path={`/agent/:agentID`} component={AgentRouter} />
+          <Route exact path={`/`} component={root} />
+          <Redirect to="/error/404" />
+        </Switch>
+      </main>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  setCurrentAgent: id => {
-    dispatch(actionSetCurrentAgent(id));
-  }
-});
+const mapDispatchToProps = dispatch => {
+  return {
+    populateAgentList: () => {
+      dispatch(getAllAgents());
+    }
+  };
+};
 
-const mapStateToProps = reduxState => ({
-  currentAgentID: reduxState.agents.currentAgent._id
-});
-
-AgentRouter.propTypes = {
+MainApp.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string.isRequired
   }),
-  history: PropTypes.object,
-  setCurrentAgent: PropTypes.func,
-  currentAgentID: PropTypes.string
+  populateAgentList: PropTypes.func
 };
 
 export default withRouter(
   connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
-  )(AgentRouter)
+  )(MainApp)
 );

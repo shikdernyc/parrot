@@ -15,7 +15,8 @@
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
         "no-unused-vars": "warn",
-        "no-unexpected-multiline": "warn"
+        "no-unexpected-multiline": "warn",
+        "camelcase": 0
     },
     "env": {
         "es6": true,

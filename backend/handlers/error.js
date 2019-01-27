@@ -5,6 +5,7 @@
 const email = require('../utils/email');
 
 function errorHandler (error, request, response, next) {
+  console.error(error);
   if (error.status === undefined) {
     // production send email
     if (process.env.NODE_ENV === 'production') {

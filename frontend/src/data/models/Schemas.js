@@ -12,7 +12,25 @@ export function agentSchema (agentName, description) {
 
 /**
  *
- * @param {String} agentID
+ * @param {String} actionName
+ * @param {String} description
+ * @param {[String]} templates
+ */
+export function actionSchema (
+  actionName,
+  description,
+  templates
+) {
+  return {
+    actionName,
+    description,
+    templates
+  };
+}
+
+/**
+ *
+ * @param {Number} agentID
  * @param {String} domainName
  */
 export function domainSchema (agentID, domainName) {
