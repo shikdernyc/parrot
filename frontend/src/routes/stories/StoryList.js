@@ -2,10 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { List, TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import { createStory as createStoryAction } from 'Redux/stories/actions';
 import StoryListItem from './StoryListItem';
-import CreateStory from './CreateStory';
+import CreateStory from 'Components/forms/CreateStory';
 
 class StoryList extends Component {
   state = {
@@ -46,9 +45,7 @@ class StoryList extends Component {
       <StoryListItem
         key={story._id}
         story={story}
-        selected={
-          this.props.match.params.storyID === story._id
-        }
+        selected={this.props.match.params.storyID === story._id}
         onClick={event => this.handleListItemClick(event, story._id)}
       />
     ));
