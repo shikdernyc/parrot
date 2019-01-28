@@ -10,10 +10,7 @@ const Schema = mongoose.Schema;
 
 const storySchema = new Schema(
   {
-    domainID: {
-      type: String,
-      trim: true
-    },
+    domainID: { type: Schema.Types.ObjectId, ref: 'Domain' },
     storyName: {
       type: String,
       trim: true
