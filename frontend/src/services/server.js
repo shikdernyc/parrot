@@ -11,7 +11,7 @@ export const get = async function (route) {
 
 export const post = async function (route, data) {
   try {
-    return await Axios.post(`${SERVER_URL}/${route}`, data);
+    return await Axios.post(`/${SERVER_URL}/${route}`, data);
   } catch (error) {
     throw error;
   }
@@ -19,7 +19,7 @@ export const post = async function (route, data) {
 
 export const put = async function (route, data) {
   try {
-    return await Axios.put(`${SERVER_URL}/${route}`, data);
+    return await Axios.put(`/${SERVER_URL}/${route}`, data);
   } catch (error) {
     throw error;
   }
@@ -27,7 +27,7 @@ export const put = async function (route, data) {
 
 export const remove = async function (route) {
   try {
-    return await Axios.delete(`${SERVER_URL}/${route}`);
+    return await Axios.delete(`/${SERVER_URL}/${route}`);
   } catch (error) {
     throw error;
   }
