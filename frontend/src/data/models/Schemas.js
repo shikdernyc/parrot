@@ -40,20 +40,6 @@ export function domainSchema (agentID, domainName) {
 /**
  *
  * @param {String} domainID
- * @param {String} actionName
- * @param {String} agentResponse
- */
-export function actionSchema (domainID, actionName, agentResponse) {
-  return {
-    domainID,
-    actionName,
-    agentResponse
-  };
-}
-
-/**
- *
- * @param {String} domainID
  * @param {String} intentName
  * @param {[String]} userSays
  */
