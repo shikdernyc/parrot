@@ -50,7 +50,6 @@ class DomainNav extends Component {
           onChange={this.handleSelectDomain}
           variant="outlined"
         >
-          <MenuItem value={-1}>None</MenuItem>
           {domains.map(option => (
             <MenuItem key={option._id} value={option._id}>
               {option.domainName}
@@ -75,13 +74,14 @@ class DomainNav extends Component {
   }
 }
 
-const mapStateToProps = function (reduxState) {
+const mapStateToProps = function (state) {
+  console.log(state);
   return {
-    domains: reduxState.domains.domainList,
-    currentDomainID: reduxState.domains.currentDomain
-      ? reduxState.domains.currentDomain._id
+    domains: state.domains.domainList,
+    currentDomainID: state.domains.currentDomain
+      ? state.domains.currentDomain._id
       : undefined,
-    currentAgentID: reduxState.agents.currentAgent._id
+    currentAgentID: state.agents.currentAgent._id
   };
 };
 
