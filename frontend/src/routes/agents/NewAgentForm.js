@@ -1,14 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
-import ListInputWithDelete from 'Components/inputs/ListInputWithDelete';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { StyledTextField, StyledMenuSelect } from 'Components/inputs/TextField';
 import { StyledFab } from 'Components/buttons';
 import { createAgent as actionCreateAgent } from 'Redux/agents/actions';
 import { agentSchema } from 'Data/models/Schemas';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import ListInputWithDelete from 'Components/inputs/ListInputWithDelete';
 
 const languages = [
   {

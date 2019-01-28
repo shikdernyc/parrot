@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import Base from './base';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+
+import Base from './base';
 
 const styles = theme => {
   return {
