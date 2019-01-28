@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import {
-  List,
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  IconButton,
-  TextField
+  IconButton
 } from '@material-ui/core';
 import FileCopy from '@material-ui/icons/FileCopy';
 import Edit from '@material-ui/icons/Edit';
