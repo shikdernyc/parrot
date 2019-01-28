@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { List, TextField } from '@material-ui/core';
-import StoryListItem from 'Components/list/StoryListItem';
 import { connect } from 'react-redux';
-import { createStory as createStoryAction } from 'Redux/stories/actions';
 import PropTypes from 'prop-types';
-import CreateStory from 'Components/forms/CreateStory';
+
+import { createStory as createStoryAction } from 'Redux/stories/actions';
+import StoryListItem from './StoryListItem';
+import CreateStory from './CreateStory';
 
 class StoryList extends Component {
   state = {
