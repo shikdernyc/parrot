@@ -10,14 +10,19 @@ import Stories from './stories';
 class DomainRouter extends Component {
   render () {
     // TODO:
-    const { match } = this.props;
+    const { match, currentDomainID } = this.props;
     const { domainID } = match.params;
-    if (domainID) this.props.setCurrentDomain(domainID);
-    console.log(domainID);
+    if (domainID && domainID !== currentDomainID) {
+      this.props.setCurrentDomain(domainID);
+    }
     return (
       <Switch>
         <Route path={`${match.url}/stories`} component={Stories} />
-        <Route exact path={`${match.url}`} component={Dashboard} />
+        <Route
+          exact
+          path={`${match.url}`}
+          render={props => <Redirect to={`${match.url}/stories`} {...props} />}
+        />
         <Redirect to="/error/404" />
       </Switch>
     );

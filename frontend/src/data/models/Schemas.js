@@ -3,34 +3,17 @@
  * @param {String} agentName
  * @param {String} description
  */
-export function agentSchema (agentName, description) {
+export function agentSchema (agentName, description, domains = []) {
   return {
     agentName,
-    description
-  };
-}
-
-/**
- *
- * @param {String} actionName
- * @param {String} description
- * @param {[String]} templates
- */
-export function actionSchema (
-  actionName,
-  description,
-  templates
-) {
-  return {
-    actionName,
     description,
-    templates
+    domains
   };
 }
 
 /**
  *
- * @param {Number} agentID
+ * @param {String} agentID
  * @param {String} domainName
  */
 export function domainSchema (agentID, domainName) {
@@ -57,7 +40,7 @@ export function actionSchema (domainID, actionName, agentResponse) {
  * @param {String} intentName
  * @param {[String]} userSays
  */
-export function intentSchema (domainID, intentName, userSays) {
+export function intentSchema (domainID, intentName, userSays = []) {
   return {
     domainID,
     intentName,
@@ -73,6 +56,12 @@ export function intentSchema (domainID, intentName, userSays) {
  * @param {[id]} actions
  * @param {[STRING_ENUM(Intent | Action)]} sequences
  */
-export function storySchema (domainID, storyName, intents, actions, sequences) {
+export function storySchema (
+  domainID,
+  storyName,
+  intents = [],
+  actions = [],
+  sequences = []
+) {
   return { domainID, storyName, intents, actions, sequences };
 }

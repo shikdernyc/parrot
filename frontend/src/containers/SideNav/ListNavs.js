@@ -22,11 +22,6 @@ function ListNavs ({ currentAgentId, currentDomainId }) {
       title: 'Actions',
       link: `${prefix}/actions`,
       icon: <List />
-    },
-    {
-      title: 'Actions',
-      link: `/agent/${currentAgentId}/actions`,
-      icon: <List />
     }
   ];
 
