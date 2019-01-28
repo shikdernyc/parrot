@@ -4,15 +4,15 @@ const Schema = mongoose.Schema;
 
 const intentSchema = new Schema(
   {
-    domainID: {
-      type: String,
-      trim: true
-    },
+    domainID: { type: Schema.Types.ObjectId, ref: 'Domain' },
     intentName: {
       type: String,
       trim: true
     },
-    userSays: [String]
+    userSays: [{
+      type: String,
+      trim: true
+    }]
     // agentResponses: [String]
   },
   {

@@ -1,5 +1,5 @@
 import { ACTION_ROUTE } from 'Constants/app.js';
-import { create, getAll, findById } from 'Data/models/ServerModel';
+import { create, getAll, findById } from 'Data/models/Action';
 import { all, call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import {
   CREATE_ACTION
