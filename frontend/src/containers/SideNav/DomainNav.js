@@ -75,7 +75,6 @@ class DomainNav extends Component {
 }
 
 const mapStateToProps = function (state) {
-  console.log(state);
   return {
     domains: state.domains.domainList,
     currentDomainID: state.domains.currentDomain
