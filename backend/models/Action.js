@@ -4,16 +4,16 @@ const Schema = mongoose.Schema;
 
 const actionSchema = new Schema(
   {
-    domainID: {
-      type: String,
-      trim: true
-    },
+    domainID: { type: Schema.Types.ObjectId, ref: 'Domain' },
     actionName: {
       type: String,
       trim: true
     },
     // userSays: [String]
-    agentResponses: [String]
+    agentResponses: [{
+      type: String,
+      trim: true
+    }]
   },
   {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
