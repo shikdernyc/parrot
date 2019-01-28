@@ -15,7 +15,7 @@ function * handleCreateAgent ({ agentSchema, history }) {
     const result = yield call(create, agentSchema);
     yield put({ type: CREATE_AGENT_SUCCEEDED, payload: result });
     // TODO: push to agent's route
-    history.push(`/agent/${result._id}/domains`);
+    // history.push(`/agent/${result._id}`);
   } catch (error) {
     console.error(error);
     yield put({ type: CREATE_AGENT_FAILED, payload: error });

@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
-import Base from './base';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 // import { AddCircleOutline } from '@material-ui/icons';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import { Typography, MenuItem, TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+import Base from './base';
+import { createAgent as actionCreateAgent } from 'Redux/agents/actions';
+import { agentSchema } from 'Data/models/Schemas';
 
 const styles = theme => {
-  console.log(theme);
   return {
     root: {
       flexGrow: 1
@@ -39,11 +47,41 @@ const styles = theme => {
 };
 
 class BreadCrumbAndButton extends Component {
+  state = {
+    open: false,
+    agentName: undefined,
+    agentDesc: undefined
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   handleSelectAgent = e => {
     const agentID = e.target.value;
     if (agentID !== -1) {
       this.props.history.push(`/agent/${agentID}`);
     }
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    if (this.state.agentName !== '' && this.state.agentDesc !== '') {
+      const { history, createAgent } = this.props;
+      const agent = agentSchema(this.state.agentName, this.state.agentDesc);
+      createAgent(history, agent);
+    }
+    this.setState({ open: false });
+  };
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   };
 
   render () {
@@ -60,9 +98,59 @@ class BreadCrumbAndButton extends Component {
         </Typography>
         <div className={classes.grow} />
         <div className={classes.agentSelection}>
-          <IconButton color="secondary">
+          <IconButton
+            color="secondary"
+            onClick={this.handleOpen}
+          >
             <AddCircleOutline />
           </IconButton>
+          <Dialog
+            fullWidth
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle id="form-dialog-title">Create a new agent</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                placeholder for discription
+              </DialogContentText>
+              <TextField
+                autoFocus
+                value={this.state.agentName}
+                margin="dense"
+                name="agentName"
+                label="Agent Name"
+                type="text"
+                fullWidth
+                required
+                error={this.state.agentName === ''}
+                helperText='Cannot be empty'
+                onChange={this.handleChange}
+              />
+              <TextField
+                value={this.state.agentDesc}
+                margin="dense"
+                name="agentDesc"
+                label="Agent Description"
+                type="text"
+                fullWidth
+                required
+                error={this.state.agentDesc === ''}
+                helperText='Cannot be empty'
+                onChange={this.handleChange}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={this.handleSubmit} color="primary">
+                Create
+              </Button>
+            </DialogActions>
+          </Dialog>
+
           <TextField
             select
             fullWidth
@@ -72,9 +160,6 @@ class BreadCrumbAndButton extends Component {
             onChange={this.handleSelectAgent}
             className={classes.agentSelectMenu}
           >
-            <MenuItem value={-1} className={classes.agentSelectItem}>
-              None
-            </MenuItem>
             {agentList.map(item => (
               <MenuItem
                 key={item._id}
@@ -96,17 +181,26 @@ BreadCrumbAndButton.propTypes = {
   agentList: PropTypes.array,
   title: PropTypes.string,
   history: PropTypes.object,
-  currentAgentId: PropTypes.string
+  currentAgentId: PropTypes.string,
+  createAgent: PropTypes.func
 };
 
-const mapStateToProps = reduxState => {
+const mapStateToProps = state => {
   return {
-    agentList: reduxState.agents.agentList.map(({ _id, agentName }) => ({
+    agentList: state.agents.agentList.map(({ _id, agentName }) => ({
       _id,
       agentName
     })),
-    currentAgentId: reduxState.agents.currentAgent._id,
-    title: reduxState.navs.topNavTitle
+    currentAgentId: state.agents.currentAgent._id,
+    title: state.navs.topNavTitle
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    createAgent: (history, agentSchema) => {
+      dispatch(actionCreateAgent(history, agentSchema));
+    }
   };
 };
 
@@ -114,7 +208,7 @@ export default withRouter(
   withStyles(styles, { withTheme: true })(
     connect(
       mapStateToProps,
-      null
+      mapDispatchToProps
     )(BreadCrumbAndButton)
   )
 );
