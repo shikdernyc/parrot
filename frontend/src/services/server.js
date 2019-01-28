@@ -3,7 +3,7 @@ import { SERVER_URL } from 'Constants/app';
 
 export const get = async function (route) {
   try {
-    return await Axios.get(`${SERVER_URL}/${route}`);
+    return await Axios.get(`/${SERVER_URL}/${route}`);
   } catch (error) {
     throw error;
   }
