@@ -63,10 +63,13 @@ class SideNav extends React.Component {
         <List>
           {/* <AgentNav currentAgentId={currentAgentId} /> */}
           <DomainNav />
-          {currentAgentId && (
+          {currentDomainId && (
             <Fragment>
               <Divider />
-              <ListNavs currentAgentId={currentAgentId} currentDomainId={currentDomainId} />
+              <ListNavs
+                currentAgentId={currentAgentId}
+                currentDomainId={currentDomainId}
+              />
             </Fragment>
           )}
         </List>
@@ -112,8 +115,12 @@ class SideNav extends React.Component {
 const mapStateToProps = reduxState => {
   return {
     isOpen: reduxState.navs.sideBarIsOpen,
-    currentAgentId: reduxState.agents.currentAgent._id,
-    currentDomainId: reduxState.domains.currentDomain ? reduxState.domains.currentDomain._id : undefined
+    currentAgentId: reduxState.agents.currentAgent
+      ? reduxState.agents.currentAgent._id
+      : undefined,
+    currentDomainId: reduxState.domains.currentDomain
+      ? reduxState.domains.currentDomain._id
+      : undefined
   };
 };
 
