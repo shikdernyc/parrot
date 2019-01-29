@@ -8,7 +8,7 @@ const {
   find
 } = require('../handlers/routes/database');
 
-const { setDomainModel, setIntentModel } = require('../handlers/middlewares');
+const { setDomainModel, setIntentModel, setActionModel } = require('../handlers/middlewares');
 
 router
   .route('/')
@@ -20,6 +20,16 @@ router
 // return all intents of a domain
 router.route('/:id/intents').get(
   setIntentModel,
+  (req, res, next) => {
+    req.extras.findParams = { domain_id: req.params.id };
+    next();
+  },
+  find
+);
+
+// return all actions of a domain
+router.route('/:id/actions').get(
+  setActionModel,
   (req, res, next) => {
     req.extras.findParams = { domain_id: req.params.id };
     next();

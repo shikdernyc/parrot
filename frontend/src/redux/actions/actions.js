@@ -1,4 +1,9 @@
-import { CREATE_ACTION } from 'Constants/actionTypes.js';
+import {
+  CREATE_ACTION,
+  SET_CURRENT_ACTION,
+  GET_ALL_ACTIONS,
+  UPDATE_ACTION_LIST
+} from 'Constants/actionTypes.js';
 
 export function createAction (actionSchema, onSuccess, onFailure) {
   return {
@@ -11,18 +16,19 @@ export function createAction (actionSchema, onSuccess, onFailure) {
   };
 }
 
-// export function getAllAgents () {
-//   return {
-//     type: GET_ALL_AGENTS
-//   };
-// }
-//
-// export function updateAgentList (updatedList) {
-//   return {
-//     type: UPDATE_AGENT_LIST,
-//     updatedList
-//   };
-// }
+export function loadAllAction (domainID) {
+  return {
+    type: GET_ALL_ACTIONS,
+    domainID
+  };
+}
+
+export function updateActionList (updatedList) {
+  return {
+    type: UPDATE_ACTION_LIST,
+    updatedList
+  };
+}
 
 // export function addToAgentList (newAgent) {
 //   return {
@@ -31,13 +37,13 @@ export function createAction (actionSchema, onSuccess, onFailure) {
 //   };
 // }
 //
-// export function setCurrentAgent (history, id) {
-//   return {
-//     type: SET_CURRENT_AGENT,
-//     id,
-//     history
-//   };
-// }
+export function setCurrentAction (history, id) {
+  return {
+    type: SET_CURRENT_ACTION,
+    id,
+    history
+  };
+}
 //
 // export function updateCurrentAgent (agent) {
 //   return {

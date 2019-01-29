@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import Dashboard from './domains/dashboard';
 import Stories from './stories';
+import Actions from './actions';
 
 class DomainRouter extends Component {
   render () {
@@ -17,6 +18,7 @@ class DomainRouter extends Component {
     return (
       <Switch>
         <Route path={`${match.url}/:domainID/stories`} component={Stories} />
+        <Route path={`${match.url}/:domainID/actions`} component={Actions} />
         <Route path={`${match.url}/:domainID`} component={Dashboard} />
         <Redirect to="/error/404" />
       </Switch>
@@ -32,9 +34,9 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-const mapStateToProps = reduxState => ({
-  currentDomainID: reduxState.domains.currentDomain
-    ? reduxState.domains.currentDomain._id
+const mapStateToProps = state => ({
+  currentDomainID: state.domains.currentDomain
+    ? state.domains.currentDomain._id
     : undefined
 });
 

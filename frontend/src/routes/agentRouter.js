@@ -39,7 +39,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  currentAgentID: state.agents.currentAgent._id
+  currentAgentID: state.agents.currentAgent ? state.agents.currentAgent._id : undefined
 });
 
 AgentRouter.propTypes = {

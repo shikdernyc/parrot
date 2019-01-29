@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { getAllAgents } from 'Redux/agents/actions';
 import AgentRouter from './agentRouter';
 import DomainRouter from './domainRouter';
+// import ActionRouter from './ActionRouter';
 
 class MainApp extends Component {
   componentDidMount () {
@@ -19,6 +20,7 @@ class MainApp extends Component {
         <Switch>
           <Route path={`/agent`} component={AgentRouter} />
           <Route path={`/domain`} component={DomainRouter} />
+          {/* <Route path={`/action`} component={ActionRouter} /> */}
           <Route exact path={`/`} component={root} />
           <Redirect to="/error/404" />
         </Switch>
