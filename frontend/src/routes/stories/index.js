@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import StoryList from './StoryList';
+import StoryEventView from './StoryEventView';
 
 class Story extends Component {
   render () {
@@ -10,7 +11,11 @@ class Story extends Component {
     return (
       <Switch>
         <Route exact path={`${match.url}`} component={StoryList} />
-        <Route exact path={`${match.url}/:storyID`} component={StoryList} />
+        <Route
+          exact
+          path={`${match.url}/:storyID`}
+          component={StoryEventView}
+        />
         <Redirect to="/error/404" />
       </Switch>
     );
