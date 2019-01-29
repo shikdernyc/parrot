@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Dashboard extends Component {
-  componentDidMount () {
-  }
   render () {
     return (
       <Fragment>
@@ -32,9 +30,6 @@ const mapStateToProps = (state) => (
 // };
 
 Dashboard.propTypes = {
-  createAgent: PropTypes.func,
-  history: PropTypes.object,
-  form_error: PropTypes.object,
   currentAgent: PropTypes.object
 };
 

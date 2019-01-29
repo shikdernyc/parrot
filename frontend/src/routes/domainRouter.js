@@ -9,7 +9,6 @@ import Stories from './stories';
 
 class DomainRouter extends Component {
   render () {
-    // TODO:
     const { match, currentDomainID } = this.props;
     const matches = this.props.location.pathname.match(/\/domain\/(.*)/);
     if (matches.length === 2 && matches[1] && matches[1] !== currentDomainID) {
