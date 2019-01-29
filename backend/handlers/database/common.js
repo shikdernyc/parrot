@@ -40,7 +40,7 @@ const findById = async function (model, id) {
 
 const deleteById = async function (model, id) {
   try {
-    return await model.deleteOne({ id });
+    return await model.findByIdAndDelete(id);
   } catch (error) {
     throw error;
   }

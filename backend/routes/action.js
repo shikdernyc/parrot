@@ -6,14 +6,14 @@ const {
 } = require('../handlers/routes/common');
 const {
   create,
-  retreiveAllDomainIntents
-} = require('../handlers/routes/intents');
+  retreiveAllDomainActions
+} = require('../handlers/routes/actions');
 const { setIntentModel } = require('../handlers/middlewares');
 
 router
   .route('/')
   .post(create)
-  .get(retreiveAllDomainIntents);
+  .get(retreiveAllDomainActions);
 
 router
   .route('/:id')

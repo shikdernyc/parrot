@@ -1,10 +1,11 @@
 const router = require('express').Router();
 
-router.use('/', require('./root'));
 router.use('/agents', require('./agent'));
 router.use('/domains', require('./domain'));
-router.use('/intents', require('./intent'));
-router.use('/entities', require('./entity'));
-router.use('/actions', require('./actions'));
+router.use('/domains/:domainID/stories', require('./story'));
+router.use('/domains/:domainID/intents', require('./intent'));
+router.use('/domains/:domainID/actions', require('./action'));
+
+router.use('/', require('./root'));
 
 module.exports = router;
