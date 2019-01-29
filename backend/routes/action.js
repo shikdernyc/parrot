@@ -1,5 +1,4 @@
 const router = require('express').Router({ mergeParams: true });
-
 const {
   findById,
   updateById,
@@ -9,7 +8,7 @@ const {
   create,
   retreiveAllDomainActions
 } = require('../handlers/routes/actions');
-const { setActionModel } = require('../handlers/middlewares');
+const { setIntentModel } = require('../handlers/middlewares');
 
 router
   .route('/')
@@ -18,8 +17,7 @@ router
 
 router
   .route('/:id')
-  .get(setActionModel, findById)
-  .put(setActionModel, updateById)
-  .delete(setActionModel, deleteById);
+  .get(setIntentModel, findById)
+  .put(setIntentModel, updateById);
 
 module.exports = router;
