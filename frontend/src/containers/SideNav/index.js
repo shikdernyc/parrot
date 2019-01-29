@@ -6,6 +6,8 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import { DRAWER_WIDTH } from 'Constants/app';
 import { setSideBarIsOpen } from 'Redux/navs/action';
 import ListNavs from './ListNavs';
@@ -33,8 +35,8 @@ const styles = theme => ({
     backgroundImage: `url(${logo})`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center center',
-    height: '100%',
-    margin: '5px'
+    backgroundSize: '60%',
+    height: '100%'
   },
   drawerPaper: {
     width: DRAWER_WIDTH
@@ -56,24 +58,30 @@ class SideNav extends React.Component {
 
     const drawer = (
       <div>
-        <div className={classes.toolbar} />
+        <Link to="/">
+          <div className={classes.toolbar} />
+        </Link>
         {/* <Header /> */}
         {/* </div> */}
         <Divider />
-        <List>
-          {/* <AgentNav currentAgentId={currentAgentId} /> */}
-          <DomainNav />
-          {currentDomainId && (
-            <Fragment>
-              <Divider />
-              <ListNavs
-                currentAgentId={currentAgentId}
-                currentDomainId={currentDomainId}
-              />
-            </Fragment>
-          )}
-        </List>
-        <Divider />
+        {currentAgentId &&
+          <Fragment>
+            <List>
+              {/* <AgentNav currentAgentId={currentAgentId} /> */}
+              <DomainNav />
+              {currentDomainId && (
+                <Fragment>
+                  <Divider />
+                  <ListNavs
+                    currentAgentId={currentAgentId}
+                    currentDomainId={currentDomainId}
+                  />
+                </Fragment>
+              )}
+            </List>
+            <Divider />
+          </Fragment>
+        }
       </div>
     );
 

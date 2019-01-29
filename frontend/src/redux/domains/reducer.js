@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     case ADD_TO_DOMAIN_LIST:
       return {
         ...state,
-        domainList: [...state.domainList, action.domain]
+        domainList: state.domainList.concat(action.domain)
       };
     case UPDATE_DOMAIN_LIST: {
       return {

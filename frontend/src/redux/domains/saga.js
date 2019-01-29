@@ -12,11 +12,12 @@ import {
 } from './actions';
 import { setStoryListDomain } from '../stories/actions';
 
-function * handleCreateDomain ({ domainSchema, history }) {
+function * handleCreateDomain ({ domainSchema }) {
+  console.log(domainSchema);
   try {
     const domain = yield call(create, domainSchema);
     yield put(addToDomainList(domain));
-    history.push('/domains');
+    // history.push('/domains');
   } catch (error) {
     console.log(error);
     throw error;
@@ -27,11 +28,11 @@ function * handleSetDomainListAgent ({ payload: { agentID } }) {
   try {
     const domains = yield call(getAllDomains, agentID);
     yield put(updateDomainList(domains));
-    if (domains.length === 0) {
-      throw new Error('Empty domain list');
-    } else {
-      // yield put(setCurrentDomain(domains[0]._id));
-    }
+    // if (domains.length === 0) {
+    //   throw new Error('Empty domain list');
+    // } else {
+    //   // yield put(setCurrentDomain(domains[0]._id));
+    // }
   } catch (error) {
     // TODO: Handle empty domain list error
     // TODO: handle unable to retrieve domain list error
