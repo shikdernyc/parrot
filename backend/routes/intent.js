@@ -1,18 +1,19 @@
 const router = require('express').Router({ mergeParams: true });
 const {
-  create,
   findById,
-  findAndSortAllByCreated,
   updateById,
   deleteById
-} = require('../handlers/routes/database');
-
+} = require('../handlers/routes/common');
+const {
+  create,
+  retreiveAllDomainIntents
+} = require('../handlers/routes/intents');
 const { setIntentModel } = require('../handlers/middlewares');
 
 router
   .route('/')
-  .post(setIntentModel, create)
-  .get(setIntentModel, findAndSortAllByCreated);
+  .post(create)
+  .get(retreiveAllDomainIntents);
 
 router
   .route('/:id')
