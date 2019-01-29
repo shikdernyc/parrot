@@ -6,14 +6,9 @@ const {
   updateById,
   deleteById,
   find
-} = require('../handlers/routes/database');
+} = require('../handlers/routes/common');
 
-const {
-  setAgentModel,
-  setEntityModel,
-  setIntentModel,
-  setDomainModel
-} = require('../handlers/middlewares');
+const { setAgentModel, setDomainModel } = require('../handlers/middlewares');
 
 router
   .route('/')
@@ -25,23 +20,6 @@ router
 // return all domains of an agents
 router.route('/:id/domains').get(
   setDomainModel,
-  (req, res, next) => {
-    req.extras.findParams = { agentID: req.params.id };
-    next();
-  },
-  find
-);
-
-router.route('/:id/entities').get(
-  setEntityModel,
-  (req, res, next) => {
-    req.extras.findParams = { agentID: req.params.id };
-  },
-  find
-);
-
-router.route('/:id/intents').get(
-  setIntentModel,
   (req, res, next) => {
     req.extras.findParams = { agentID: req.params.id };
     next();
