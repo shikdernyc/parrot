@@ -6,7 +6,7 @@ import List from '@material-ui/icons/List';
 import { NavLink } from 'react-router-dom';
 
 function ListNavs ({ currentAgentId, currentDomainId }) {
-  const prefix = `/agent/${currentAgentId}/domain/${currentDomainId}`;
+  const prefix = `/domain/${currentDomainId}`;
   const listNavs = [
     {
       title: 'Stories',
