@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import ActionForm from './ActionForm';
+import ActionList from './ActionList';
+import ActionView from './ActionView';
 
-const Agent = ({ match }) => {
-  return (
-    <Switch>
-      <Route exact path={`${match.url}`} component={ActionForm} />
-      <Route exact path={`${match.url}/create`} component={ActionForm} />
-      <Redirect to="/error/404" />
-    </Switch>
-  );
-};
-Agent.propTypes = {
+class Action extends Component {
+  render () {
+    const { match } = this.props;
+    return (
+      <Switch>
+        <Route exact path={`${match.url}`} component={ActionList} />
+        <Route
+          exact
+          path={`${match.url}/:ActionID`}
+          component={ActionView}
+        />
+        <Redirect to="/error/404" />
+      </Switch>
+    );
+  }
+}
+
+Action.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string.isRequired
   })
 };
 
-export default Agent;
+export default Action;
