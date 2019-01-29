@@ -6,6 +6,8 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import { DRAWER_WIDTH } from 'Constants/app';
 import { setSideBarIsOpen } from 'Redux/navs/action';
 import ListNavs from './ListNavs';
@@ -56,7 +58,9 @@ class SideNav extends React.Component {
 
     const drawer = (
       <div>
-        <div className={classes.toolbar} />
+        <Link to="/">
+          <div className={classes.toolbar} />
+        </Link>
         {/* <Header /> */}
         {/* </div> */}
         <Divider />
