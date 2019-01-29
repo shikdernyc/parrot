@@ -5,7 +5,7 @@ const {
   findAndSortAllByCreated,
   updateById,
   deleteById
-} = require('../handlers/routes/database');
+} = require('../handlers/routes/common');
 
 const { setEntityModel } = require('../handlers/middlewares');
 
