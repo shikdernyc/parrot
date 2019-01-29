@@ -1,4 +1,5 @@
 import {
+  CREATE_INTENT,
   UPDATE_INTENT_LIST,
   SET_INTENT_LIST_AGENT
 } from 'Constants/actionTypes';
@@ -17,6 +18,21 @@ export const setIntentListAgent = function (agentID) {
     type: SET_INTENT_LIST_AGENT,
     payload: {
       agentID
+    }
+  };
+};
+
+export const createIntent = function (
+  intentSchema,
+  onSuccess = null,
+  onFailure = null
+) {
+  return {
+    type: CREATE_INTENT,
+    payload: {
+      intentSchema,
+      onSuccess,
+      onFailure
     }
   };
 };

@@ -1,14 +1,13 @@
-import {
-  CREATE_ACTION,
-  CREATE_ACTION_FAILED,
-  CREATE_ACTION_SUCCEEDED
-} from 'Constants/actionTypes.js';
+import { CREATE_ACTION } from 'Constants/actionTypes.js';
 
-export function createAction (history, actionSchema) {
+export function createAction (actionSchema, onSuccess, onFailure) {
   return {
     type: CREATE_ACTION,
-    actionSchema,
-    history
+    payload: {
+      actionSchema,
+      onSuccess,
+      onFailure
+    }
   };
 }
 

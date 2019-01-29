@@ -4,7 +4,9 @@ import {
   CREATE_STORY,
   ADD_TO_STORY_LIST,
   SET_CURRENT_STORY_ID,
-  UPDATE_CURRENT_STORY
+  UPDATE_CURRENT_STORY,
+  ADD_EVENT_TO_CURRENT_STORY,
+  MODIFY_CURRENT_STORY
 } from 'Constants/actionTypes.js';
 
 /**
@@ -73,6 +75,43 @@ export function addToStoryList (newStory) {
     type: ADD_TO_STORY_LIST,
     payload: {
       newStory
+    }
+  };
+}
+
+export function modifyCurrentStory (
+  currentStory,
+  changes,
+  onSuccess = null,
+  onFailure = null
+) {
+  return {
+    type: MODIFY_CURRENT_STORY,
+    payload: {
+      currentStory,
+      changes,
+      onSuccess,
+      onFailure
+    }
+  };
+}
+
+export function addEventToCurrentStory (
+  eventType,
+  event,
+  currentStory,
+  onSuccess = null,
+  onFailure = null
+) {
+  // console.log(event);
+  return {
+    type: ADD_EVENT_TO_CURRENT_STORY,
+    payload: {
+      eventType,
+      event,
+      currentStory,
+      onSuccess,
+      onFailure
     }
   };
 }
