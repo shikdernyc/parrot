@@ -11,18 +11,14 @@ class DomainRouter extends Component {
   render () {
     // TODO:
     const { match, currentDomainID } = this.props;
-    const { domainID } = match.params;
-    if (domainID && domainID !== currentDomainID) {
-      this.props.setCurrentDomain(domainID);
+    const matches = this.props.location.pathname.match(/\/domain\/(.*)/);
+    if (matches.length === 2 && matches[1] && matches[1] !== currentDomainID) {
+      this.props.setCurrentDomain(matches[1]);
     }
     return (
       <Switch>
-        <Route path={`${match.url}/stories`} component={Stories} />
-        <Route
-          exact
-          path={`${match.url}`}
-          render={props => <Redirect to={`${match.url}/stories`} {...props} />}
-        />
+        <Route path={`${match.url}/:domainID/stories`} component={Stories} />
+        <Route path={`${match.url}/:domainID`} component={Dashboard} />
         <Redirect to="/error/404" />
       </Switch>
     );
@@ -48,6 +44,7 @@ DomainRouter.propTypes = {
     url: PropTypes.string.isRequired
   }),
   history: PropTypes.object,
+  location: PropTypes.object,
   setCurrentDomain: PropTypes.func,
   currentDomainID: PropTypes.string
 };

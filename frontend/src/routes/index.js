@@ -5,18 +5,20 @@ import root from './root';
 import { connect } from 'react-redux';
 import { getAllAgents } from 'Redux/agents/actions';
 import AgentRouter from './agentRouter';
+import DomainRouter from './domainRouter';
 
 class MainApp extends Component {
   componentDidMount () {
-    const { populateAgentList } = this.props;
-    populateAgentList();
+    const { getAllAgents } = this.props;
+    getAllAgents();
   }
 
   render () {
     return (
       <main>
         <Switch>
-          <Route path={`/agent/:agentID`} component={AgentRouter} />
+          <Route path={`/agent`} component={AgentRouter} />
+          <Route path={`/domain`} component={DomainRouter} />
           <Route exact path={`/`} component={root} />
           <Redirect to="/error/404" />
         </Switch>
@@ -27,7 +29,7 @@ class MainApp extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    populateAgentList: () => {
+    getAllAgents: () => {
       dispatch(getAllAgents());
     }
   };
@@ -37,7 +39,7 @@ MainApp.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string.isRequired
   }),
-  populateAgentList: PropTypes.func
+  getAllAgents: PropTypes.func
 };
 
 export default withRouter(

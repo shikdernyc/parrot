@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 class Dashboard extends Component {
   componentDidMount () {
-    console.log(this.props);
   }
   render () {
     return (

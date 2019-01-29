@@ -10,7 +10,7 @@ import {
 export function createDomain (domainSchema) {
   return {
     type: CREATE_DOMAIN,
-    payload: { domainSchema }
+    domainSchema
   };
 }
 
