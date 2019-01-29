@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     case ADD_TO_STORY_LIST:
       return {
         ...state,
-        storyList: [...state.storyList, action.payload.newStory]
+        storyList: [action.payload.newStory, ...state.storyList]
       };
     case UPDATE_STORY_LIST: {
       return {

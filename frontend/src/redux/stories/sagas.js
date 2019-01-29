@@ -1,34 +1,23 @@
-import { findById, getAll, create, getAllForDomain } from 'Data/models/Story';
+import { findById, create, getAllForDomain } from 'Data/models/Story';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import {
-  SET_STORY_LIST_DOMAIN,
   CREATE_STORY,
+  SET_STORY_LIST_DOMAIN,
   SET_CURRENT_STORY_ID,
   MODIFY_CURRENT_STORY
 } from 'Constants/actionTypes.js';
-import { updateStoryList, addToStoryList, updateCurrentStory } from './actions';
-
-function * handleCreateStory ({
-  payload: { storySchema, onSuccess, onFailure }
-}) {
-  try {
-    const story = yield call(create, storySchema);
-    yield put(addToStoryList(story));
-    if (onSuccess) {
-      onSuccess(story);
-    }
-  } catch (error) {
-    if (onFailure) {
-      onFailure(error);
-    } else {
-      throw error;
-    }
-  }
-}
+import {
+  updateStoryList,
+  addToStoryList,
+  updateCurrentStory,
+  setCurrentStoryID
+} from './actions';
 
 function * handleSetStoryListDomain ({ payload: { domainID } }) {
   try {
+    console.log('Received');
     const stories = yield call(getAllForDomain, domainID);
+    console.log(stories);
     yield put(updateStoryList(stories));
   } catch (error) {
     console.log(error.message);
@@ -56,11 +45,9 @@ function * handleModifyCurrentStory ({
   payload: { currentStory, changes, onSuccess, onFailure }
 }) {
   try {
-    console.log(currentStory);
     for (let change of Object.keys(changes)) {
       currentStory[change] = changes[change];
     }
-    console.log(currentStory);
     yield put(updateCurrentStory(currentStory));
     if (onSuccess) {
       onSuccess();
@@ -68,6 +55,26 @@ function * handleModifyCurrentStory ({
   } catch (error) {
     if (onFailure) {
       onFailure(error);
+    } else {
+      throw error;
+    }
+  }
+}
+
+function * handleCreateStory ({
+  payload: { domainID, storySchema, onSuccess, onFailure }
+}) {
+  try {
+    console.log(domainID);
+    let story = yield call(create, domainID, storySchema);
+    yield put(addToStoryList(story));
+    if (onSuccess) {
+      onSuccess(story);
+    }
+  } catch (error) {
+    console.log(error);
+    if (onFailure) {
+      onFailure();
     } else {
       throw error;
     }
@@ -92,9 +99,9 @@ export function * modifyCurrentStory () {
 
 export default function * rootSaga () {
   yield all([
-    fork(watchCreateStory),
     fork(watchSetStoryListDomain),
     fork(watchSetCurrentStoryID),
-    fork(modifyCurrentStory)
+    fork(watchCreateStory)
+    // fork(modifyCurrentStory)
   ]);
 }

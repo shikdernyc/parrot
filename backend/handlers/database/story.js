@@ -1,10 +1,12 @@
 const { Story } = require('../../models');
 const { findById } = require('./common');
+const { EVENT_TYPE_ACTION, EVENT_TYPE_INTENT } = require('../../constants');
 
 async function addIntentToStory (intentID, storyID) {
   try {
     let story = await findById(Story, storyID);
     story.intents.push(intentID);
+    story.sequence.push(EVENT_TYPE_INTENT);
     return await story.save();
   } catch (error) {
     throw error;
@@ -15,6 +17,7 @@ async function addActionToStory (actionID, storyID) {
   try {
     let story = await findById(Story, storyID);
     story.actions.push(actionID);
+    story.sequence.push(EVENT_TYPE_ACTION);
     return await story.save();
   } catch (error) {
     throw error;

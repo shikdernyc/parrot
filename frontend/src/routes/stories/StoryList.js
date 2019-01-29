@@ -14,7 +14,8 @@ class StoryList extends Component {
   };
 
   onCreateSuccess = story => {
-    const { history, domainID } = this.props;
+    const { history, domainID, agentID } = this.props;
+    // history.push(`/agent/${agentID}/domain/${domainID}/stories/${story._id}`);
     history.push(`/domain/${domainID}/stories/${story._id}`);
   };
 
@@ -35,7 +36,8 @@ class StoryList extends Component {
   };
 
   handleListItemClick = (event, id) => {
-    const { history, domainID } = this.props;
+    const { history, domainID, agentID } = this.props;
+    // history.push(`/agent/${agentID}/domain/${domainID}/stories/${id}`);
     history.push(`/domain/${domainID}/stories/${id}`);
   };
 

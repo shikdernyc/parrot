@@ -59,9 +59,9 @@ async function retrieveIntents (req, res, next) {
 async function addIntent (req, res, next) {
   try {
     const intent = await Intent.create(req.body);
-    await addIntentToStory(intent._id, req.params.storyID);
+    const story = await addIntentToStory(intent._id, req.params.storyID);
     await addIntentToDomain(intent._id, req.params.domainID);
-    return res.status(200).json(intent);
+    return res.status(200).json(story);
   } catch (error) {
     next(error);
   }
@@ -79,9 +79,9 @@ async function retrieveActions (req, res, next) {
 async function addAction (req, res, next) {
   try {
     const action = await Action.create(req.body);
-    await addActionToStory(action._id, req.params.storyID);
+    const story = await addActionToStory(action._id, req.params.storyID);
     await addActionToDomain(action._id, req.params.domainID);
-    return res.status(200).json(action);
+    return res.status(200).json(story);
   } catch (error) {
     next(error);
   }

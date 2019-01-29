@@ -6,19 +6,27 @@ import {
   SET_CURRENT_STORY_ID,
   UPDATE_CURRENT_STORY,
   ADD_EVENT_TO_CURRENT_STORY,
-  MODIFY_CURRENT_STORY
+  MODIFY_CURRENT_STORY,
+  ADD_INTENT_TO_STORY
 } from 'Constants/actionTypes.js';
 
 /**
  *
+ * @param {String} domainID
  * @param {storySchema} storySchema
  * @param {func(story)} onSuccess
  * @param {func(error)} onFailure
  */
-export function createStory (storySchema, onSuccess = null, onFailure = null) {
+export function createStory (
+  domainID,
+  storySchema,
+  onSuccess = null,
+  onFailure = null
+) {
   return {
     type: CREATE_STORY,
     payload: {
+      domainID,
       storySchema,
       onSuccess,
       onFailure
@@ -110,6 +118,25 @@ export function addEventToCurrentStory (
       eventType,
       event,
       currentStory,
+      onSuccess,
+      onFailure
+    }
+  };
+}
+
+export function addIntentToStory (
+  domainID,
+  storyID,
+  intentSchema,
+  onSuccess = null,
+  onFailure = null
+) {
+  return {
+    type: ADD_INTENT_TO_STORY,
+    payload: {
+      domainID,
+      storyID,
+      intentSchema,
       onSuccess,
       onFailure
     }

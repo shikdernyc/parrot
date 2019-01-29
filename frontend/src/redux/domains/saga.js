@@ -46,10 +46,8 @@ function * handleSetCurrentDomain ({ payload: { id, history } }) {
   try {
     const domain = yield call(findById, id);
     yield put(updateCurrentDomain(domain));
-
-    console.log('handleSetCurrentDomain');
-    yield put(setStoryListDomain(id));
-    yield put(loadAllActions(id));
+    yield put(setStoryListDomain(domain._id));
+    yield put(loadAllActions(domain._id));
     // handle if history is passed
     if (history) {
       console.log('History received');
