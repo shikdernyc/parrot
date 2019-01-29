@@ -1,8 +1,9 @@
-import { actionList } from './Action';
-import { intentList } from './Intent';
+import { getAll as getAllActions } from './Action';
+import { getAll as getAllIntents } from './Intent';
 import { storySchema } from 'Data/models/Schemas';
+import { EVENT_TYPE_INTENT, EVENT_TYPE_ACTION } from 'Constants/app';
 
-let _id = 10;
+let _id = 0;
 const domainID = 0;
 
 function createStory (story) {
@@ -12,41 +13,78 @@ function createStory (story) {
   };
 }
 
-export async function getAllForDomain (domainID) {
+export function getAllForDomain (domainID) {
   return getAll();
 }
 
-export const storyList = () => {
-  let list = [];
-  const actions = actionList().map(({ _id }) => _id);
-  const intents = intentList().map(({ _id }) => _id);
-  const sequence = [];
+const actions = getAllActions();
+const intents = getAllIntents();
+const sequence = [
+  EVENT_TYPE_INTENT,
+  EVENT_TYPE_ACTION,
+  EVENT_TYPE_ACTION,
+  EVENT_TYPE_ACTION,
+  EVENT_TYPE_INTENT,
+  EVENT_TYPE_ACTION,
+  EVENT_TYPE_ACTION
+];
 
-  for (let i = 0; i < 10; i++) {
-    let story = storySchema(
+const storyList = [
+  createStory(
+    storySchema(
       String(domainID),
-      `Example Story ${i}`,
+      `Example Story ${_id}`,
       intents,
       actions,
       sequence
-    );
-    list.push({
-      _id: i,
-      ...story
-    });
-  }
-  console.log(list);
-  return list;
-};
+    )
+  ),
+  createStory(
+    storySchema(
+      String(domainID),
+      `Example Story ${_id}`,
+      intents,
+      actions,
+      sequence
+    )
+  ),
+  createStory(
+    storySchema(
+      String(domainID),
+      `Example Story ${_id}`,
+      intents,
+      actions,
+      sequence
+    )
+  ),
+  createStory(
+    storySchema(
+      String(domainID),
+      `Example Story ${_id}`,
+      intents,
+      actions,
+      sequence
+    )
+  ),
+  createStory(
+    storySchema(
+      String(domainID),
+      `Example Story ${_id}`,
+      intents,
+      actions,
+      sequence
+    )
+  )
+];
 
 export async function create (schema) {
   return createStory(schema);
 }
 
 export async function getAll () {
-  return storyList();
+  return storyList;
 }
 
 export async function findById (id) {
-  return storyList().find(({ _id }) => _id === id);
+  return storyList.find(({ _id }) => _id === id);
 }

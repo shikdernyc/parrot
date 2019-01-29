@@ -1,6 +1,6 @@
 import { actionSchema } from 'Data/models/Schemas';
 
-let _id = 0;
+let _id = 50;
 const domainID = 0;
 
 function createAction (action) {
@@ -10,28 +10,58 @@ function createAction (action) {
   };
 }
 
-export const actionList = () => {
-  let list = [];
-
-  for (let i = 0; i < 10; i++) {
-    list.push(
-      createAction(actionSchema(String(domainID), `Example Action ${i}`), [
-        'Example Response 1',
-        'Example Response 2'
-      ])
-    );
-  }
-  return list;
-};
+let actionList = [
+  createAction(actionSchema(String(domainID), `Example Actions ${_id}`), [
+    'Example Response 1',
+    'Example Response 2'
+  ]),
+  createAction(actionSchema(String(domainID), `Example Actions ${_id}`), [
+    'Example Response 1',
+    'Example Response 2'
+  ]),
+  createAction(actionSchema(String(domainID), `Example Actions ${_id}`), [
+    'Example Response 1',
+    'Example Response 2'
+  ]),
+  createAction(actionSchema(String(domainID), `Example Actions ${_id}`), [
+    'Example Response 1',
+    'Example Response 2'
+  ]),
+  createAction(actionSchema(String(domainID), `Example Actions ${_id}`), [
+    'Example Response 1',
+    'Example Response 2'
+  ])
+];
 
 export async function create (schema) {
   return createAction(schema);
 }
 
-export async function getAll () {
-  return actionList();
+export function getAll () {
+  return [
+    createAction(actionSchema(String(domainID), `Example Actions ${_id}`), [
+      'Example Response 1',
+      'Example Response 2'
+    ]),
+    createAction(actionSchema(String(domainID), `Example Actions ${_id}`), [
+      'Example Response 1',
+      'Example Response 2'
+    ]),
+    createAction(actionSchema(String(domainID), `Example Actions ${_id}`), [
+      'Example Response 1',
+      'Example Response 2'
+    ]),
+    createAction(actionSchema(String(domainID), `Example Actions ${_id}`), [
+      'Example Response 1',
+      'Example Response 2'
+    ]),
+    createAction(actionSchema(String(domainID), `Example Actions ${_id}`), [
+      'Example Response 1',
+      'Example Response 2'
+    ])
+  ];
 }
 
 export async function findById (id) {
-  return actionList().find(({ _id }) => _id === id);
+  return actionList.find(({ _id }) => _id === id);
 }
