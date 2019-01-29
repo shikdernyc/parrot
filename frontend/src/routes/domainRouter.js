@@ -12,7 +12,7 @@ class DomainRouter extends Component {
   render () {
     const { match, currentDomainID } = this.props;
     const matches = this.props.location.pathname.match(/\/domain\/(.*)/);
-    if (matches.length === 2 && matches[1] && matches[1] !== currentDomainID) {
+    if (matches.length === 2 && matches[1] !== currentDomainID) {
       this.props.setCurrentDomain(matches[1]);
     }
     return (

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { List, TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createAction as createActionAction, loadAllAction as loadAllActionAction } from 'Redux/actions/actions';
+import { createAction as createActionAction } from 'Redux/actions/actions';
 import ActionListItem from './ActionListItem';
 // import CreateAction from 'Components/forms/CreateAction';
 
@@ -66,9 +66,6 @@ class ActionList extends Component {
 const mapDispatchToProps = dispatch => ({
   create: function (actionSchema, onCreateSuccess, onFailure) {
     dispatch(createActionAction(actionSchema, onCreateSuccess, onFailure));
-  },
-  loadAllActions: function (domainID) {
-    dispatch(loadAllActionAction(domainID));
   }
 });
 

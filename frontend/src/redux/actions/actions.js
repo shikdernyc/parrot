@@ -16,7 +16,7 @@ export function createAction (actionSchema, onSuccess, onFailure) {
   };
 }
 
-export function loadAllAction (domainID) {
+export function loadAllActions (domainID) {
   return {
     type: GET_ALL_ACTIONS,
     domainID

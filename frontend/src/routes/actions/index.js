@@ -8,6 +8,7 @@ import ActionView from './ActionView';
 class Action extends Component {
   render () {
     const { match } = this.props;
+    console.log(match);
     return (
       <Switch>
         <Route exact path={`${match.url}`} component={ActionList} />

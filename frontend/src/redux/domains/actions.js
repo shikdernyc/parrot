@@ -27,9 +27,7 @@ export function setCurrentDomain (id, history = null) {
 export function updateCurrentDomain (newDomain) {
   return {
     type: UPDATE_CURRENT_DOMAIN,
-    payload: {
-      newDomain
-    }
+    payload: newDomain
   };
 }
 

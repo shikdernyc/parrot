@@ -8,7 +8,7 @@ const {
   find
 } = require('../handlers/routes/common');
 const { retrieveById } = require('../handlers/routes/domain');
-const { setDomainModel, setIntentModel } = require('../handlers/middlewares');
+const { setDomainModel, setIntentModel, setActionModel } = require('../handlers/middlewares');
 
 router
   .route('/')
@@ -16,7 +16,14 @@ router
   .get(setDomainModel, findAndSortAllByCreated);
 
 router.route('/:domainID').get(retrieveById);
-// .put(setDomainModel, updateById)
-// .delete(setDomainModel, deleteById);
+
+router.route('/:domainID/actions').get(
+  setActionModel,
+  (req, res, next) => {
+    req.extras.findParams = { domainID: req.params.domainID };
+    next();
+  },
+  find
+);
 
 module.exports = router;

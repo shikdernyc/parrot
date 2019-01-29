@@ -1,4 +1,3 @@
-import { agentSchema } from 'Data/models/Schemas';
 import { get, post, put, remove } from 'Services/server';
 import { AGENT_ROUTE } from 'Constants/app';
 
@@ -10,12 +9,6 @@ export async function createAgent (schema) {
     throw error;
   }
 }
-
-// let agentList = [
-//   createAgent(agentSchema('Example Agent 1', 'Example Description')),
-//   createAgent(agentSchema('Example Agent 2', 'Example Description')),
-//   createAgent(agentSchema('Example Agent 3', 'Example Description'))
-// ];
 
 export async function create (schema) {
   return createAgent(schema);

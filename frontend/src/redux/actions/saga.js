@@ -19,7 +19,9 @@ function * handleCreateAction ({ actionSchema, history }) {
   }
 }
 
-function * handleGetAllActions (domainID) {
+function * handleGetAllActions ({ domainID }) {
+  console.log('handleGetAllActions');
+  console.log(domainID);
   try {
     const actions = yield call(getAll, domainID);
     yield put(updateActionList(actions));
@@ -50,7 +52,6 @@ export function * watchGetAllActions () {
 // }
 
 export default function * rootSaga () {
-  console.log('action sagas');
   yield all([
     fork(watchCreateAction),
     fork(watchGetAllActions)

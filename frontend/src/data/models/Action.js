@@ -40,6 +40,7 @@ export async function create (schema) {
 }
 
 export async function getAll (domainID) {
+  console.log('getAll');
   try {
     const items = await get(`${DOMAIN_ROUTE}/${domainID}/${ACTION_ROUTE}`);
     return items['data'];

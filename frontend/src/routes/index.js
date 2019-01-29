@@ -10,6 +10,7 @@ import DomainRouter from './domainRouter';
 
 class MainApp extends Component {
   componentDidMount () {
+    // get all agents
     const { getAllAgents } = this.props;
     getAllAgents();
   }
