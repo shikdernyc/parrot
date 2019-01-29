@@ -23,7 +23,7 @@ const create = async function (req, res, next) {
 const find = async function (req, res, next) {
   try {
     const item = await db.find(req.extras.model, req.extras.findParams);
-    return res.status(201).json(item);
+    return res.status(200).json(item);
   } catch (error) {
     error.message = 'Unable to find item with given parameter';
     next(error);
@@ -66,7 +66,7 @@ const findAndSortAllByCreated = async function (req, res, next) {
 const findById = async function (req, res, next) {
   try {
     const item = await db.findById(req.extras.model, req.params.id);
-    return res.status(201).json(item);
+    return res.status(200).json(item);
   } catch (error) {
     error.message = 'Unable to find item with the given id';
     next(error);

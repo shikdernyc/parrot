@@ -2,9 +2,10 @@ import { ACTION_ROUTE } from 'Constants/app.js';
 import { create, getAll, findById } from 'Data/models/Action';
 import { all, call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import {
-  CREATE_ACTION
+  CREATE_ACTION,
+  GET_ALL_ACTIONS
 } from 'Constants/actionTypes.js';
-import { updateAgentList, updateCurrentAgent } from './actions';
+import { updateActionList, updateCurrentAction } from './actions';
 
 function * handleCreateAction ({ actionSchema, history }) {
   try {
@@ -18,15 +19,15 @@ function * handleCreateAction ({ actionSchema, history }) {
   }
 }
 
-// function * handleGetAllAgents () {
-//   try {
-//     const agents = yield call(getAll, AGENT_ROUTE);
-//     yield put(updateAgentList(agents));
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// }
+function * handleGetAllActions (domainID) {
+  try {
+    const actions = yield call(getAll, domainID);
+    yield put(updateActionList(actions));
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 //
 // function * handleSetCurrentAgent ({ id }) {
 //   try {
@@ -39,11 +40,11 @@ function * handleCreateAction ({ actionSchema, history }) {
 export function * watchCreateAction () {
   yield takeLatest(CREATE_ACTION, handleCreateAction);
 }
-//
-// export function * watchGetAllAgents () {
-//   yield takeEvery(GET_ALL_AGENTS, handleGetAllAgents);
-// }
-//
+
+export function * watchGetAllActions () {
+  yield takeEvery(GET_ALL_ACTIONS, handleGetAllActions);
+}
+
 // export function * watchSetCurrentAgent () {
 //   yield takeEvery(SET_CURRENT_AGENT, handleSetCurrentAgent);
 // }
@@ -51,8 +52,8 @@ export function * watchCreateAction () {
 export default function * rootSaga () {
   console.log('action sagas');
   yield all([
-    fork(watchCreateAction)
-    // fork(watchGetAllAgents),
+    fork(watchCreateAction),
+    fork(watchGetAllActions)
     // fork(watchSetCurrentAgent)
   ]);
 }

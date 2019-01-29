@@ -14,8 +14,8 @@ export function agentSchema (agentName, description, domains = []) {
 /**
  *
  * @param {String} domainID
- * @param {String} intentName
- * @param {[String]} userSays
+ * @param {String} actionName
+ * @param {[String]} agentResponses
  */
 export function actionSchema (domainID, actionName, agentResponses = []) {
   return {

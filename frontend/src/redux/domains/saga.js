@@ -11,6 +11,7 @@ import {
   updateCurrentDomain
 } from './actions';
 import { setStoryListDomain } from '../stories/actions';
+import { loadAllAction } from '../actions/actions';
 
 function * handleCreateDomain ({ domainSchema }) {
   console.log(domainSchema);
@@ -46,6 +47,7 @@ function * handleSetCurrentDomain ({ payload: { id, history } }) {
     const domain = yield call(findById, id);
     yield put(updateCurrentDomain(domain));
     yield put(setStoryListDomain(domain._id));
+    yield put(loadAllAction(id));
     // handle if history is passed
     if (history) {
       console.log('History received');
