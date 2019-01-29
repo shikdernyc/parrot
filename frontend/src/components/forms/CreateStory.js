@@ -35,6 +35,7 @@ class CreateStory extends Component {
     if (e.key === 'Enter' && e.target.value !== '') {
       const { create, domainID } = this.props;
       create(
+        domainID,
         storySchema(domainID, this.state.newStory),
         this.onCreateSuccess,
         this.onCreateFail
@@ -62,8 +63,8 @@ class CreateStory extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  create: function (storySchema, onSuccess, onFailure) {
-    dispatch(createStoryAction(storySchema, onSuccess, onFailure));
+  create: function (domainID, storySchema, onSuccess, onFailure) {
+    dispatch(createStoryAction(domainID, storySchema, onSuccess, onFailure));
   }
 });
 

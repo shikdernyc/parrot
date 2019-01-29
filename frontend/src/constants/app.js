@@ -14,5 +14,5 @@ export const ENTITY_ROUTE = 'entities';
 export const ACTION_ROUTE = 'actions';
 
 // StoryModel
-export const EVENT_TYPE_INTENT = 'EVENT_TYPE_INTENT';
-export const EVENT_TYPE_ACTION = 'EVENT_TYPE_ACTION';
+export const EVENT_TYPE_INTENT = 'INTENT';
+export const EVENT_TYPE_ACTION = 'ACTION';

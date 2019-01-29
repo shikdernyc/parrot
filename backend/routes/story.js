@@ -1,5 +1,4 @@
 const router = require('express').Router({ mergeParams: true });
-const { findAndSortAllByCreated } = require('../handlers/routes/common');
 const {
   create,
   retreiveAllDomainStories,
@@ -10,8 +9,6 @@ const {
   addAction,
   modifyStory
 } = require('../handlers/routes/story');
-
-const { setStoryModel } = require('../handlers/middlewares');
 
 router
   .route('/')

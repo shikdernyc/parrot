@@ -1,90 +1,56 @@
-import { getAll as getAllActions } from './Action';
-import { getAll as getAllIntents } from './Intent';
-import { storySchema } from 'Data/models/Schemas';
-import { EVENT_TYPE_INTENT, EVENT_TYPE_ACTION } from 'Constants/app';
+import { get, post, put } from 'Services/server.js';
 
-let _id = 0;
-const domainID = 0;
+const ROUTE = domainID => `domains/${domainID}/stories`;
 
-function createStory (story) {
-  return {
-    _id: String(_id++),
-    ...story
-  };
+export async function create (domainID, storySchema) {
+  try {
+    const route = `${ROUTE(domainID)}`;
+    let story = await post(route, storySchema);
+    return story['data'];
+  } catch (error) {
+    throw error;
+  }
 }
 
-export function getAllForDomain (domainID) {
-  return getAll();
+export async function getAllForDomain (domainID) {
+  try {
+    const route = `${ROUTE(domainID)}`;
+    let stories = await get(route);
+    return stories['data']['stories'];
+  } catch (error) {
+    throw error;
+  }
 }
 
-const actions = getAllActions();
-const intents = getAllIntents();
-const sequence = [
-  EVENT_TYPE_INTENT,
-  EVENT_TYPE_ACTION,
-  EVENT_TYPE_ACTION,
-  EVENT_TYPE_ACTION,
-  EVENT_TYPE_INTENT,
-  EVENT_TYPE_ACTION,
-  EVENT_TYPE_ACTION
-];
-
-const storyList = [
-  createStory(
-    storySchema(
-      String(domainID),
-      `Example Story ${_id}`,
-      intents,
-      actions,
-      sequence
-    )
-  ),
-  createStory(
-    storySchema(
-      String(domainID),
-      `Example Story ${_id}`,
-      intents,
-      actions,
-      sequence
-    )
-  ),
-  createStory(
-    storySchema(
-      String(domainID),
-      `Example Story ${_id}`,
-      intents,
-      actions,
-      sequence
-    )
-  ),
-  createStory(
-    storySchema(
-      String(domainID),
-      `Example Story ${_id}`,
-      intents,
-      actions,
-      sequence
-    )
-  ),
-  createStory(
-    storySchema(
-      String(domainID),
-      `Example Story ${_id}`,
-      intents,
-      actions,
-      sequence
-    )
-  )
-];
-
-export async function create (schema) {
-  return createStory(schema);
+export async function findById (domainID, storyID) {
+  try {
+    let story = await get(`${ROUTE(domainID)}/${storyID}`);
+    return story['data'];
+  } catch (error) {
+    throw error;
+  }
 }
 
-export async function getAll () {
-  return storyList;
+export async function addIntent (domainID, storyID, intentSchema) {
+  try {
+    let intent = await post(
+      `${ROUTE(domainID)}/${storyID}/intents`,
+      intentSchema
+    );
+    return intent['data'];
+  } catch (error) {
+    throw error;
+  }
 }
 
-export async function findById (id) {
-  return storyList.find(({ _id }) => _id === id);
+export async function addAction (domainID, storyID, actionSchema) {
+  try {
+    let action = await post(
+      `${ROUTE(domainID)}/${storyID}/actions`,
+      actionSchema
+    );
+    return action['data'];
+  } catch (error) {
+    throw error;
+  }
 }
