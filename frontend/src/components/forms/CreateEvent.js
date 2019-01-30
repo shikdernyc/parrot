@@ -5,7 +5,10 @@ import { TextField, Grid, MenuItem } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { createIntent as createIntentAction } from 'Redux/intents/actions.js';
 import { createAction as createActionAction } from 'Redux/actions/actions.js';
-import { modifyCurrentStory } from 'Redux/stories/actions';
+import {
+  addIntentToStory as actionAddIntentToStory,
+  addActionToStory as actionAddActionToStory
+} from 'Redux/stories/actions';
 import { EVENT_TYPE_ACTION, EVENT_TYPE_INTENT } from 'Constants/app';
 
 class CreateEvent extends Component {
@@ -41,32 +44,35 @@ class CreateEvent extends Component {
   };
 
   handleCreateIntent = () => {
-    const {
+    const { domainID, currentStory, addIntentToStory } = this.props;
+    addIntentToStory(
       domainID,
-      createIntent,
-      currentStory,
-      addEventToStory
-    } = this.props;
-    createIntent(
+      currentStory._id,
       intentSchema(domainID, this.state.newEvent),
-      intent => {
-        console.log(intent);
-        addEventToStory(
-          EVENT_TYPE_INTENT,
-          intent,
-          currentStory,
-          this.onCreateSuccess,
-          this.onCreateFail
-        );
-      },
-      this.onCreateSuccess
+      this.onCreateSuccess,
+      this.onCreateFail
+    );
+  };
+
+  handleCreateAction = () => {
+    console.log('called');
+    const { domainID, currentStory, addActionToStory } = this.props;
+    addActionToStory(
+      domainID,
+      currentStory._id,
+      actionSchema(domainID, this.state.newEvent),
+      this.onCreateSuccess,
+      this.onCreateFail
     );
   };
 
   handleNewEventAdd = e => {
     if (e.key === 'Enter' && e.target.value !== '') {
+      console.log(this.state.eventType);
       if (this.state.eventType === EVENT_TYPE_INTENT) {
         this.handleCreateIntent();
+      } else {
+        this.handleCreateAction();
       }
     }
   };
@@ -113,25 +119,39 @@ const mapDispatchToProps = dispatch => ({
   createIntent: (intentSchema, onSuccess = null, onFailure = null) => {
     dispatch(createIntentAction(intentSchema, onSuccess, onFailure));
   },
-  addEventToStory: (
-    eventType,
-    event,
-    currentStory,
+  addIntentToStory: (
+    domainID,
+    storyID,
+    intentSchema,
     onSuccess = null,
     onFailure = null
   ) => {
-    console.log(currentStory);
-    let changes = {};
-    if (eventType === EVENT_TYPE_INTENT) {
-      let { intents, sequence } = currentStory;
-      changes.intents = [...intents, event];
-      changes.sequence = [...sequence, EVENT_TYPE_INTENT];
-    } else {
-      let { actions, sequence } = currentStory;
-      changes.actions = [...actions, event];
-      changes.sequence = [...sequence, EVENT_TYPE_ACTION];
-    }
-    dispatch(modifyCurrentStory(currentStory, changes, onSuccess, onFailure));
+    dispatch(
+      actionAddIntentToStory(
+        domainID,
+        storyID,
+        intentSchema,
+        onSuccess,
+        onFailure
+      )
+    );
+  },
+  addActionToStory: (
+    domainID,
+    storyID,
+    actionSchema,
+    onSuccess = null,
+    onFailure = null
+  ) => {
+    dispatch(
+      actionAddActionToStory(
+        domainID,
+        storyID,
+        actionSchema,
+        onSuccess,
+        onFailure
+      )
+    );
   }
 });
 
@@ -149,7 +169,8 @@ CreateEvent.propTypes = {
   domainID: PropTypes.string,
   currentStory: PropTypes.object,
   createIntent: PropTypes.func,
-  addEventToStory: PropTypes.func
+  addIntentToStory: PropTypes.func,
+  addActionToStory: PropTypes.func
 };
 
 export default connect(

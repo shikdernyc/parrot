@@ -2,12 +2,12 @@ const { Story } = require('../../models');
 const { findById } = require('./common');
 const { EVENT_TYPE_ACTION, EVENT_TYPE_INTENT } = require('../../constants');
 
-async function addIntentToStory (intentID, storyID) {
+async function populateEvents (storyID) {
   try {
-    let story = await findById(Story, storyID);
-    story.intents.push(intentID);
-    story.sequence.push(EVENT_TYPE_INTENT);
-    return await story.save();
+    let stories = await Story.findById(storyID)
+      .populate('intents')
+      .populate('actions');
+    return await stories;
   } catch (error) {
     throw error;
   }
@@ -18,18 +18,20 @@ async function addActionToStory (actionID, storyID) {
     let story = await findById(Story, storyID);
     story.actions.push(actionID);
     story.sequence.push(EVENT_TYPE_ACTION);
-    return await story.save();
+    await story.save();
+    return await populateEvents(storyID);
   } catch (error) {
     throw error;
   }
 }
 
-async function populateEvents (storyID) {
+async function addIntentToStory (intentID, storyID) {
   try {
-    let stories = await Story.findById(storyID)
-      .populate('intents')
-      .populate('actions');
-    return stories;
+    let story = await findById(Story, storyID);
+    story.intents.push(intentID);
+    story.sequence.push(EVENT_TYPE_INTENT);
+    await story.save();
+    return await populateEvents(storyID);
   } catch (error) {
     throw error;
   }
