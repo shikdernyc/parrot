@@ -42,6 +42,7 @@ class CreateAction extends Component {
       );
     }
   };
+
   handleChange = e => {
     this.setState({
       newAction: e.target.value

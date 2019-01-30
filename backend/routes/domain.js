@@ -26,4 +26,13 @@ router.route('/:domainID/actions').get(
   find
 );
 
+router.route('/:domainID/intents').get(
+  setIntentModel,
+  (req, res, next) => {
+    req.extras.findParams = { domainID: req.params.domainID };
+    next();
+  },
+  find
+);
+
 module.exports = router;

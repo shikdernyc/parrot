@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ActionList from './ActionList';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
@@ -7,6 +6,7 @@ import { connect } from 'react-redux';
 // import EventList from 'Components/list/EventList';
 import { setCurrentAction as actionsetCurrentAction } from 'Redux/actions/actions';
 import ActionForm from './ActionForm';
+import ActionList from './ActionList';
 
 class ActionView extends Component {
   render () {
