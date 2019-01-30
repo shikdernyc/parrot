@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { List, TextField } from '@material-ui/core';
+import { List, TextField, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStory as createStoryAction } from 'Redux/stories/actions';

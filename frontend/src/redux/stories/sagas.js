@@ -1,26 +1,29 @@
-import { findById, create, getAllForDomain } from 'Data/models/Story';
+import {
+  findById,
+  create,
+  getAllForDomain,
+  addIntent,
+  addAction
+} from 'Data/models/Story';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import {
   CREATE_STORY,
   SET_STORY_LIST_DOMAIN,
   SET_CURRENT_STORY_ID,
-  MODIFY_CURRENT_STORY
+  MODIFY_CURRENT_STORY,
+  ADD_INTENT_TO_STORY,
+  ADD_ACTION_TO_STORY
 } from 'Constants/actionTypes.js';
-import {
-  updateStoryList,
-  addToStoryList,
-  updateCurrentStory,
-  setCurrentStoryID
-} from './actions';
+import { updateStoryList, addToStoryList, updateCurrentStory } from './actions';
 
 function * handleSetStoryListDomain ({ payload: { domainID } }) {
   try {
-    // console.log('Received');
+    console.log('Received');
     const stories = yield call(getAllForDomain, domainID);
-    // console.log(stories);
+    console.log(stories);
     yield put(updateStoryList(stories));
   } catch (error) {
-    // console.log(error.message);
+    console.log(error.message);
     throw error;
   }
 }
@@ -29,7 +32,6 @@ function * handleSetCurrentStoryId ({
   payload: { domainID, storyID, onSuccess, onFailure }
 }) {
   try {
-    console.log('here');
     const story = yield call(findById, domainID, storyID);
     yield put(updateCurrentStory(story));
     if (onSuccess) {
@@ -68,7 +70,7 @@ function * handleCreateStory ({
   payload: { domainID, storySchema, onSuccess, onFailure }
 }) {
   try {
-    // console.log(domainID);
+    console.log(domainID);
     let story = yield call(create, domainID, storySchema);
     yield put(addToStoryList(story));
     if (onSuccess) {
@@ -78,6 +80,42 @@ function * handleCreateStory ({
     console.log(error);
     if (onFailure) {
       onFailure();
+    } else {
+      throw error;
+    }
+  }
+}
+
+function * handleAddIntentToStory ({
+  payload: { domainID, storyID, intentSchema, onSuccess, onFailure }
+}) {
+  try {
+    let story = yield call(addIntent, domainID, storyID, intentSchema);
+    yield put(updateCurrentStory(story));
+    if (onSuccess) {
+      onSuccess(story);
+    }
+  } catch (error) {
+    if (onFailure) {
+      onFailure(error);
+    } else {
+      throw error;
+    }
+  }
+}
+
+function * handleAddActionToStory ({
+  payload: { domainID, storyID, actionSchema, onSuccess, onFailure }
+}) {
+  try {
+    let story = yield call(addAction, domainID, storyID, actionSchema);
+    yield put(updateCurrentStory(story));
+    if (onSuccess) {
+      onSuccess(story);
+    }
+  } catch (error) {
+    if (onFailure) {
+      onFailure(error);
     } else {
       throw error;
     }
@@ -100,11 +138,20 @@ export function * modifyCurrentStory () {
   yield takeEvery(MODIFY_CURRENT_STORY, handleModifyCurrentStory);
 }
 
+export function * watchAddIntentToStory () {
+  yield takeEvery(ADD_INTENT_TO_STORY, handleAddIntentToStory);
+}
+export function * watchAddActionToStory () {
+  yield takeEvery(ADD_ACTION_TO_STORY, handleAddActionToStory);
+}
+
 export default function * rootSaga () {
   yield all([
     fork(watchSetStoryListDomain),
     fork(watchSetCurrentStoryID),
-    fork(watchCreateStory)
+    fork(watchCreateStory),
+    fork(watchAddIntentToStory),
+    fork(watchAddActionToStory)
     // fork(modifyCurrentStory)
   ]);
 }

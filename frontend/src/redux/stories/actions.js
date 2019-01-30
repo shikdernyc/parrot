@@ -5,7 +5,7 @@ import {
   ADD_TO_STORY_LIST,
   SET_CURRENT_STORY_ID,
   UPDATE_CURRENT_STORY,
-  ADD_EVENT_TO_CURRENT_STORY,
+  ADD_ACTION_TO_STORY,
   MODIFY_CURRENT_STORY,
   ADD_INTENT_TO_STORY
 } from 'Constants/actionTypes.js';
@@ -110,26 +110,6 @@ export function modifyCurrentStory (
   };
 }
 
-export function addEventToCurrentStory (
-  eventType,
-  event,
-  currentStory,
-  onSuccess = null,
-  onFailure = null
-) {
-  // console.log(event);
-  return {
-    type: ADD_EVENT_TO_CURRENT_STORY,
-    payload: {
-      eventType,
-      event,
-      currentStory,
-      onSuccess,
-      onFailure
-    }
-  };
-}
-
 export function addIntentToStory (
   domainID,
   storyID,
@@ -143,6 +123,25 @@ export function addIntentToStory (
       domainID,
       storyID,
       intentSchema,
+      onSuccess,
+      onFailure
+    }
+  };
+}
+
+export function addActionToStory (
+  domainID,
+  storyID,
+  actionSchema,
+  onSuccess = null,
+  onFailure = null
+) {
+  return {
+    type: ADD_ACTION_TO_STORY,
+    payload: {
+      domainID,
+      storyID,
+      actionSchema,
       onSuccess,
       onFailure
     }
