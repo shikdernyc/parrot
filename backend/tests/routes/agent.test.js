@@ -54,10 +54,10 @@ describe('Test agent route', () => {
       .expect(200)
       .end(function (err, res) {
         if (err) throw err;
-        expect(res.body[1])
+        expect(res.body[0])
           .excluding(exclude)
           .to.deep.equal(agt2);
-        expect(res.body[0])
+        expect(res.body[1])
           .excluding(exclude)
           .to.deep.equal(agt1);
         done();

@@ -8,15 +8,12 @@ import {
 export function createAction (actionSchema, onSuccess, onFailure) {
   return {
     type: CREATE_ACTION,
-    payload: {
-      actionSchema,
-      onSuccess,
-      onFailure
-    }
+    actionSchema,
+    onSuccess
   };
 }
 
-export function loadAllAction (domainID) {
+export function loadAllActions (domainID) {
   return {
     type: GET_ALL_ACTIONS,
     domainID

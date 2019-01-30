@@ -10,6 +10,12 @@ import Actions from './actions';
 import Intents from './intents';
 
 class DomainRouter extends Component {
+  handleSetCurrentDomain (domainID) {
+    if (domainID !== this.props.currentDomainID) {
+      this.props.setCurrentDomain(domainID);
+    }
+  }
+
   render () {
     const {
       setCurrentDomain,

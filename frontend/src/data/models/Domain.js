@@ -2,7 +2,6 @@ import { get, post, put, remove } from 'Services/server';
 import { DOMAIN_ROUTE, AGENT_ROUTE } from 'Constants/app';
 
 export async function create (schema) {
-  console.log(schema);
   try {
     const item = await post(DOMAIN_ROUTE, schema);
     return item['data'];

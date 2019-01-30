@@ -12,10 +12,9 @@ import {
 } from './actions';
 import { setStoryListDomain } from '../stories/actions';
 import { setIntentListDomain } from '../intents/actions';
-import { loadAllAction } from '../actions/actions';
+import { loadAllActions } from '../actions/actions';
 
 function * handleCreateDomain ({ domainSchema }) {
-  console.log(domainSchema);
   try {
     const domain = yield call(create, domainSchema);
     yield put(addToDomainList(domain));
@@ -47,9 +46,10 @@ function * handleSetCurrentDomain ({ payload: { id, history } }) {
   try {
     const domain = yield call(findById, id);
     yield put(updateCurrentDomain(domain));
+
     yield put(setStoryListDomain(domain._id));
     yield put(setIntentListDomain(domain._id));
-    yield put(loadAllAction(id));
+    yield put(loadAllActions(domain._id));
     // handle if history is passed
     if (history) {
       console.log('History received');
