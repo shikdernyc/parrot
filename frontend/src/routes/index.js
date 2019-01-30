@@ -16,15 +16,13 @@ class MainApp extends Component {
 
   render () {
     return (
-      <main>
-        <Switch>
-          <Route path={`/agent`} component={AgentRouter} />
-          <Route path={`/domain`} component={DomainRouter} />
-          {/* <Route path={`/action`} component={ActionRouter} /> */}
-          <Route exact path={`/`} component={root} />
-          <Redirect to="/error/404" />
-        </Switch>
-      </main>
+      <Switch>
+        <Route path={`/agent/:agentID`} component={AgentRouter} />
+        <Route path={`/domain/:domainID`} component={DomainRouter} />
+        {/* <Route path={`/action`} component={ActionRouter} /> */}
+        <Route exact path={`/`} component={root} />
+        <Redirect to="/error/404" />
+      </Switch>
     );
   }
 }

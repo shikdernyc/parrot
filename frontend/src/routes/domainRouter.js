@@ -11,17 +11,25 @@ import Intents from './intents';
 
 class DomainRouter extends Component {
   render () {
-    const { match, currentDomainID } = this.props;
-    const matches = this.props.location.pathname.match(/\/domain\/(.*)/);
-    if (matches.length === 2 && matches[1] && matches[1] !== currentDomainID) {
-      this.props.setCurrentDomain(matches[1]);
-    }
+    const {
+      setCurrentDomain,
+      match,
+      match: {
+        params: { domainID }
+      },
+      currentDomainID
+    } = this.props;
+    if (currentDomainID !== domainID) setCurrentDomain(domainID);
+    // const matches = this.props.location.pathname.match(/\/domain\/(.*)/);
+    // if (matches.length === 2 && matches[1] && matches[1] !== currentDomainID) {
+    //   this.props.setCurrentDomain(matches[1]);
+    // }
     return (
       <Switch>
-        <Route path={`${match.url}/:domainID/stories`} component={Stories} />
-        <Route path={`${match.url}/:domainID/actions`} component={Actions} />
-        <Route path={`${match.url}/:domainID/intents`} component={Intents} />
-        <Route path={`${match.url}/:domainID`} component={Dashboard} />
+        <Route path={`${match.url}/stories`} component={Stories} />
+        <Route path={`${match.url}/actions`} component={Actions} />
+        <Route path={`${match.url}/intents`} component={Intents} />
+        <Route path={`${match.url}`} component={Dashboard} />
         <Redirect to="/error/404" />
       </Switch>
     );
