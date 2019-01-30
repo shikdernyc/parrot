@@ -1,46 +1,32 @@
-import { intentSchema } from 'Data/models/Schemas';
+import { get, post, put } from 'Services/server.js';
 
-let _id = 0;
-const domainID = 0;
+const ROUTE = domainID => `domains/${domainID}/intents`;
 
-function createIntent (intent) {
-  return {
-    _id: String(_id++),
-    ...intent
-  };
+export async function create (domainID, intentSchema) {
+  try {
+    const route = `${ROUTE(domainID)}`;
+    let intent = await post(route, intentSchema);
+    return intent['data'];
+  } catch (error) {
+    throw error;
+  }
 }
 
-let intentList = [
-  createIntent(intentSchema(String(domainID), `Example Intent ${_id}`), [
-    'Example Response 1',
-    'Example Response 2'
-  ]),
-  createIntent(intentSchema(String(domainID), `Example Intent ${_id}`), [
-    'Example Response 1',
-    'Example Response 2'
-  ]),
-  createIntent(intentSchema(String(domainID), `Example Intent ${_id}`), [
-    'Example Response 1',
-    'Example Response 2'
-  ]),
-  createIntent(intentSchema(String(domainID), `Example Intent ${_id}`), [
-    'Example Response 1',
-    'Example Response 2'
-  ]),
-  createIntent(intentSchema(String(domainID), `Example Intent ${_id}`), [
-    'Example Response 1',
-    'Example Response 2'
-  ])
-];
-
-export async function create (schema) {
-  return createIntent(schema);
+export async function getAllForDomain (domainID) {
+  try {
+    const route = `${ROUTE(domainID)}`;
+    let stories = await get(route);
+    return stories['data']['intents'];
+  } catch (error) {
+    throw error;
+  }
 }
 
-export function getAll () {
-  return intentList;
-}
-
-export async function findById (id) {
-  return intentList.find(({ _id }) => _id === id);
+export async function findById (domainID, intentID) {
+  try {
+    let intent = await get(`${ROUTE(domainID)}/${intentID}`);
+    return intent['data'];
+  } catch (error) {
+    throw error;
+  }
 }
