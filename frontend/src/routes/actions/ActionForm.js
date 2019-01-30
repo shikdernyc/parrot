@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // import MenuItem from '@material-ui/core/MenuItem';
 import SaveAlt from '@material-ui/icons/SaveAlt';
-// import Typography from '@material-ui/core/Typography';
+import DeleteForever from '@material-ui/icons/DeleteForever';
 
 import ListInputWithDelete from 'Components/inputs/ListInputWithDelete';
 import { StyledTextField } from 'Components/inputs/TextField';
 import { StyledFab } from 'Components/buttons';
-import { updateAction } from 'Redux/actions/actions';
+import { updateAction, deleteAction } from 'Redux/actions/actions';
 // import { actionSchema } from 'Data/models/Schemas';
 
 // const languages = [
@@ -62,6 +62,12 @@ class ActionForm extends Component {
       agentResponses: agentResponses
     });
   };
+
+  handleOnclick = event => {
+    event.preventDefault();
+    const { deleteAction, currentAction, history } = this.props;
+    deleteAction(currentAction, history);
+  }
 
   render () {
     return (
@@ -120,6 +126,9 @@ class ActionForm extends Component {
           <StyledFab type='submit' Icon={SaveAlt}>
             Update Action
           </StyledFab>
+          <StyledFab type='button' Icon={DeleteForever} onClick={this.handleOnclick}>
+            Delete Action
+          </StyledFab>
         </form>
       </Fragment>
     );
@@ -137,6 +146,9 @@ const mapDispatchToProps = dispatch => {
   return {
     updateAction: (action) => {
       dispatch(updateAction(action));
+    },
+    deleteAction: (action, history) => {
+      dispatch(deleteAction(action, history));
     }
   };
 };
@@ -144,8 +156,8 @@ const mapDispatchToProps = dispatch => {
 ActionForm.propTypes = {
   updateAction: PropTypes.func,
   history: PropTypes.object,
-  currentAction: PropTypes.object
-  // form_error: PropTypes.object
+  currentAction: PropTypes.object,
+  deleteAction: PropTypes.func
 };
 
 export default connect(

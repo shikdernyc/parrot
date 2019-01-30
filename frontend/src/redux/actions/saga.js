@@ -1,13 +1,27 @@
-import { create, getAll, findById, updateById } from 'Data/models/Action';
-import { all, call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import {
+  create,
+  getAll,
+  findById,
+  updateById,
+  deleteById
+} from 'Data/models/Action';
+import {
+  all,
+  call,
+  fork,
+  put,
+  takeEvery,
+  takeLatest
+} from 'redux-saga/effects';
 import {
   CREATE_ACTION,
   GET_ALL_ACTIONS,
   CREATE_ACTION_SUCCEEDED,
   SET_CURRENT_ACTION,
-  UPDATE_ACTION
+  UPDATE_ACTION,
+  DELETE_ACTION
 } from 'Constants/actionTypes.js';
-import { updateActionList, updateCurrentAction } from './actions';
+import { updateActionList, updateCurrentAction, deleteActionFromList } from './actions';
 
 function * handleCreateAction ({ actionSchema, onSuccess, history }) {
   try {
@@ -50,6 +64,16 @@ function * handleUpdateAction ({ action }) {
     // yield put(updateCurrentAgent(agent));
   } catch (error) {}
 }
+
+function * handleDeleteAction ({ action, history }) {
+  try {
+    const result = yield call(deleteById, action);
+    history.push(`/domain/${action.domainID}/actions`);
+    yield put(deleteActionFromList(action));
+    // TODO: Update intent, domain and entity list as well
+    // yield put(updateCurrentAgent(agent));
+  } catch (error) {}
+}
 //
 export function * watchCreateAction () {
   yield takeLatest(CREATE_ACTION, handleCreateAction);
@@ -67,11 +91,16 @@ export function * watchUpdateAction () {
   yield takeEvery(UPDATE_ACTION, handleUpdateAction);
 }
 
+export function * watchDeleteAction () {
+  yield takeEvery(DELETE_ACTION, handleDeleteAction);
+}
+
 export default function * rootSaga () {
   yield all([
     fork(watchCreateAction),
     fork(watchGetAllActions),
     fork(watchSetCurrentAgent),
-    fork(watchUpdateAction)
+    fork(watchUpdateAction),
+    fork(watchDeleteAction)
   ]);
 }

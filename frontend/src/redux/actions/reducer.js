@@ -3,7 +3,8 @@ import {
   CREATE_ACTION_SUCCEEDED,
   CREATE_ACTION_FAILED,
   UPDATE_ACTION_LIST,
-  UPDATE_CURRENT_ACTION
+  UPDATE_CURRENT_ACTION,
+  DELETE_ACTION_FROM_LIST
 } from 'Constants/actionTypes.js';
 
 const initialState = {
@@ -28,11 +29,12 @@ export default (state = initialState, action) => {
         ...state,
         currentAction: action.action
       };
-    // case CREATE_AGENT_FAILED:
-    //   return {
-    //     ...state,
-    //     form_error: action.payload
-    //   };
+    case DELETE_ACTION_FROM_LIST:
+      return {
+        ...state,
+        actionList: state.actionList.filter(actionItem => (actionItem._id !== action.action._id)),
+        currentAction: null
+      };
     default:
       return state;
   }

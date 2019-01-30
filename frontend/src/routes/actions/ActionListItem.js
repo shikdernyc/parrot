@@ -15,14 +15,14 @@ class ActionListItem extends Component {
     return (
       <ListItem button selected={selected} onClick={onClick}>
         <ListItemText primary={action.actionName} />
-        <ListItemSecondaryAction>
+        {/* <ListItemSecondaryAction>
           <IconButton aria-label="Edit">
             <Edit />
           </IconButton>
           <IconButton aria-label="Copy">
             <FileCopy />
           </IconButton>
-        </ListItemSecondaryAction>
+        </ListItemSecondaryAction> */}
       </ListItem>
     );
   }

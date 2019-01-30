@@ -4,7 +4,9 @@ import {
   GET_ALL_ACTIONS,
   UPDATE_ACTION_LIST,
   UPDATE_CURRENT_ACTION,
-  UPDATE_ACTION
+  UPDATE_ACTION,
+  DELETE_ACTION,
+  DELETE_ACTION_FROM_LIST
 } from 'Constants/actionTypes.js';
 
 export function createAction (actionSchema, onSuccess, onFailure) {
@@ -46,6 +48,21 @@ export function setCurrentAction (id) {
 export function updateCurrentAction (action) {
   return {
     type: UPDATE_CURRENT_ACTION,
+    action
+  };
+}
+
+export function deleteAction (action, history) {
+  return {
+    type: DELETE_ACTION,
+    action,
+    history
+  };
+}
+
+export function deleteActionFromList (action) {
+  return {
+    type: DELETE_ACTION_FROM_LIST,
     action
   };
 }

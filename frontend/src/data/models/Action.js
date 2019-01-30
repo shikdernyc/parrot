@@ -37,3 +37,12 @@ export async function updateById (action) {
     throw error;
   }
 }
+
+export async function deleteById (action) {
+  try {
+    const item = await remove(`${ACTION_ROUTE}/${action._id}`);
+    return item['data'];
+  } catch (error) {
+    throw error;
+  }
+}
