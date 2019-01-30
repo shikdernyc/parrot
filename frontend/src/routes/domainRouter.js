@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Dashboard from './domains/dashboard';
 import Stories from './stories';
 import Actions from './actions';
+import Intents from './intents';
 
 class DomainRouter extends Component {
   handleSetCurrentDomain (domainID) {
@@ -26,6 +27,7 @@ class DomainRouter extends Component {
       <Switch>
         <Route path={`${match.url}/:domainID/stories`} component={Stories} />
         <Route path={`${match.url}/:domainID/actions`} component={Actions} />
+        <Route path={`${match.url}/:domainID/intents`} component={Intents} />
         <Route path={`${match.url}/:domainID`} component={Dashboard} />
         <Redirect to="/error/404" />
       </Switch>
