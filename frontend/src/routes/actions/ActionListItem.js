@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
   ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton
+  ListItemText
+  // ListItemSecondaryAction,
+  // IconButton
 } from '@material-ui/core';
-import FileCopy from '@material-ui/icons/FileCopy';
-import Edit from '@material-ui/icons/Edit';
+// import FileCopy from '@material-ui/icons/FileCopy';
+// import Edit from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
 
 class ActionListItem extends Component {

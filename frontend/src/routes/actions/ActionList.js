@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { List, TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createAction as createActionAction } from 'Redux/actions/actions';
+// import { createAction as createActionAction } from 'Redux/actions/actions';
 import ActionListItem from './ActionListItem';
 import CreateAction from './CreateAction';
 
@@ -63,11 +63,11 @@ class ActionList extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  create: function (actionSchema, onCreateSuccess, onFailure) {
-    dispatch(createActionAction(actionSchema, onCreateSuccess, onFailure));
-  }
-});
+// const mapDispatchToProps = dispatch => ({
+//   create: function (actionSchema, onCreateSuccess, onFailure) {
+//     dispatch(createActionAction(actionSchema, onCreateSuccess, onFailure));
+//   }
+// });
 
 const mapStateToProps = state => ({
   actionList: state.actions.actionList,
@@ -77,7 +77,7 @@ const mapStateToProps = state => ({
 });
 
 ActionList.propTypes = {
-  create: PropTypes.func,
+  // create: PropTypes.func,
   actionList: PropTypes.array,
   history: PropTypes.object,
   match: PropTypes.object,
@@ -86,6 +86,6 @@ ActionList.propTypes = {
 };
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
+  // mapDispatchToProps
 )(ActionList);

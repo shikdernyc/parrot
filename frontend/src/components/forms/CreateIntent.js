@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { intentSchema } from 'Data/models/Schemas';
 import PropTypes from 'prop-types';
 import { TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
+
+import { intentSchema } from 'Data/models/Schemas';
 import { createIntent as createIntentAction } from 'Redux/intents/actions';
 
 class CreateIntent extends Component {
@@ -31,17 +32,17 @@ class CreateIntent extends Component {
     }
   };
 
-  handleNew = e => {
+  handleNewIntentAdd = e => {
     if (e.key === 'Enter' && e.target.value !== '') {
       const { create, domainID } = this.props;
       create(
-        domainID,
         intentSchema(domainID, this.state.newIntent),
         this.onCreateSuccess,
         this.onCreateFail
       );
     }
   };
+
   handleChange = e => {
     this.setState({
       newIntent: e.target.value
@@ -56,22 +57,16 @@ class CreateIntent extends Component {
         placeholder="Enter intent name and press enter"
         value={this.state.newIntent}
         onChange={this.handleChange}
-        onKeyPress={this.handleNew}
+        onKeyPress={this.handleNewIntentAdd}
       />
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  create: function (domainID, intentSchema, onSuccess, onFailure) {
-    dispatch(createIntentAction(domainID, intentSchema, onSuccess, onFailure));
+  create: function (intentSchema, onSuccess, onFailure) {
+    dispatch(createIntentAction(intentSchema, onSuccess, onFailure));
   }
-});
-
-const mapStateToProps = reduxState => ({
-  domainID: reduxState.domains.currentDomain
-    ? reduxState.domains.currentDomain._id
-    : undefined
 });
 
 CreateIntent.propTypes = {
@@ -82,6 +77,6 @@ CreateIntent.propTypes = {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(CreateIntent);

@@ -13,8 +13,8 @@ async function retreiveAllDomainIntents (req, res, next) {
 async function create (req, res, next) {
   try {
     const intent = await Intent.create(req.body);
-    await addIntentToDomain(intent._id, req.params.domainID);
-    return res.status(200).json(intent);
+    await addIntentToDomain(intent._id, intent.domainID);
+    return res.status(201).json(intent);
   } catch (error) {
     next(error);
   }

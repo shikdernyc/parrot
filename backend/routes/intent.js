@@ -18,6 +18,7 @@ router
 router
   .route('/:id')
   .get(setIntentModel, findById)
-  .put(setIntentModel, updateById);
+  .put(setIntentModel, updateById)
+  .delete(setIntentModel, deleteById);
 
 module.exports = router;
