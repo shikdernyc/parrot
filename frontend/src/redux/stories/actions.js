@@ -40,11 +40,17 @@ export function createStory (
  * @param {func} onSuccess
  * @param {func(error)} onFailure
  */
-export function setCurrentStoryID (id, onSuccess = null, onFailure = null) {
+export function setCurrentStoryID (
+  domainID,
+  storyID,
+  onSuccess = null,
+  onFailure = null
+) {
   return {
     type: SET_CURRENT_STORY_ID,
     payload: {
-      id,
+      domainID,
+      storyID,
       onSuccess,
       onFailure
     }

@@ -25,9 +25,12 @@ function * handleSetStoryListDomain ({ payload: { domainID } }) {
   }
 }
 
-function * handleSetCurrentStoryId ({ payload: { id, onSuccess, onFailure } }) {
+function * handleSetCurrentStoryId ({
+  payload: { domainID, storyID, onSuccess, onFailure }
+}) {
   try {
-    const story = yield call(findById, id);
+    console.log('here');
+    const story = yield call(findById, domainID, storyID);
     yield put(updateCurrentStory(story));
     if (onSuccess) {
       onSuccess(story);
