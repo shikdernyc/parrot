@@ -1,15 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import MenuItem from '@material-ui/core/MenuItem';
+// import MenuItem from '@material-ui/core/MenuItem';
 import SaveAlt from '@material-ui/icons/SaveAlt';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 
 import ListInputWithDelete from 'Components/inputs/ListInputWithDelete';
-import { StyledTextField, StyledMenuSelect } from 'Components/inputs/TextField';
+import { StyledTextField } from 'Components/inputs/TextField';
 import { StyledFab } from 'Components/buttons';
-import { createAction as actionCreateAction } from 'Redux/actions/actions';
-import { actionSchema } from 'Data/models/Schemas';
+import { updateAction } from 'Redux/actions/actions';
+// import { actionSchema } from 'Data/models/Schemas';
 
 // const languages = [
 //   {
@@ -27,15 +27,22 @@ import { actionSchema } from 'Data/models/Schemas';
 // ];
 
 class ActionForm extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      name: '',
-      description: '',
-      // language: 'english',
-      templates: [],
-      agent_id: ''
-    };
+  state = {
+    name: '',
+    // language: 'english',
+    agentResponses: []
+  };
+
+  // componentDidUpdate (prevProps, prevState, snapshot) {
+  //   this.setState({
+  //     name: this.props.currentActionName
+  //   });
+  // }
+  UNSAFE_componentWillReceiveProps (nextProps) {
+    this.setState({
+      name: nextProps.currentAction.actionName,
+      agentResponses: nextProps.currentAction.agentResponses
+    });
   }
 
   handleChange = event => {
@@ -46,35 +53,30 @@ class ActionForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { history, createAction } = this.props;
-    const { name, description, templates, agent_id } = this.state;
-    const action = actionSchema(name, description, templates);
-    createAction(history, action);
+    const { updateAction, currentAction } = this.props;
+    const { name, agentResponses } = this.state;
+    // const action = actionSchema(currentAction, name, agentResponses);
+    updateAction({
+      id: currentAction._id,
+      actionName: name,
+      agentResponses: agentResponses
+    });
   };
 
   render () {
     return (
       <Fragment>
-        {this.props.form_error &&
+        {/* {this.props.form_error &&
           <Typography variant="subtitle1" gutterBottom>
             {this.props.form_error.message}
           </Typography>
-        }
+        } */}
         <form onSubmit={this.handleSubmit}>
           <StyledTextField
             name="name"
             value={this.state.name}
             label="Action Name"
             placeholder="Example: utter_greet"
-            fullWidth
-            required
-            onChange={this.handleChange}
-          />
-          <StyledTextField
-            name="description"
-            value={this.state.description}
-            label="Action Description"
-            placeholder="What does this action do?"
             fullWidth
             required
             onChange={this.handleChange}
@@ -96,27 +98,27 @@ class ActionForm extends Component {
             ))}
           </StyledMenuSelect> */}
           <ListInputWithDelete
-            value={this.state.templates}
-            label="Templates"
+            value={this.state.agentResponses}
+            label="Agent Responses"
             placeholder="Example: Hey! My name is Lily, and I am an AI Assistant."
             onNewItem={item => {
-              if (!this.state.templates.includes(item)) {
+              if (!this.state.agentResponses.includes(item)) {
               // create a new array with the new item at beginning of it.
                 this.setState({
-                  templates: [item].concat(this.state.templates)
+                  agentResponses: [item].concat(this.state.agentResponses)
                 });
               }
             }}
             onDeleteItem={item => {
-              let newArr = [...this.state.templates];
+              let newArr = [...this.state.agentResponses];
               newArr.splice(newArr.indexOf(item), 1);
               this.setState({
-                templates: newArr
+                agentResponses: newArr
               });
             }}
           />
           <StyledFab type='submit' Icon={SaveAlt}>
-            Create Action
+            Update Action
           </StyledFab>
         </form>
       </Fragment>
@@ -126,22 +128,24 @@ class ActionForm extends Component {
 
 const mapStateToProps = (state) => (
   {
-    form_error: state.actions.form_error
+    // form_error: state.actions.form_error
+    currentAction: state.actions.currentAction
   }
 );
 
 const mapDispatchToProps = dispatch => {
   return {
-    createAction: (history, actionSchema) => {
-      dispatch(actionCreateAction(history, actionSchema));
+    updateAction: (action) => {
+      dispatch(updateAction(action));
     }
   };
 };
 
 ActionForm.propTypes = {
-  createAction: PropTypes.func,
+  updateAction: PropTypes.func,
   history: PropTypes.object,
-  form_error: PropTypes.object
+  currentAction: PropTypes.object
+  // form_error: PropTypes.object
 };
 
 export default connect(

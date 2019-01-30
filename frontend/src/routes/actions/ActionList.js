@@ -15,7 +15,7 @@ class ActionList extends Component {
 
   onCreateSuccess = action => {
     const { history, domainID } = this.props;
-    history.push(`/domain/${domainID}/action/${action._id}`);
+    history.push(`/domain/${domainID}/actions/${action._id}`);
   };
 
   onCreateFail = error => {
@@ -34,9 +34,9 @@ class ActionList extends Component {
   //   });
   // };
 
-  handleListItemClick = (event, id) => {
+  handleListItemClick = (id) => {
     const { history, domainID } = this.props;
-    history.push(`/domain/${domainID}/action/${id}`);
+    history.push(`/domain/${domainID}/actions/${id}`);
   };
 
   render () {
@@ -46,7 +46,7 @@ class ActionList extends Component {
         key={action._id}
         action={action}
         selected={this.props.match.params.actionID === action._id}
-        onClick={event => this.handleListItemClick(event, action._id)}
+        onClick={event => this.handleListItemClick(action._id)}
       />
     ));
 

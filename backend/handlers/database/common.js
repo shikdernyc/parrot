@@ -46,9 +46,9 @@ const deleteById = async function (model, id) {
   }
 };
 
-const updateById = async function (model, id, updates) {
+const updateById = async function (model, id, update) {
   try {
-    return await model.findByIdAndUpdate(id, updates);
+    return await model.findByIdAndUpdate(id, update, { new: true });
   } catch (error) {
     throw error;
   }

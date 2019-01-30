@@ -2,7 +2,9 @@ import {
   CREATE_ACTION,
   SET_CURRENT_ACTION,
   GET_ALL_ACTIONS,
-  UPDATE_ACTION_LIST
+  UPDATE_ACTION_LIST,
+  UPDATE_CURRENT_ACTION,
+  UPDATE_ACTION
 } from 'Constants/actionTypes.js';
 
 export function createAction (actionSchema, onSuccess, onFailure) {
@@ -27,24 +29,23 @@ export function updateActionList (updatedList) {
   };
 }
 
-// export function addToAgentList (newAgent) {
-//   return {
-//     type: ADD_TO_AGENT_LIST,
-//     newAgent
-//   };
-// }
-//
-export function setCurrentAction (history, id) {
+export function updateAction (action) {
   return {
-    type: SET_CURRENT_ACTION,
-    id,
-    history
+    type: UPDATE_ACTION,
+    action
   };
 }
 //
-// export function updateCurrentAgent (agent) {
-//   return {
-//     type: UPDATE_CURRENT_AGENT,
-//     agent
-//   };
-// }
+export function setCurrentAction (id) {
+  return {
+    type: SET_CURRENT_ACTION,
+    id
+  };
+}
+//
+export function updateCurrentAction (action) {
+  return {
+    type: UPDATE_CURRENT_ACTION,
+    action
+  };
+}

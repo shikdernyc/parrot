@@ -28,3 +28,12 @@ export async function findById (id) {
     throw error;
   }
 }
+
+export async function updateById (action) {
+  try {
+    const item = await put(`${ACTION_ROUTE}/${action.id}`, action);
+    return item['data'];
+  } catch (error) {
+    throw error;
+  }
+}

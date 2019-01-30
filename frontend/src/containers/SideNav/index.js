@@ -64,7 +64,7 @@ class SideNav extends React.Component {
         {/* <Header /> */}
         {/* </div> */}
         <Divider />
-        {currentDomainId &&
+        {currentAgentId &&
           <Fragment>
             <List>
               {/* <AgentNav currentAgentId={currentAgentId} /> */}
