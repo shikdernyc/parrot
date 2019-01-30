@@ -8,7 +8,7 @@ const {
   create,
   retreiveAllDomainActions
 } = require('../handlers/routes/actions');
-const { setIntentModel } = require('../handlers/middlewares');
+const { setActionModel } = require('../handlers/middlewares');
 
 router
   .route('/')
@@ -17,7 +17,8 @@ router
 
 router
   .route('/:id')
-  .get(setIntentModel, findById)
-  .put(setIntentModel, updateById);
+  .get(setActionModel, findById)
+  .put(setActionModel, updateById)
+  .delete(setActionModel, deleteById);
 
 module.exports = router;

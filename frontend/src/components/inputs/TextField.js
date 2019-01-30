@@ -32,13 +32,15 @@ class StyledTextFieldComponent extends React.Component {
       fullWidth,
       value,
       overrides,
-      required
+      required,
+      defaultValue
     } = this.props;
     const control = value ? { value: value } : {};
     return (
       <TextField
         className={classes.textField}
         value={this.state.value}
+        defaultValue={defaultValue}
         margin="normal"
         name={name || ''}
         label={label || ''}
@@ -69,7 +71,8 @@ StyledTextFieldComponent.propTypes = {
   required: PropTypes.bool,
   value: PropTypes.node,
   onChange: PropTypes.func,
-  overrides: PropTypes.object
+  overrides: PropTypes.object,
+  defaultValue: PropTypes.string
 };
 
 export const StyledTextField = withStyles(textFieldStyles, { withTheme: true })(StyledTextFieldComponent);

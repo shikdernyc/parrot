@@ -1,19 +1,19 @@
-import { ACTION_ROUTE } from 'Constants/app.js';
-import { create, getAll, findById } from 'Data/models/Action';
+import { create, getAll, findById, updateById } from 'Data/models/Action';
 import { all, call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import {
   CREATE_ACTION,
   GET_ALL_ACTIONS,
-  CREATE_ACTION_SUCCEEDED
+  CREATE_ACTION_SUCCEEDED,
+  SET_CURRENT_ACTION,
+  UPDATE_ACTION
 } from 'Constants/actionTypes.js';
 import { updateActionList, updateCurrentAction } from './actions';
 
 function * handleCreateAction ({ actionSchema, onSuccess, history }) {
   try {
     const result = yield call(create, actionSchema);
-    console.log(result);
     yield put({ type: CREATE_ACTION_SUCCEEDED, payload: result });
-    onSuccess();
+    onSuccess(result);
     // history.push(`/agent/${result._id}/domains`);
     // TODO: push to agent's route
   } catch (error) {
@@ -32,13 +32,24 @@ function * handleGetAllActions ({ domainID }) {
   }
 }
 //
-// function * handleSetCurrentAgent ({ id }) {
-//   try {
-//     const agent = yield call(findById, AGENT_ROUTE, id);
-//     // TODO: Update intent, domain and entity list as well
-//     yield put(updateCurrentAgent(agent));
-//   } catch (error) {}
-// }
+function * handleSetCurrentAction ({ id }) {
+  try {
+    const action = yield call(findById, id);
+    yield put(updateCurrentAction(action));
+    // TODO: Update intent, domain and entity list as well
+    // yield put(updateCurrentAgent(agent));
+  } catch (error) {}
+}
+
+function * handleUpdateAction ({ action }) {
+  try {
+    const updated_action = yield call(updateById, action);
+    console.log(updated_action);
+    // yield put(updateCurrentAction(action));
+    // TODO: Update intent, domain and entity list as well
+    // yield put(updateCurrentAgent(agent));
+  } catch (error) {}
+}
 //
 export function * watchCreateAction () {
   yield takeLatest(CREATE_ACTION, handleCreateAction);
@@ -48,14 +59,19 @@ export function * watchGetAllActions () {
   yield takeEvery(GET_ALL_ACTIONS, handleGetAllActions);
 }
 
-// export function * watchSetCurrentAgent () {
-//   yield takeEvery(SET_CURRENT_AGENT, handleSetCurrentAgent);
-// }
+export function * watchSetCurrentAgent () {
+  yield takeEvery(SET_CURRENT_ACTION, handleSetCurrentAction);
+}
+
+export function * watchUpdateAction () {
+  yield takeEvery(UPDATE_ACTION, handleUpdateAction);
+}
 
 export default function * rootSaga () {
   yield all([
     fork(watchCreateAction),
-    fork(watchGetAllActions)
-    // fork(watchSetCurrentAgent)
+    fork(watchGetAllActions),
+    fork(watchSetCurrentAgent),
+    fork(watchUpdateAction)
   ]);
 }

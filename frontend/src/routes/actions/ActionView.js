@@ -3,30 +3,23 @@ import ActionList from './ActionList';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
-import CreateEvent from 'Components/forms/CreateEvent';
-import EventList from 'Components/list/EventList';
+// import CreateEvent from 'Components/forms/CreateEvent';
+// import EventList from 'Components/list/EventList';
 import { setCurrentAction as actionsetCurrentAction } from 'Redux/actions/actions';
+import ActionForm from './ActionForm';
 
 class ActionView extends Component {
-  componentDidMount () {
-    const {
-      setCurrentAction,
-      match: {
-        params: { actionID }
-      }
-    } = this.props;
-    setCurrentAction(actionID);
-  }
-
   render () {
+    if (this.props.match.params.actionID !== this.props.currentActionID) {
+      this.props.setCurrentAction(this.props.match.params.actionID);
+    }
     return (
       <Grid container spacing={40}>
         <Grid item xs={6}>
           <ActionList match={this.props.match} history={this.props.history} />
         </Grid>
         <Grid item xs={6}>
-          <CreateEvent />
-          <EventList />
+          <ActionForm />
         </Grid>
       </Grid>
     );
@@ -36,12 +29,16 @@ class ActionView extends Component {
 ActionView.propTypes = {
   match: PropTypes.object,
   history: PropTypes.object,
-  setCurrentAction: PropTypes.func
+  setCurrentAction: PropTypes.func,
+  currentActionID: PropTypes.string
 };
 
-const mapStateToProps = reduxState => ({
-  domainID: reduxState.domains.currentDomain
-    ? reduxState.domains.currentDomain._id
+const mapStateToProps = state => ({
+  // domainID: state.domains.currentDomain
+  //   ? state.domains.currentDomain._id
+  //   : undefined,
+  currentActionID: state.actions.currentAction
+    ? state.actions.currentAction.id
     : undefined
 });
 

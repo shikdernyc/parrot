@@ -2,12 +2,13 @@ import {
   CREATE_ACTION,
   CREATE_ACTION_SUCCEEDED,
   CREATE_ACTION_FAILED,
-  UPDATE_ACTION_LIST
+  UPDATE_ACTION_LIST,
+  UPDATE_CURRENT_ACTION
 } from 'Constants/actionTypes.js';
 
 const initialState = {
   actionList: [],
-  form_error: null
+  currentAction: null
 };
 
 export default (state = initialState, action) => {
@@ -22,11 +23,11 @@ export default (state = initialState, action) => {
         ...state,
         actionList: state.actionList.concat(action.payload)
       };
-    // case UPDATE_CURRENT_AGENT:
-    //   return {
-    //     ...state,
-    //     currentAgent: action.agent
-    //   };
+    case UPDATE_CURRENT_ACTION:
+      return {
+        ...state,
+        currentAction: action.action
+      };
     // case CREATE_AGENT_FAILED:
     //   return {
     //     ...state,
