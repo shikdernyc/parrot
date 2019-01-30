@@ -3,14 +3,17 @@ import { create, getAll, findById } from 'Data/models/Action';
 import { all, call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import {
   CREATE_ACTION,
-  GET_ALL_ACTIONS
+  GET_ALL_ACTIONS,
+  CREATE_ACTION_SUCCEEDED
 } from 'Constants/actionTypes.js';
 import { updateActionList, updateCurrentAction } from './actions';
 
-function * handleCreateAction ({ actionSchema, history }) {
+function * handleCreateAction ({ actionSchema, onSuccess, history }) {
   try {
-    const result = yield call(create, ACTION_ROUTE, actionSchema);
-    // yield put({ type: CREATE_AGENT_SUCCEEDED, payload: result });
+    const result = yield call(create, actionSchema);
+    console.log(result);
+    yield put({ type: CREATE_ACTION_SUCCEEDED, payload: result });
+    onSuccess();
     // history.push(`/agent/${result._id}/domains`);
     // TODO: push to agent's route
   } catch (error) {
@@ -19,7 +22,7 @@ function * handleCreateAction ({ actionSchema, history }) {
   }
 }
 
-function * handleGetAllActions (domainID) {
+function * handleGetAllActions ({ domainID }) {
   try {
     const actions = yield call(getAll, domainID);
     yield put(updateActionList(actions));
@@ -50,7 +53,6 @@ export function * watchGetAllActions () {
 // }
 
 export default function * rootSaga () {
-  console.log('action sagas');
   yield all([
     fork(watchCreateAction),
     fork(watchGetAllActions)

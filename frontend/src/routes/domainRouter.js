@@ -10,11 +10,18 @@ import Actions from './actions';
 import Intents from './intents';
 
 class DomainRouter extends Component {
+  handleSetCurrentDomain (domainID) {
+    if (domainID !== this.props.currentDomainID) {
+      this.props.setCurrentDomain(domainID);
+    }
+  }
+
   render () {
-    const { match, currentDomainID } = this.props;
-    const matches = this.props.location.pathname.match(/\/domain\/(.*)/);
-    if (matches.length === 2 && matches[1] && matches[1] !== currentDomainID) {
-      this.props.setCurrentDomain(matches[1]);
+    const { match } = this.props;
+    // console.log(this.props.location.pathname.indexOf(this.props.currentDomainID));
+    if (this.props.location.pathname.indexOf(this.props.currentDomainID) === -1) {
+      const matches = this.props.location.pathname.match(/\/domain\/(.*)/);
+      if (matches.length === 2) this.handleSetCurrentDomain(matches[1]);
     }
     return (
       <Switch>

@@ -50,7 +50,7 @@ const findAll = async function (req, res, next) {
  */
 const findAndSortAllByCreated = async function (req, res, next) {
   try {
-    const items = await db.findAndSortAll(req.extras.model, 'created_at');
+    const items = await db.findAndSortAll(req.extras.model, 'createdAt');
     return res.status(200).json(items);
   } catch (error) {
     error.message = 'Unable to find all';

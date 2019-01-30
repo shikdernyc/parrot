@@ -21,14 +21,6 @@ const mapStateToProps = (state) => (
   }
 );
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     createAgent: (history, agentSchema) => {
-//       dispatch(actionCreateAgent(history, agentSchema));
-//     }
-//   };
-// };
-
 Dashboard.propTypes = {
   currentDomain: PropTypes.object
 };

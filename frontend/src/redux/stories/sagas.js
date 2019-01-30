@@ -15,12 +15,12 @@ import {
 
 function * handleSetStoryListDomain ({ payload: { domainID } }) {
   try {
-    console.log('Received');
+    // console.log('Received');
     const stories = yield call(getAllForDomain, domainID);
-    console.log(stories);
+    // console.log(stories);
     yield put(updateStoryList(stories));
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
     throw error;
   }
 }
@@ -65,7 +65,7 @@ function * handleCreateStory ({
   payload: { domainID, storySchema, onSuccess, onFailure }
 }) {
   try {
-    console.log(domainID);
+    // console.log(domainID);
     let story = yield call(create, domainID, storySchema);
     yield put(addToStoryList(story));
     if (onSuccess) {

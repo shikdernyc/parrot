@@ -49,7 +49,6 @@ class ActionForm extends Component {
     const { history, createAction } = this.props;
     const { name, description, templates, agent_id } = this.state;
     const action = actionSchema(name, description, templates);
-    console.log(action);
     createAction(history, action);
   };
 

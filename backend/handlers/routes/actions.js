@@ -14,7 +14,7 @@ async function retreiveAllDomainActions (req, res, next) {
 async function create (req, res, next) {
   try {
     const action = await Action.create(req.body);
-    await addActionToDomain(action._id, req.params.domainID);
+    await addActionToDomain(action._id, action.domainID);
     return res.status(200).json(action);
   } catch (error) {
     next(error);

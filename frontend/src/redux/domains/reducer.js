@@ -12,7 +12,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_CURRENT_DOMAIN: {
-      return { ...state, currentDomain: action.payload.newDomain };
+      return { ...state, currentDomain: action.payload };
     }
     case ADD_TO_DOMAIN_LIST:
       return {

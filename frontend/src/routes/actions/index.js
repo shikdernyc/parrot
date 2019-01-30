@@ -13,7 +13,7 @@ class Action extends Component {
         <Route exact path={`${match.url}`} component={ActionList} />
         <Route
           exact
-          path={`${match.url}/:ActionID`}
+          path={`${match.url}/:actionID`}
           component={ActionView}
         />
         <Redirect to="/error/404" />
