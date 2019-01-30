@@ -42,7 +42,6 @@ function * handleSetDomainListAgent ({ payload: { agentID } }) {
 }
 
 function * handleSetCurrentDomain ({ payload: { id, history } }) {
-  console.log(id);
   try {
     const domain = yield call(findById, id);
     yield put(updateCurrentDomain(domain));

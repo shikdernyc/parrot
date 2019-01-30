@@ -160,15 +160,17 @@ class BreadCrumbAndButton extends Component {
             onChange={this.handleSelectAgent}
             className={classes.agentSelectMenu}
           >
-            {agentList.map(item => (
-              <MenuItem
-                key={item._id}
-                className={classes.agentSelectItem}
-                value={item._id}
-              >
-                {item.agentName}
-              </MenuItem>
-            ))}
+            {agentList &&
+              agentList.map(item => (
+                <MenuItem
+                  key={item._id}
+                  className={classes.agentSelectItem}
+                  value={item._id}
+                >
+                  {item.agentName}
+                </MenuItem>
+              ))
+            }
           </TextField>
         </div>
       </Base>

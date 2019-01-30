@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createAction as createActionAction } from 'Redux/actions/actions';
 import ActionListItem from './ActionListItem';
-// import CreateAction from 'Components/forms/CreateAction';
+import CreateAction from './CreateAction';
 
 class ActionList extends Component {
   state = {
@@ -22,17 +22,17 @@ class ActionList extends Component {
     this.setState({ errorMessage: error.message });
   };
 
-  handleNewActionAdd = e => {
-    if (e.key === 'Enter' && e.target.value !== '') {
-      const { create } = this.props;
-      create();
-    }
-  };
-  handleNewAction = e => {
-    this.setState({
-      newAction: e.target.value
-    });
-  };
+  // handleNewActionAdd = e => {
+  //   if (e.key === 'Enter' && e.target.value !== '') {
+  //     const { create } = this.props;
+  //     create();
+  //   }
+  // };
+  // handleNewAction = e => {
+  //   this.setState({
+  //     newAction: e.target.value
+  //   });
+  // };
 
   handleListItemClick = (event, id) => {
     const { history, domainID } = this.props;
@@ -52,11 +52,11 @@ class ActionList extends Component {
 
     return (
       <Fragment>
-        {/* <CreateAction
+        <CreateAction
           onSuccess={this.onCreateSuccess}
           onFailure={this.onCreateFail}
           domainID={this.props.domainID}
-        /> */}
+        />
         <List component="nav">{actions}</List>
       </Fragment>
     );

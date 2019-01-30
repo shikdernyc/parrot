@@ -8,11 +8,8 @@ import {
 export function createAction (actionSchema, onSuccess, onFailure) {
   return {
     type: CREATE_ACTION,
-    payload: {
-      actionSchema,
-      onSuccess,
-      onFailure
-    }
+    actionSchema,
+    onSuccess
   };
 }
 
