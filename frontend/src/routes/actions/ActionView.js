@@ -19,7 +19,7 @@ class ActionView extends Component {
           <ActionList match={this.props.match} history={this.props.history} />
         </Grid>
         <Grid item xs={6}>
-          <ActionForm />
+          <ActionForm history={this.props.history} />
         </Grid>
       </Grid>
     );
