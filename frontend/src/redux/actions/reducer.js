@@ -1,7 +1,7 @@
 import {
-  CREATE_ACTION,
+  // CREATE_ACTION,
   CREATE_ACTION_SUCCEEDED,
-  CREATE_ACTION_FAILED,
+  // CREATE_ACTION_FAILED,
   UPDATE_ACTION_LIST,
   UPDATE_CURRENT_ACTION,
   DELETE_ACTION_FROM_LIST
@@ -32,7 +32,8 @@ export default (state = initialState, action) => {
     case DELETE_ACTION_FROM_LIST:
       return {
         ...state,
-        actionList: state.actionList.filter(actionItem => (actionItem._id !== action.action._id)),
+        actionList: state.actionList.filter(
+          actionItem => (actionItem._id !== action.action._id)),
         currentAction: null
       };
     default:
