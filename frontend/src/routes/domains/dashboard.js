@@ -11,25 +11,25 @@ class Dashboard extends Component {
     const currentDomain = this.props.currentDomain;
     return (
       <Fragment>
-        {Object.keys(currentDomain).length !== 0
+        {Object.keys(currentDomain).length
           ? (
             <div>
               <h2>{currentDomain.domainName}</h2>
-              <Grid xs={12}>
-                <Grid container justify="left" spacing='40'>
+              <Grid item xs={12}>
+                <Grid container justify="flex-start" spacing={40}>
                   <Grid item>
                     <Link to={`/domain/${currentDomain._id}/stories`}>
-                      <SimpleCard title='Story' content={currentDomain.stories.length} />
+                      <SimpleCard title='Story' content={currentDomain.stories.length.toString()} />
                     </Link>
                   </Grid>
                   <Grid item>
                     <Link to={`/domain/${currentDomain._id}/intents`}>
-                      <SimpleCard title='Intent' content={currentDomain.intents.length} />
+                      <SimpleCard title='Intent' content={currentDomain.intents.length.toString()} />
                     </Link>
                   </Grid>
                   <Grid item>
                     <Link to={`/domain/${currentDomain._id}/actions`}>
-                      <SimpleCard title='Action' content={currentDomain.actions.length} />
+                      <SimpleCard title='Action' content={currentDomain.actions.length.toString()} />
                     </Link>
                   </Grid>
                 </Grid>

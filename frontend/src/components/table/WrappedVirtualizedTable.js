@@ -1,11 +1,10 @@
-/* eslint-disable no-console */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+// import Paper from '@material-ui/core/Paper';
 import { AutoSizer, Column, SortDirection, Table } from 'react-virtualized';
 
 const styles = theme => ({
@@ -33,7 +32,7 @@ const styles = theme => ({
   }
 });
 
-class AutosizerTable extends React.PureComponent {
+class MuiVirtualizedTable extends React.PureComponent {
   getRowClassName = ({ index }) => {
     const { classes, rowClassName, onRowClick } = this.props;
 
@@ -52,11 +51,7 @@ class AutosizerTable extends React.PureComponent {
         })}
         variant="body"
         style={{ height: rowHeight }}
-        align={
-          (columnIndex != null && columns[columnIndex].numeric) || false
-            ? 'right'
-            : 'left'
-        }
+        align={(columnIndex != null && columns[columnIndex].numeric) || false ? 'right' : 'left'}
       >
         {cellData}
       </TableCell>
@@ -72,10 +67,7 @@ class AutosizerTable extends React.PureComponent {
 
     const inner =
       !columns[columnIndex].disableSort && sort != null ? (
-        <TableSortLabel
-          active={dataKey === sortBy}
-          direction={direction[sortDirection]}
-        >
+        <TableSortLabel active={dataKey === sortBy} direction={direction[sortDirection]}>
           {label}
         </TableSortLabel>
       ) : (
@@ -85,11 +77,7 @@ class AutosizerTable extends React.PureComponent {
     return (
       <TableCell
         component="div"
-        className={classNames(
-          classes.tableCell,
-          classes.flexContainer,
-          classes.noClick
-        )}
+        className={classNames(classes.tableCell, classes.flexContainer, classes.noClick)}
         variant="head"
         style={{ height: headerHeight }}
         align={columns[columnIndex].numeric || false ? 'right' : 'left'}
@@ -111,39 +99,34 @@ class AutosizerTable extends React.PureComponent {
             {...tableProps}
             rowClassName={this.getRowClassName}
           >
-            {columns.map(
-              (
-                { cellContentRenderer = null, className, dataKey, ...other },
-                index
-              ) => {
-                let renderer;
-                if (cellContentRenderer != null) {
-                  renderer = cellRendererProps =>
-                    this.cellRenderer({
-                      cellData: cellContentRenderer(cellRendererProps),
-                      columnIndex: index
-                    });
-                } else {
-                  renderer = this.cellRenderer;
-                }
-
-                return (
-                  <Column
-                    key={dataKey}
-                    headerRenderer={headerProps =>
-                      this.headerRenderer({
-                        ...headerProps,
-                        columnIndex: index
-                      })
-                    }
-                    className={classNames(classes.flexContainer, className)}
-                    cellRenderer={renderer}
-                    dataKey={dataKey}
-                    {...other}
-                  />
-                );
+            {columns.map(({ cellContentRenderer = null, className, dataKey, ...other }, index) => {
+              let renderer;
+              if (cellContentRenderer != null) {
+                renderer = cellRendererProps =>
+                  this.cellRenderer({
+                    cellData: cellContentRenderer(cellRendererProps),
+                    columnIndex: index
+                  });
+              } else {
+                renderer = this.cellRenderer;
               }
-            )}
+
+              return (
+                <Column
+                  key={dataKey}
+                  headerRenderer={headerProps =>
+                    this.headerRenderer({
+                      ...headerProps,
+                      columnIndex: index
+                    })
+                  }
+                  className={classNames(classes.flexContainer, className)}
+                  cellRenderer={renderer}
+                  dataKey={dataKey}
+                  {...other}
+                />
+              );
+            })}
           </Table>
         )}
       </AutoSizer>
@@ -151,7 +134,7 @@ class AutosizerTable extends React.PureComponent {
   }
 }
 
-AutosizerTable.propTypes = {
+MuiVirtualizedTable.propTypes = {
   classes: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(
     PropTypes.shape({
@@ -167,9 +150,9 @@ AutosizerTable.propTypes = {
   sort: PropTypes.func
 };
 
-AutosizerTable.defaultProps = {
+MuiVirtualizedTable.defaultProps = {
   headerHeight: 56,
   rowHeight: 56
 };
 
-export default withStyles(styles)(AutosizerTable);
+export default withStyles(styles)(MuiVirtualizedTable);
