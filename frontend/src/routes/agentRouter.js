@@ -16,16 +16,22 @@ class AgentRouter extends Component {
   }
 
   render () {
-    const { match } = this.props;
-    const matches = this.props.location.pathname.match(/\/agent\/(.*)/);
-    if (matches.length === 2) this.handleSetCurrentAgent(matches[1]);
+    const {
+      setCurrentAgent,
+      match,
+      match: {
+        params: { agentID }
+      },
+      currentAgentID
+    } = this.props;
+    if (currentAgentID !== agentID) setCurrentAgent(agentID);
     return (
       <Switch>
         {/* <Route
           path={`${match.url}/:agentID/domain/:domainID`}
           component={DomainRouter}
         /> */}
-        <Route exact path={`${match.url}/:agentID`} component={Dashboard} />
+        <Route exact path={`${match.url}`} component={Dashboard} />
         <Redirect to="/error/404" />
       </Switch>
     );
