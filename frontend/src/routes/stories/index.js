@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import StoryList from './StoryList';
+import Stories from './Stories';
 import StoryEventView from './StoryEventView';
 
 class Story extends Component {
@@ -10,7 +10,7 @@ class Story extends Component {
     const { match } = this.props;
     return (
       <Switch>
-        <Route exact path={`${match.url}`} component={StoryList} />
+        <Route exact path={`${match.url}`} component={Stories} />
         <Route
           exact
           path={`${match.url}/:storyID`}

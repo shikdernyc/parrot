@@ -3,14 +3,12 @@ import { List, TextField, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStory as createStoryAction } from 'Redux/stories/actions';
-import StoryListItem from './StoryListItem';
+import StoryList from 'Components/list/StoryList';
 import CreateStory from 'Components/forms/CreateStory';
 
-class StoryList extends Component {
+class Stories extends Component {
   state = {
-    errorMessage: '',
-    selectedStoryId: 1,
-    newStory: ''
+    errorMessage: ''
   };
 
   onCreateSuccess = story => {
@@ -23,35 +21,19 @@ class StoryList extends Component {
     this.setState({ errorMessage: error.message });
   };
 
-  handleNewStoryAdd = e => {
-    if (e.key === 'Enter' && e.target.value !== '') {
-      const { create } = this.props;
-      create();
-    }
-  };
-  handleNewStory = e => {
-    this.setState({
-      newStory: e.target.value
-    });
-  };
-
-  handleListItemClick = (event, id) => {
+  onStorySelect = storyID => {
     const { history, domainID, agentID } = this.props;
-    // history.push(`/agent/${agentID}/domain/${domainID}/stories/${id}`);
-    history.push(`/domain/${domainID}/stories/${id}`);
+    history.push(`/domain/${domainID}/stories/${storyID}`);
   };
 
   render () {
-    const { storyList } = this.props;
-    const stories = storyList.map(story => (
-      <StoryListItem
-        key={story._id}
-        story={story}
-        selected={this.props.match.params.storyID === story._id}
-        onClick={event => this.handleListItemClick(event, story._id)}
-      />
-    ));
-
+    const {
+      storyList,
+      domainID,
+      match: {
+        params: { storyID }
+      }
+    } = this.props;
     return (
       <Fragment>
         <CreateStory
@@ -59,7 +41,11 @@ class StoryList extends Component {
           onFailure={this.onCreateFail}
           domainID={this.props.domainID}
         />
-        <List component="nav">{stories}</List>
+        <StoryList
+          stories={storyList}
+          selectedStoryID={storyID}
+          onSelect={this.onStorySelect}
+        />
       </Fragment>
     );
   }
@@ -81,16 +67,15 @@ const mapStateToProps = reduxState => ({
     : null
 });
 
-StoryList.propTypes = {
-  create: PropTypes.func,
+Stories.propTypes = {
   storyList: PropTypes.array,
-  history: PropTypes.object,
-  match: PropTypes.object,
   domainID: PropTypes.string,
-  agentID: PropTypes.string
+  agentID: PropTypes.string,
+  history: PropTypes.object,
+  match: PropTypes.object
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StoryList);
+)(Stories);
