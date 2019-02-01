@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 router.use('/agents', require('./agent'));
 router.use('/domains', require('./domain'));
-router.use('/domains/:domainID/stories', require('./story'));
+router.use('/stories', require('./story'));
 router.use('/intents', require('./intent'));
 router.use('/actions', require('./action'));
 
