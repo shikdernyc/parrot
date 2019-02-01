@@ -3,8 +3,6 @@ import { intentSchema, actionSchema } from 'Data/models/Schemas';
 import PropTypes from 'prop-types';
 import { TextField, Grid, MenuItem } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { createIntent as createIntentAction } from 'Redux/intents/actions.js';
-import { createAction as createActionAction } from 'Redux/actions/actions.js';
 import {
   addIntentToStory as actionAddIntentToStory,
   addActionToStory as actionAddActionToStory
@@ -46,7 +44,6 @@ class CreateEvent extends Component {
   handleCreateIntent = () => {
     const { domainID, currentStory, addIntentToStory } = this.props;
     addIntentToStory(
-      domainID,
       currentStory._id,
       intentSchema(domainID, this.state.newEvent),
       this.onCreateSuccess,
@@ -58,7 +55,6 @@ class CreateEvent extends Component {
     console.log('called');
     const { domainID, currentStory, addActionToStory } = this.props;
     addActionToStory(
-      domainID,
       currentStory._id,
       actionSchema(domainID, this.state.newEvent),
       this.onCreateSuccess,
@@ -116,41 +112,24 @@ class CreateEvent extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  createIntent: (intentSchema, onSuccess = null, onFailure = null) => {
-    dispatch(createIntentAction(intentSchema, onSuccess, onFailure));
-  },
   addIntentToStory: (
-    domainID,
     storyID,
     intentSchema,
     onSuccess = null,
     onFailure = null
   ) => {
     dispatch(
-      actionAddIntentToStory(
-        domainID,
-        storyID,
-        intentSchema,
-        onSuccess,
-        onFailure
-      )
+      actionAddIntentToStory(storyID, intentSchema, onSuccess, onFailure)
     );
   },
   addActionToStory: (
-    domainID,
     storyID,
     actionSchema,
     onSuccess = null,
     onFailure = null
   ) => {
     dispatch(
-      actionAddActionToStory(
-        domainID,
-        storyID,
-        actionSchema,
-        onSuccess,
-        onFailure
-      )
+      actionAddActionToStory(storyID, actionSchema, onSuccess, onFailure)
     );
   }
 });
