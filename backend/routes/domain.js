@@ -7,8 +7,16 @@ const {
   deleteById,
   find
 } = require('../handlers/routes/common');
-const { retrieveById } = require('../handlers/routes/domain');
-const { setDomainModel, setIntentModel, setActionModel } = require('../handlers/middlewares');
+const {
+  retrieveById,
+  retreiveAllDomainStories,
+  createStory
+} = require('../handlers/routes/domain');
+const {
+  setDomainModel,
+  setIntentModel,
+  setActionModel
+} = require('../handlers/middlewares');
 
 router
   .route('/')
@@ -34,5 +42,10 @@ router.route('/:domainID/intents').get(
   },
   find
 );
+
+router
+  .route('/:domainID/stories')
+  .get(retreiveAllDomainStories)
+  .post(createStory);
 
 module.exports = router;

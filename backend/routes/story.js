@@ -1,7 +1,5 @@
 const router = require('express').Router({ mergeParams: true });
 const {
-  create,
-  retreiveAllDomainStories,
   retrieveStoryAndEvents,
   retrieveIntents,
   addIntent,
@@ -9,11 +7,6 @@ const {
   addAction,
   modifyStory
 } = require('../handlers/routes/story');
-
-router
-  .route('/')
-  .post(create)
-  .get(retreiveAllDomainStories);
 
 router
   .route('/:storyID')
