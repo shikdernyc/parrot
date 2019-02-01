@@ -40,9 +40,11 @@ async function addActionToDomain (actionID, domainID) {
 
 async function retreiveStories (domainID) {
   try {
-    let stories = await Domain.findById(domainID, 'stories').populate(
-      'stories'
-    );
+    let stories = await Domain.findById(domainID, 'stories').populate({
+      path: 'stories',
+      options: { sort: { createdAt: 'desc' } }
+    });
+    // .sort({ createdAt: 'asc' });
     return stories;
   } catch (error) {
     throw error;

@@ -16,8 +16,8 @@ async function populateEvents (storyID) {
 async function addActionToStory (actionID, storyID) {
   try {
     let story = await findById(Story, storyID);
-    story.actions.push(actionID);
-    story.sequence.push(EVENT_TYPE_ACTION);
+    story.actions.unshift(actionID);
+    story.sequence.unshift(EVENT_TYPE_ACTION);
     await story.save();
     return await populateEvents(storyID);
   } catch (error) {
@@ -28,8 +28,8 @@ async function addActionToStory (actionID, storyID) {
 async function addIntentToStory (intentID, storyID) {
   try {
     let story = await findById(Story, storyID);
-    story.intents.push(intentID);
-    story.sequence.push(EVENT_TYPE_INTENT);
+    story.intents.unshift(intentID);
+    story.sequence.unshift(EVENT_TYPE_INTENT);
     await story.save();
     return await populateEvents(storyID);
   } catch (error) {
