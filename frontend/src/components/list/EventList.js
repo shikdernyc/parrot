@@ -2,38 +2,45 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import EventListItem from './EventListItem';
-import { List } from '@material-ui/core';
 import { EVENT_TYPE_INTENT, EVENT_TYPE_ACTION } from 'Constants/app';
+import { List } from '@material-ui/core';
 
 class EventList extends Component {
+  onClick = (e, eventType, event) => {
+    this.props.onEventClick(eventType, event);
+  };
+
+  handleRemove = (eventType, event) => {};
+
   createEventSequence () {
-    const { intents, actions, sequence } = this.props;
+    const { intents, actions, sequence, onEventClick } = this.props;
     let eventList = [];
     for (let eventType of sequence) {
       if (eventType === EVENT_TYPE_ACTION) {
         const action = actions.shift() || {
-          _id: Math.random(),
-          actionName: 'Undefined action'
+          _id: Math.random()
         };
         eventList.push(
           <EventListItem
             key={action._id}
-            eventName={action.actionName}
             eventType={EVENT_TYPE_ACTION}
-            onClick={() => {
-              console.log('Action clicked');
+            event={action}
+            onClick={event => {
+              this.onClick(event, EVENT_TYPE_ACTION, action);
             }}
           />
         );
       } else {
-        const intent = intents.shift();
+        const intent = intents.shift() || {
+          _id: Math.random()
+        };
         eventList.push(
           <EventListItem
             key={intent._id}
-            eventName={intent.intentName}
+            event={intent}
             eventType={EVENT_TYPE_INTENT}
-            onClick={() => {
-              console.log('Intent Clicked');
+            onClick={event => {
+              this.onClick(event, EVENT_TYPE_INTENT, intent);
             }}
           />
         );
@@ -50,27 +57,11 @@ class EventList extends Component {
   }
 }
 
-const mapStateToProps = reduxState => {
-  return {
-    intents: reduxState.stories.currentStory
-      ? reduxState.stories.currentStory.intents
-      : [],
-    actions: reduxState.stories.currentStory
-      ? reduxState.stories.currentStory.actions
-      : [],
-    sequence: reduxState.stories.currentStory
-      ? reduxState.stories.currentStory.sequence
-      : []
-  };
-};
-
 EventList.propTypes = {
   intents: PropTypes.array,
   actions: PropTypes.array,
-  sequence: PropTypes.array
+  sequence: PropTypes.array,
+  onEventClick: PropTypes.func
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(EventList);
+export default EventList;

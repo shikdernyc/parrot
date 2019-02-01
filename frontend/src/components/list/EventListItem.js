@@ -13,7 +13,8 @@ import { EVENT_TYPE_INTENT } from 'Constants/app';
 
 class EventListItem extends Component {
   render () {
-    const { eventName, eventType, onClick } = this.props;
+    const { event, eventType, onClick } = this.props;
+    const eventName = event['intentName'] || event['actionName'];
     return (
       <ListItem button onClick={onClick}>
         {eventType === EVENT_TYPE_INTENT ? <DonutLarge /> : <DonutSmall />}
@@ -29,7 +30,7 @@ class EventListItem extends Component {
 }
 
 EventListItem.propTypes = {
-  eventName: PropTypes.string,
+  event: PropTypes.object,
   eventType: PropTypes.string,
   onClick: PropTypes.func
 };
