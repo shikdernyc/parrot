@@ -1,25 +1,25 @@
-import {
-  findById,
-  create,
-  getAllForDomain,
-  addIntent,
-  addAction
-} from 'Data/models/Story';
+import { findById, addIntent, addAction, modifyStory } from 'Data/models/Story';
+import { createStory, getAllStories } from 'Data/models/Domain';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import {
   CREATE_STORY,
   SET_STORY_LIST_DOMAIN,
   SET_CURRENT_STORY_ID,
-  MODIFY_CURRENT_STORY,
+  MODIFY_STORY,
   ADD_INTENT_TO_STORY,
   ADD_ACTION_TO_STORY
 } from 'Constants/actionTypes.js';
-import { updateStoryList, addToStoryList, updateCurrentStory } from './actions';
+import {
+  updateStoryList,
+  addToStoryList,
+  updateCurrentStory,
+  updateStoryInStoryList
+} from './actions';
 
 function * handleSetStoryListDomain ({ payload: { domainID } }) {
   try {
     console.log('Received');
-    const stories = yield call(getAllForDomain, domainID);
+    const stories = yield call(getAllStories, domainID);
     console.log(stories);
     yield put(updateStoryList(stories));
   } catch (error) {
@@ -29,10 +29,10 @@ function * handleSetStoryListDomain ({ payload: { domainID } }) {
 }
 
 function * handleSetCurrentStoryId ({
-  payload: { domainID, storyID, onSuccess, onFailure }
+  payload: { storyID, onSuccess, onFailure }
 }) {
   try {
-    const story = yield call(findById, domainID, storyID);
+    const story = yield call(findById, storyID);
     yield put(updateCurrentStory(story));
     if (onSuccess) {
       onSuccess(story);
@@ -46,16 +46,16 @@ function * handleSetCurrentStoryId ({
   }
 }
 
-function * handleModifyCurrentStory ({
-  payload: { currentStory, changes, onSuccess, onFailure }
+function * handleModifyStory ({
+  payload: { storyID, changes, isCurrent, onSuccess, onFailure }
 }) {
   try {
-    for (let change of Object.keys(changes)) {
-      currentStory[change] = changes[change];
-    }
-    yield put(updateCurrentStory(currentStory));
+    // TOOD: Call modify
+    const newStory = yield call(modifyStory, storyID, changes);
+    yield put(updateStoryInStoryList(newStory._id, newStory));
+    if (isCurrent) yield put(updateCurrentStory(newStory));
     if (onSuccess) {
-      onSuccess();
+      onSuccess(newStory);
     }
   } catch (error) {
     if (onFailure) {
@@ -71,7 +71,7 @@ function * handleCreateStory ({
 }) {
   try {
     console.log(domainID);
-    let story = yield call(create, domainID, storySchema);
+    let story = yield call(createStory, domainID, storySchema);
     yield put(addToStoryList(story));
     if (onSuccess) {
       onSuccess(story);
@@ -87,10 +87,10 @@ function * handleCreateStory ({
 }
 
 function * handleAddIntentToStory ({
-  payload: { domainID, storyID, intentSchema, onSuccess, onFailure }
+  payload: { storyID, intentSchema, onSuccess, onFailure }
 }) {
   try {
-    let story = yield call(addIntent, domainID, storyID, intentSchema);
+    let story = yield call(addIntent, storyID, intentSchema);
     yield put(updateCurrentStory(story));
     if (onSuccess) {
       onSuccess(story);
@@ -105,10 +105,10 @@ function * handleAddIntentToStory ({
 }
 
 function * handleAddActionToStory ({
-  payload: { domainID, storyID, actionSchema, onSuccess, onFailure }
+  payload: { storyID, actionSchema, onSuccess, onFailure }
 }) {
   try {
-    let story = yield call(addAction, domainID, storyID, actionSchema);
+    let story = yield call(addAction, storyID, actionSchema);
     yield put(updateCurrentStory(story));
     if (onSuccess) {
       onSuccess(story);
@@ -134,8 +134,8 @@ export function * watchSetCurrentStoryID () {
   yield takeEvery(SET_CURRENT_STORY_ID, handleSetCurrentStoryId);
 }
 
-export function * modifyCurrentStory () {
-  yield takeEvery(MODIFY_CURRENT_STORY, handleModifyCurrentStory);
+export function * watchModifyStory () {
+  yield takeEvery(MODIFY_STORY, handleModifyStory);
 }
 
 export function * watchAddIntentToStory () {
@@ -151,7 +151,7 @@ export default function * rootSaga () {
     fork(watchSetCurrentStoryID),
     fork(watchCreateStory),
     fork(watchAddIntentToStory),
-    fork(watchAddActionToStory)
-    // fork(modifyCurrentStory)
+    fork(watchAddActionToStory),
+    fork(watchModifyStory)
   ]);
 }

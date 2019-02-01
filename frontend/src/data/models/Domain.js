@@ -43,3 +43,24 @@ export async function deleteById (id) {
     throw error;
   }
 }
+
+export async function createStory (domainID, storySchema) {
+  try {
+    const route = `${DOMAIN_ROUTE}/${domainID}/stories`;
+    let story = await post(route, storySchema);
+    return story['data'];
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllStories (domainID) {
+  try {
+    const route = `${DOMAIN_ROUTE}/${domainID}/stories`;
+    let stories = await get(route);
+    console.log(stories);
+    return stories['data']['stories'];
+  } catch (error) {
+    throw error;
+  }
+}

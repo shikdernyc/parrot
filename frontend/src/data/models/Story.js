@@ -1,55 +1,38 @@
 import { get, post, put } from 'Services/server.js';
 
-const ROUTE = domainID => `domains/${domainID}/stories`;
+const ROUTE = 'stories';
 
-export async function create (domainID, storySchema) {
+export async function findById (storyID) {
   try {
-    const route = `${ROUTE(domainID)}`;
-    let story = await post(route, storySchema);
+    let story = await get(`${ROUTE}/${storyID}`);
     return story['data'];
   } catch (error) {
     throw error;
   }
 }
 
-export async function getAllForDomain (domainID) {
+export async function addIntent (storyID, intentSchema) {
   try {
-    const route = `${ROUTE(domainID)}`;
-    let stories = await get(route);
-    return stories['data']['stories'];
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function findById (domainID, storyID) {
-  try {
-    let story = await get(`${ROUTE(domainID)}/${storyID}`);
+    let story = await post(`${ROUTE}/${storyID}/intents`, intentSchema);
     return story['data'];
   } catch (error) {
     throw error;
   }
 }
 
-export async function addIntent (domainID, storyID, intentSchema) {
+export async function addAction (storyID, actionSchema) {
   try {
-    let intent = await post(
-      `${ROUTE(domainID)}/${storyID}/intents`,
-      intentSchema
-    );
-    return intent['data'];
+    let story = await post(`${ROUTE}/${storyID}/actions`, actionSchema);
+    return story['data'];
   } catch (error) {
     throw error;
   }
 }
 
-export async function addAction (domainID, storyID, actionSchema) {
+export async function modifyStory (storyID, changes) {
   try {
-    let action = await post(
-      `${ROUTE(domainID)}/${storyID}/actions`,
-      actionSchema
-    );
-    return action['data'];
+    let story = await put(`${ROUTE}/${storyID}`, changes);
+    return story['data'];
   } catch (error) {
     throw error;
   }

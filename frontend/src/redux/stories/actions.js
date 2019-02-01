@@ -6,8 +6,9 @@ import {
   SET_CURRENT_STORY_ID,
   UPDATE_CURRENT_STORY,
   ADD_ACTION_TO_STORY,
-  MODIFY_CURRENT_STORY,
-  ADD_INTENT_TO_STORY
+  MODIFY_STORY,
+  ADD_INTENT_TO_STORY,
+  UPDATE_STORY_IN_STORY_LIST
 } from 'Constants/actionTypes.js';
 
 /**
@@ -100,7 +101,7 @@ export function modifyCurrentStory (
   onFailure = null
 ) {
   return {
-    type: MODIFY_CURRENT_STORY,
+    type: MODIFY_STORY,
     payload: {
       currentStory,
       changes,
@@ -111,7 +112,6 @@ export function modifyCurrentStory (
 }
 
 export function addIntentToStory (
-  domainID,
   storyID,
   intentSchema,
   onSuccess = null,
@@ -120,7 +120,6 @@ export function addIntentToStory (
   return {
     type: ADD_INTENT_TO_STORY,
     payload: {
-      domainID,
       storyID,
       intentSchema,
       onSuccess,
@@ -130,7 +129,6 @@ export function addIntentToStory (
 }
 
 export function addActionToStory (
-  domainID,
   storyID,
   actionSchema,
   onSuccess = null,
@@ -139,11 +137,39 @@ export function addActionToStory (
   return {
     type: ADD_ACTION_TO_STORY,
     payload: {
-      domainID,
       storyID,
       actionSchema,
       onSuccess,
       onFailure
+    }
+  };
+}
+
+export function modifyStory (
+  storyID,
+  changes,
+  isCurrent = false,
+  onSuccess = null,
+  onFailure = null
+) {
+  return {
+    type: MODIFY_STORY,
+    payload: {
+      storyID,
+      changes,
+      isCurrent,
+      onSuccess,
+      onFailure
+    }
+  };
+}
+
+export function updateStoryInStoryList (storyID, newStory) {
+  return {
+    type: UPDATE_STORY_IN_STORY_LIST,
+    payload: {
+      storyID,
+      newStory
     }
   };
 }
